@@ -61,3 +61,4 @@ hdas16_v1.0_embedded\eth.o: ../Core/Inc/spi.h
 hdas16_v1.0_embedded\eth.o: ../Core/Inc/usart.h
 hdas16_v1.0_embedded\eth.o: ../Core/Inc/gpio.h
 hdas16_v1.0_embedded\eth.o: ../Core/Inc/fmc.h
+hdas16_v1.0_embedded\eth.o: ../Core/Inc/mthread.h

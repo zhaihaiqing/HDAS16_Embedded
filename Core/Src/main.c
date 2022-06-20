@@ -21,6 +21,12 @@
 #include "main.h"
 
 
+
+void CPU_CACHE_Enable(void);
+void MPU_Config( void );
+
+void HAL_Get_CPU_RCC_Clock(void);
+	
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -92,17 +98,30 @@ int main(void)
   MX_UART8_Init();
   /* USER CODE BEGIN 2 */
 
+	HAL_Get_CPU_RCC_Clock();
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+	
+	
+	
+	
+	
 	HAL_GPIO_WritePin(APOW_CTRL_GPIO_Port, APOW_CTRL_Pin, GPIO_PIN_SET);
+	
+	
+	hdas_thread_creat();	//执行创建任务函数，开始RTOS
+	
+	
+	
   while (1)
   {
 		rt_thread_mdelay(200);
 		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_RESET);
 		
-		HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_RESET);
+		
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
@@ -111,7 +130,7 @@ int main(void)
 		rt_thread_mdelay(200);
 		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_SET);
 		
-		HAL_GPIO_WritePin(LED0_GPIO_Port, LED0_Pin, GPIO_PIN_SET);
+		
 		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
@@ -181,7 +200,85 @@ void SystemClock_Config(void)
   }
 }
 
+
+void MPU_Config( void )
+{
+	MPU_Region_InitTypeDef MPU_InitStruct;
+
+	/* 禁止 MPU */
+	HAL_MPU_Disable();
+
+	/* 配置AXI SRAM的MPU属性为Write through, read allocate，no write allocate */
+	MPU_InitStruct.Enable           = MPU_REGION_ENABLE;
+	MPU_InitStruct.BaseAddress      = 0x24000000;
+	MPU_InitStruct.Size             = MPU_REGION_SIZE_512KB;
+	MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
+	MPU_InitStruct.IsBufferable     = MPU_ACCESS_NOT_BUFFERABLE;
+	MPU_InitStruct.IsCacheable      = MPU_ACCESS_CACHEABLE;
+	MPU_InitStruct.IsShareable      = MPU_ACCESS_NOT_SHAREABLE;
+	MPU_InitStruct.Number           = MPU_REGION_NUMBER0;
+	MPU_InitStruct.TypeExtField     = MPU_TEX_LEVEL0;
+	MPU_InitStruct.SubRegionDisable = 0x00;
+	MPU_InitStruct.DisableExec      = MPU_INSTRUCTION_ACCESS_ENABLE;
+
+	HAL_MPU_ConfigRegion(&MPU_InitStruct);
+	
+	
+//	/* 配置FMC扩展IO的MPU属性为Device或者Strongly Ordered */
+//	MPU_InitStruct.Enable           = MPU_REGION_ENABLE;
+//	MPU_InitStruct.BaseAddress      = 0x60000000;
+//	MPU_InitStruct.Size             = ARM_MPU_REGION_SIZE_64KB;	
+//	MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
+//	MPU_InitStruct.IsBufferable     = MPU_ACCESS_BUFFERABLE;
+//	MPU_InitStruct.IsCacheable      = MPU_ACCESS_NOT_CACHEABLE;	/* 不能用MPU_ACCESS_CACHEABLE;会出现2次CS、WE信号 */
+//	MPU_InitStruct.IsShareable      = MPU_ACCESS_NOT_SHAREABLE;
+//	MPU_InitStruct.Number           = MPU_REGION_NUMBER1;
+//	MPU_InitStruct.TypeExtField     = MPU_TEX_LEVEL0;
+//	MPU_InitStruct.SubRegionDisable = 0x00;
+//	MPU_InitStruct.DisableExec      = MPU_INSTRUCTION_ACCESS_ENABLE;
+//	
+//	HAL_MPU_ConfigRegion(&MPU_InitStruct);
+	
+	/* 配置SRAM3的属性为Write through, read allocate，no write allocate */
+//    MPU_InitStruct.Enable           = MPU_REGION_ENABLE;
+//    MPU_InitStruct.BaseAddress      = 0x38000000;
+//    MPU_InitStruct.Size             = ARM_MPU_REGION_SIZE_64KB;	
+//    MPU_InitStruct.AccessPermission = MPU_REGION_FULL_ACCESS;
+//    MPU_InitStruct.IsBufferable     = MPU_ACCESS_NOT_BUFFERABLE;
+//    MPU_InitStruct.IsCacheable      = MPU_ACCESS_CACHEABLE;
+//    MPU_InitStruct.IsShareable      = MPU_ACCESS_NOT_SHAREABLE;
+//    MPU_InitStruct.Number           = MPU_REGION_NUMBER2;
+//    MPU_InitStruct.TypeExtField     = MPU_TEX_LEVEL0;
+//    MPU_InitStruct.SubRegionDisable = 0x00;
+//    MPU_InitStruct.DisableExec      = MPU_INSTRUCTION_ACCESS_ENABLE;
+
+//    HAL_MPU_ConfigRegion(&MPU_InitStruct);
+
+	/*使能 MPU */
+	HAL_MPU_Enable(MPU_PRIVILEGED_DEFAULT);
+}
+
+void CPU_CACHE_Enable(void)
+{
+  /* Enable I-Cache */
+  SCB_EnableICache();
+
+  /* Enable D-Cache */
+  SCB_EnableDCache();
+}
+
+
 /* USER CODE BEGIN 4 */
+void HAL_Get_CPU_RCC_Clock(void)
+{
+	rt_kprintf("[HAL_Get_CPU_RCC_Clock]HAL_RCC_SysClockFreq:%dMHz\r\n",HAL_RCC_GetSysClockFreq()/1000000);
+	rt_kprintf("[HAL_Get_CPU_RCC_Clock]HAL_RCC_HCLKFreq:%dMHz\r\n",HAL_RCC_GetHCLKFreq()/1000000);
+	rt_kprintf("[HAL_Get_CPU_RCC_Clock]HAL_RCC_PCLK1Freq:%dMHz\r\n",HAL_RCC_GetPCLK1Freq()/1000000);
+	log_info("[HAL_Get_CPU_RCC_Clock]HAL_RCC_PCLK2Freq:%dMHz\r\n",HAL_RCC_GetPCLK2Freq()/1000000);	
+	
+	//log_info("[%s][%s][%d]Error_Handler\r\n",__FILE__,__func__,__LINE__);
+}
+
 
 /* USER CODE END 4 */
 

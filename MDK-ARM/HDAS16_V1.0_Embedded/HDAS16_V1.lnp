@@ -1,6 +1,7 @@
 --cpu Cortex-M7.fp.dp
 "hdas16_v1.0_embedded\startup_stm32h743xx.o"
 "hdas16_v1.0_embedded\main.o"
+"hdas16_v1.0_embedded\mthread.o"
 "hdas16_v1.0_embedded\gpio.o"
 "hdas16_v1.0_embedded\eth.o"
 "hdas16_v1.0_embedded\fmc.o"

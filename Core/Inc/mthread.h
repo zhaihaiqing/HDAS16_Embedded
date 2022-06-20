@@ -1,8 +1,8 @@
 /**
   ******************************************************************************
-  * @file    usart.h
+  * @file    gpio.h
   * @brief   This file contains all the function prototypes for
-  *          the usart.c file
+  *          the gpio.c file
   ******************************************************************************
   * @attention
   *
@@ -17,47 +17,27 @@
   ******************************************************************************
   */
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef __USART_H__
-#define __USART_H__
-
-#ifdef __cplusplus
-extern "C" {
-#endif
+#ifndef __MTHREAD_H__
+#define __MTHREAD_H__
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-//#include "string.h"
-										
-#define  debug_log
 
-#ifdef debug_log
 
-   #define  log_info  rt_kprintf
 
-#else
-   #define  log_info(...)
-#endif
 
-/* USER CODE BEGIN Includes */
+int hdas_thread_creat(void);
 
-/* USER CODE END Includes */
+void key1_thread_entry(void *par);
+void key2_thread_entry(void *par);
+void key3_thread_entry(void *par);
+void led1_thread_entry(void *par);
+//void led2_thread_entry(void *par);
 
-extern UART_HandleTypeDef huart8;
 
-/* USER CODE BEGIN Private defines */
 
-/* USER CODE END Private defines */
 
-void MX_UART8_Init(void);
+#endif /* __mthread_H */
 
-/* USER CODE BEGIN Prototypes */
-
-/* USER CODE END Prototypes */
-
-#ifdef __cplusplus
-}
-#endif
-
-#endif /* __USART_H__ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

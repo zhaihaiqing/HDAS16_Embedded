@@ -45,6 +45,8 @@ extern "C" {
 #include "gpio.h"
 #include "fmc.h"
 
+#include "mthread.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
@@ -129,6 +131,13 @@ void SystemClock_Config(void);
 #define KEY2_GPIO_Port GPIOJ
 #define KEY3_Pin GPIO_PIN_4
 #define KEY3_GPIO_Port GPIOJ
+
+
+#define	READ_KEY1()			HAL_GPIO_ReadPin(KEY1_GPIO_Port,KEY1_Pin)
+#define	READ_KEY2()			HAL_GPIO_ReadPin(KEY2_GPIO_Port,KEY2_Pin)
+#define	READ_KEY3()			HAL_GPIO_ReadPin(KEY3_GPIO_Port,KEY3_Pin)
+
+
 
 
 /* USER CODE BEGIN Private defines */
