@@ -412,6 +412,11 @@
               <FilePath>../Core/Src/eth.c</FilePath>
             </File>
             <File>
+              <FileName>fmc_ad7606.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Core\Src\fmc_ad7606.c</FilePath>
+            </File>
+            <File>
               <FileName>fmc.c</FileName>
               <FileType>1</FileType>
               <FilePath>../Core/Src/fmc.c</FilePath>

@@ -61,3 +61,4 @@ hdas16_v1.0_embedded\stm32h7xx_hal_msp.o: ../Core/Inc/usart.h
 hdas16_v1.0_embedded\stm32h7xx_hal_msp.o: ../Core/Inc/gpio.h
 hdas16_v1.0_embedded\stm32h7xx_hal_msp.o: ../Core/Inc/fmc.h
 hdas16_v1.0_embedded\stm32h7xx_hal_msp.o: ../Core/Inc/mthread.h
+hdas16_v1.0_embedded\stm32h7xx_hal_msp.o: ../Core/Inc/fmc_ad7606.h

@@ -67,6 +67,9 @@ void HAL_Get_CPU_RCC_Clock(void);
   * @brief  The application entry point.
   * @retval int
   */
+
+uint32_t AD_count=0;
+
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -108,6 +111,7 @@ int main(void)
 	
 	
 	
+	bsp_InitAD7606();
 	
 	HAL_GPIO_WritePin(APOW_CTRL_GPIO_Port, APOW_CTRL_Pin, GPIO_PIN_SET);
 	
@@ -118,22 +122,40 @@ int main(void)
 	
   while (1)
   {
-		rt_thread_mdelay(200);
+		rt_thread_mdelay(10);
 		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_RESET);
 		
 		
-		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 		
 		
-		rt_thread_mdelay(200);
+		
+		
+		rt_thread_mdelay(10);
 		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_SET);
 		
 		
-		HAL_GPIO_WritePin(LED1_GPIO_Port, LED1_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-		HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+		
+		
+		
+		if(AD_flag==0x11)
+		{
+			AD_flag=0;
+			AD_count++;
+			
+			log_info("AD_count=%d\r\n",AD_count);
+			
+			for(uint8_t i=0;i<=7;i++)
+			{
+				log_info("AD_A_dat[%d]:0x%x\r\n",i,AD_A_dat[i]);
+			}
+			
+			for(uint8_t i=0;i<=7;i++)
+			{
+				log_info("AD_B_dat[%d]:0x%x\r\n",i,AD_B_dat[i]);
+			}
+			log_info("\r\n");
+		}
+		
 		
     /* USER CODE END WHILE */
 

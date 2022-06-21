@@ -1,7 +1,7 @@
 Dependencies for Project 'HDAS16_V1.0_Embedded', Target 'HDAS16_V1.0_Embedded': (DO NOT MODIFY !)
 F (startup_stm32h743xx.s)(0x62AF4ED1)(--cpu Cortex-M7.fp.dp -g --apcs=interwork -I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include--pd "__UVISION_VERSION SETA 525" --pd "_RTE_ SETA 1" --pd "STM32H743xx SETA 1"--list startup_stm32h743xx.lst --xref -o hdas16_v1.0_embedded\startup_stm32h743xx.o --depend hdas16_v1.0_embedded\startup_stm32h743xx.d)
-F (../Core/Src/main.c)(0x62B088A2)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\main.o --depend hdas16_v1.0_embedded\main.d)
-I (../Core/Inc/main.h)(0x62B09D41)
+F (../Core/Src/main.c)(0x62B1F7C4)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\main.o --depend hdas16_v1.0_embedded\main.d)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -60,8 +60,9 @@ I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
-F (..\Core\Src\mthread.c)(0x62B09F5F)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\mthread.o --depend hdas16_v1.0_embedded\mthread.d)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
+F (..\Core\Src\mthread.c)(0x62B1F619)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\mthread.o --depend hdas16_v1.0_embedded\mthread.d)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -120,9 +121,10 @@ I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
 F (../Core/Src/gpio.c)(0x62AF4ECB)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\gpio.o --depend hdas16_v1.0_embedded\gpio.d)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -180,9 +182,10 @@ I (../Core/Inc/spi.h)(0x62AF4ECD)
 I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
 F (../Core/Src/eth.c)(0x62AF4ECD)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\eth.o --depend hdas16_v1.0_embedded\eth.d)
 I (../Core/Inc/eth.h)(0x62AF4ECD)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -240,9 +243,71 @@ I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
-F (../Core/Src/fmc.c)(0x62AF4ECD)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\fmc.o --depend hdas16_v1.0_embedded\fmc.d)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
+F (..\Core\Src\fmc_ad7606.c)(0x62B1F5AC)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\fmc_ad7606.o --depend hdas16_v1.0_embedded\fmc_ad7606.d)
+I (../Core/Inc/main.h)(0x62B1DE18)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
+I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_def.h)(0x62602CA8)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h7xx.h)(0x62602CA8)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/stm32h743xx.h)(0x62602CA8)
+I (../Drivers/CMSIS/Include/core_cm7.h)(0x62602C49)
+I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599ECD2E)
+I (../Drivers/CMSIS/Include/cmsis_version.h)(0x62602C49)
+I (../Drivers/CMSIS/Include/cmsis_compiler.h)(0x62602C49)
+I (../Drivers/CMSIS/Include/cmsis_armcc.h)(0x62602C49)
+I (../Drivers/CMSIS/Include/mpu_armv7.h)(0x62602C49)
+I (../Drivers/CMSIS/Device/ST/STM32H7xx/Include/system_stm32h7xx.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy/stm32_hal_legacy.h)(0x62602CA8)
+I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x599ECD2C)
+I (C:\Keil_v5\ARM\ARMCC\include\math.h)(0x599ECD2E)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc_ex.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_gpio_ex.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_dma_ex.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_mdma.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_eth.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_eth_ex.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_exti.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_cortex.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_flash_ex.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_hsem.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_sram.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_ll_fmc.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_i2c_ex.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_pwr_ex.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h)(0x62602CA8)
+I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x62602CA8)
+I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x599ECD2C)
+I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x599ECD2C)
+I (C:\Keil_v5\ARM\ARMCC\include\stdlib.h)(0x599ECD2C)
+I (..\RTT-nano\include\rtthread.h)(0x60ED86CD)
+I (..\RTT-nano\rtconfig.h)(0x62AF594F)
+I (.\RTE\_HDAS16_V1.0_Embedded\RTE_Components.h)(0x62AF4E38)
+I (..\RTT-nano\include\rtdebug.h)(0x60ED86CD)
+I (..\RTT-nano\include\rtdef.h)(0x60ED86CD)
+I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x599ECD2A)
+I (..\RTT-nano\include\rtservice.h)(0x60ED86CD)
+I (..\RTT-nano\shell\finsh_api.h)(0x60ED86CD)
+I (..\RTT-nano\shell\finsh_config.h)(0x62B0798E)
+I (../Core/Inc/eth.h)(0x62AF4ECD)
+I (../Core/Inc/i2c.h)(0x62AF4ECD)
+I (../Core/Inc/spi.h)(0x62AF4ECD)
+I (../Core/Inc/usart.h)(0x62B0834F)
+I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/mthread.h)(0x62B08882)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
+F (../Core/Src/fmc.c)(0x62B1F8DF)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\fmc.o --depend hdas16_v1.0_embedded\fmc.d)
+I (../Core/Inc/fmc.h)(0x62AF4ECD)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -300,9 +365,10 @@ I (../Core/Inc/spi.h)(0x62AF4ECD)
 I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/mthread.h)(0x62B08882)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
 F (../Core/Src/i2c.c)(0x62AF4ECD)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\i2c.o --depend hdas16_v1.0_embedded\i2c.d)
 I (../Core/Inc/i2c.h)(0x62AF4ECD)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -360,9 +426,10 @@ I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
 F (../Core/Src/spi.c)(0x62AF4ECD)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\spi.o --depend hdas16_v1.0_embedded\spi.d)
 I (../Core/Inc/spi.h)(0x62AF4ECD)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -420,9 +487,10 @@ I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
 F (../Core/Src/usart.c)(0x62B082D3)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\usart.o --depend hdas16_v1.0_embedded\usart.d)
 I (../Core/Inc/usart.h)(0x62B0834F)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -480,8 +548,9 @@ I (../Core/Inc/spi.h)(0x62AF4ECD)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
-F (../Core/Src/stm32h7xx_it.c)(0x62AF5ACE)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\stm32h7xx_it.o --depend hdas16_v1.0_embedded\stm32h7xx_it.d)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
+F (../Core/Src/stm32h7xx_it.c)(0x62B1E18A)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\stm32h7xx_it.o --depend hdas16_v1.0_embedded\stm32h7xx_it.d)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -540,9 +609,10 @@ I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
 I (../Core/Inc/stm32h7xx_it.h)(0x62AF4ECE)
 F (../Core/Src/stm32h7xx_hal_msp.c)(0x62AF4ECE)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\stm32h7xx_hal_msp.o --depend hdas16_v1.0_embedded\stm32h7xx_hal_msp.d)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -601,6 +671,7 @@ I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
 F (../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_cortex.c)(0x62602CA8)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\stm32h7xx_hal_cortex.o --depend hdas16_v1.0_embedded\stm32h7xx_hal_cortex.d)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
@@ -1693,7 +1764,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x599ECD2A)
 I (..\RTT-nano\include\rtservice.h)(0x60ED86CD)
 I (..\RTT-nano\shell\finsh_api.h)(0x60ED86CD)
 I (..\RTT-nano\shell\finsh_config.h)(0x62B0798E)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -1742,6 +1813,7 @@ I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
 F (..\RTT-nano\rtconfig.h)(0x62AF594F)()
 F (..\RTT-nano\shell\finsh_port.c)(0x62AF5A63)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\finsh_port.o --depend hdas16_v1.0_embedded\finsh_port.d)
 I (..\RTT-nano\include\rthw.h)(0x60ED86CD)
@@ -1754,7 +1826,7 @@ I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x599ECD2A)
 I (..\RTT-nano\include\rtservice.h)(0x60ED86CD)
 I (..\RTT-nano\shell\finsh_api.h)(0x60ED86CD)
 I (..\RTT-nano\shell\finsh_config.h)(0x62B0798E)
-I (../Core/Inc/main.h)(0x62B09D41)
+I (../Core/Inc/main.h)(0x62B1DE18)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62602CA8)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62AF4ECE)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62602CA8)
@@ -1804,6 +1876,7 @@ I (../Core/Inc/usart.h)(0x62B0834F)
 I (../Core/Inc/gpio.h)(0x62AF4ECB)
 I (../Core/Inc/fmc.h)(0x62AF4ECD)
 I (../Core/Inc/mthread.h)(0x62B08882)
+I (../Core/Inc/fmc_ad7606.h)(0x62B1F5C4)
 F (..\RTT-nano\shell\msh.c)(0x60ED86CD)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Keil_v5\ARM\PACK\ARM\CMSIS\5.3.0\CMSIS\Include-IC:\Keil_v5\ARM\PACK\Keil\STM32H7xx_DFP\2.7.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="525" -D_RTE_ -DSTM32H743xx -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\msh.o --depend hdas16_v1.0_embedded\msh.d)
 I (..\RTT-nano\include\rtthread.h)(0x60ED86CD)
 I (..\RTT-nano\rtconfig.h)(0x62AF594F)

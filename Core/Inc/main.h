@@ -47,6 +47,8 @@ extern "C" {
 
 #include "mthread.h"
 
+#include "fmc_ad7606.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/

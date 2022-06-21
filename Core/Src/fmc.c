@@ -22,6 +22,7 @@
 
 /* USER CODE BEGIN 0 */
 
+
 /* USER CODE END 0 */
 
 SRAM_HandleTypeDef hsram1;
@@ -61,12 +62,14 @@ void MX_FMC_Init(void)
   hsram1.Init.WriteFifo = FMC_WRITE_FIFO_ENABLE;
   hsram1.Init.PageSize = FMC_PAGE_SIZE_NONE;
   /* Timing */
-  Timing.AddressSetupTime = 15;
-  Timing.AddressHoldTime = 15;
-  Timing.DataSetupTime = 255;
-  Timing.BusTurnAroundDuration = 15;
-  Timing.CLKDivision = 16;
-  Timing.DataLatency = 17;
+	
+	/* FMC 使用的 HCLK3 ，主频 240MHz 1 个 FMC 时钟周期就是 4.1667ns */
+  Timing.AddressSetupTime = 6;				/* 5*5ns=25ns ，地址建立时间，范围 0 15 个 FMC 时钟周期个数 */
+  Timing.AddressHoldTime = 3;				/* 地址保持时间，配置为模式 A 时， 用不到此参数 范围 1 15 个时钟周期个数 */
+  Timing.DataSetupTime = 6;					/* 5*5ns=25ns ，数据建立时间，范围 1 255 个时钟周期个数 */
+  Timing.BusTurnAroundDuration = 1;	/* 此配置用不到这个参数 */
+  Timing.CLKDivision = 2;						/* 此配置用不到这个参数 */
+  Timing.DataLatency = 2;						/* 此配置用不到这个参数 */
   Timing.AccessMode = FMC_ACCESS_MODE_A;
   /* ExtTiming */
 

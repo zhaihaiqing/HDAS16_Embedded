@@ -4,6 +4,7 @@
 "hdas16_v1.0_embedded\mthread.o"
 "hdas16_v1.0_embedded\gpio.o"
 "hdas16_v1.0_embedded\eth.o"
+"hdas16_v1.0_embedded\fmc_ad7606.o"
 "hdas16_v1.0_embedded\fmc.o"
 "hdas16_v1.0_embedded\i2c.o"
 "hdas16_v1.0_embedded\spi.o"
