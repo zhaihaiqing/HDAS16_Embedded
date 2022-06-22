@@ -28,6 +28,7 @@
 
 int hdas_thread_creat(void);
 
+void lan_thread_entry(void *par);
 void key1_thread_entry(void *par);
 void key2_thread_entry(void *par);
 void key3_thread_entry(void *par);

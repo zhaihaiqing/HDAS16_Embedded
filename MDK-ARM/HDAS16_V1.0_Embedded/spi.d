@@ -63,3 +63,5 @@ hdas16_v1.0_embedded\spi.o: ../Core/Inc/gpio.h
 hdas16_v1.0_embedded\spi.o: ../Core/Inc/fmc.h
 hdas16_v1.0_embedded\spi.o: ../Core/Inc/mthread.h
 hdas16_v1.0_embedded\spi.o: ../Core/Inc/fmc_ad7606.h
+hdas16_v1.0_embedded\spi.o: ..\W6100\w6100.h
+hdas16_v1.0_embedded\spi.o: ..\W6100\wizchip_conf.h

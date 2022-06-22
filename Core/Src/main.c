@@ -22,6 +22,40 @@
 
 
 
+
+/*MAC地址首字节必须为偶数
+  如果多块W5100s网络适配板在同一现场工作，请使用不同的MAC地址
+*/
+uint8_t mac[6]={0x00,0x08,0xdc,0x22,0x33,0x33};
+
+/*定义默认IP信息*/
+uint8_t local_ip[4] = {192,168,1,233};                        // 定义W5100s默认IP地址
+uint8_t subnet[4] = {255,255,255,0};                          // 定义W5100s默认子网掩码
+uint8_t gateway[4] = {192,168,1,1};                           // 定义W5100s默认网关
+uint8_t dns_server[4] = {114,114,114,114};                    // 定义W5100s默认DNS
+
+uint16_t local_port = 8080;                                   // 定义本地端口
+
+/*定义远端IP信息*/
+uint8_t  remote_ip[4] = {192,168,1,100};                      // 远端IP地址
+uint16_t remote_port = 8080;                                  // 远端端口号
+
+
+/*
+socket发送缓存定义为16K，采集400组数据或超时（1S）后发送一次，这样在20K的采样率下，每隔20mS发送一组数据，建议采样率不超过100K
+
+
+设备采用TCP服务器模式，采集到的数据通过以太网发送出去
+
+
+
+
+
+
+*/
+
+
+
 void CPU_CACHE_Enable(void);
 void MPU_Config( void );
 
@@ -120,6 +154,11 @@ int main(void)
 	
 	
 	
+	
+	
+	
+	
+	
   while (1)
   {
 		rt_thread_mdelay(10);
@@ -151,7 +190,7 @@ int main(void)
 			
 			for(uint8_t i=0;i<=7;i++)
 			{
-				log_info("AD_B_dat[%d]:0x%x\r\n",i,AD_B_dat[i]);
+				log_info("AD_B_dat[%d]:0x%x\r\n",i,AD_A_dat[i]);
 			}
 			log_info("\r\n");
 		}

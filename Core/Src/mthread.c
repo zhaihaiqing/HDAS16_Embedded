@@ -24,6 +24,13 @@
 ALIGN(RT_ALIGN_SIZE)
 
 
+static struct rt_thread lan_thread;			/*以太网命令接收线程控制块，数据发送有两种方式,一种是命令ACK、查询返回信息，
+																					另一种是主动发送的数据包
+																				*/
+static char lan_thread_stack[512];				//线程堆栈
+#define LAN_THREAD_PRIORITY          6		//线程优先级，按键扫描为最高优先级
+#define LAN_THREAD_TIMESLICE         100		//线程的时间片大小
+
 
 //按键处理线程
 static struct rt_thread key1_thread;			//温度采集线程控制块
@@ -51,7 +58,17 @@ static char led1_thread_stack[512];				//线程堆栈
 
 
 int hdas_thread_creat(void)
-{									 
+{		
+
+	rt_thread_init(&lan_thread,					//线程控制块
+                   "lan_thread",					//线程控制块名字
+                   lan_thread_entry,				//线程入口函数
+                   RT_NULL,							//线程入口函数的参数
+                   &lan_thread_stack[0],			//线程栈起始地址
+                   sizeof(lan_thread_stack),		//线程栈大小
+                   LAN_THREAD_PRIORITY, 			//线程优先级
+									 LAN_THREAD_TIMESLICE);		//线程时间片大小
+									 
 	rt_thread_init(&key1_thread,					//线程控制块
                    "key1_thread",					//线程控制块名字
                    key1_thread_entry,				//线程入口函数
@@ -93,12 +110,28 @@ int hdas_thread_creat(void)
 	rt_thread_startup(&key1_thread); 
 	rt_thread_startup(&key2_thread); 
 	rt_thread_startup(&key3_thread); 
-	rt_thread_startup(&led1_thread);							 
+	rt_thread_startup(&led1_thread);
+	rt_thread_startup(&lan_thread);									 
 									 
 	
 	return 0;
 	
 }
+
+
+void lan_thread_entry(void *par)
+{
+	while(1)
+	{
+		rt_thread_mdelay(150);
+		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
+		
+		rt_thread_mdelay(150);
+		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
+	}
+}
+
+
 
 
 

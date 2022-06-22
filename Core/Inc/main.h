@@ -46,8 +46,11 @@ extern "C" {
 #include "fmc.h"
 
 #include "mthread.h"
-
 #include "fmc_ad7606.h"
+
+#include "w6100.h"
+
+//#include "socket.h"
 
 /* USER CODE END Includes */
 
