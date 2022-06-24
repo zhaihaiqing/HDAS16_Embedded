@@ -232,6 +232,24 @@ void EXTI9_5_IRQHandler(void)
 }
 
 /**
+  * @brief This function handles SPI1 global interrupt.
+  */
+//void SPI1_IRQHandler(void)
+//{
+//  /* USER CODE BEGIN SPI1_IRQn 0 */
+
+//  /* USER CODE END SPI1_IRQn 0 */
+//  HAL_SPI_IRQHandler(&hspi1);
+//	
+//	HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+//	//HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+//  /* USER CODE BEGIN SPI1_IRQn 1 */
+
+//  /* USER CODE END SPI1_IRQn 1 */
+//}
+
+
+/**
   * @brief This function handles EXTI line[15:10] interrupts.
   */
 void EXTI15_10_IRQHandler(void)

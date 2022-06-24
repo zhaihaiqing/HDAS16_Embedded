@@ -119,14 +119,68 @@ int hdas_thread_creat(void)
 }
 
 
+
+uint8_t drv_spi_read_write_byte( uint8_t TxByte )
+{
+	uint8_t ret=0;
+	
+	HAL_SPI_TransmitReceive(&hspi1,&TxByte,&ret,1,0xffff);
+	
+	return ret;		//·µ»Ø
+}
+
+
+
 void lan_thread_entry(void *par)
 {
+	
+		uint8_t rx[3]={0};
+		uint8_t tx[3]={0};
+		
+	
+	rt_thread_mdelay(200);
+	
+	
+		W_RSTN_L();
+		rt_thread_mdelay(50);
+		W_RSTN_H();
+		rt_thread_mdelay(3000);
+	
+	
 	while(1)
 	{
-		rt_thread_mdelay(150);
+		
+		W_CSN_L();
+		
+		rx[0]=0;
+		rx[1]=0;
+		rx[2]=0;
+		
+		tx[0]=0x00;
+		tx[1]=0x03;
+		tx[2]=0x01;
+		
+//		HAL_SPI_TransmitReceive(&hspi1,&tx[0],&rx[0],1,0xffff);
+//		HAL_SPI_TransmitReceive(&hspi1,&tx[1],&rx[1],1,0xffff);
+//		HAL_SPI_TransmitReceive(&hspi1,&tx[2],&rx[2],1,0xffff);
+		
+		HAL_SPI_Transmit(&hspi1,tx,3,0xffff);
+		HAL_SPI_Receive(&hspi1,rx,3,0xffff);
+		
+		//HAL_SPI_Receive_IT(&hspi1,rx,2);
+		//HAL_SPI_TransmitReceive_IT(&hspi1,tx,rx,2);
+		
+		
+		
+		log_info("rx[0]:0x%x rx[1]:0x%x rx[2]:0x%x\r\n",rx[0],rx[1],rx[2]);
+		
+		W_CSN_H();
+		
+		
+		rt_thread_mdelay(500);
 		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
 		
-		rt_thread_mdelay(150);
+		rt_thread_mdelay(500);
 		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
 	}
 }

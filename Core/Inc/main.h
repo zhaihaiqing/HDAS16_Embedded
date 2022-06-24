@@ -143,7 +143,10 @@ void SystemClock_Config(void);
 #define	READ_KEY3()			HAL_GPIO_ReadPin(KEY3_GPIO_Port,KEY3_Pin)
 
 
-
+#define W_RSTN_L()	HAL_GPIO_WritePin(W_RSTN_GPIO_Port,W_RSTN_Pin,GPIO_PIN_RESET);
+#define W_RSTN_H()	HAL_GPIO_WritePin(W_RSTN_GPIO_Port,W_RSTN_Pin,GPIO_PIN_SET);
+#define W_CSN_L()		HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_RESET);
+#define W_CSN_H()		HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_SET);
 
 /* USER CODE BEGIN Private defines */
 

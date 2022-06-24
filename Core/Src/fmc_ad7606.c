@@ -194,6 +194,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	{
 		AD7606_B_ISR();
 	}
+	else if(GPIO_Pin == W_INT_Pin)
+	{
+		HAL_GPIO_TogglePin(LED3_GPIO_Port, LED3_Pin);
+	}
 }
 
 
