@@ -3,7 +3,7 @@
 <title>Static Call Graph - [HDAS16_V1.0_Embedded\HDAS16_V1.0_Embedded]</title></head>
 <body><HR>
 <H1>Static Call Graph for image HDAS16_V1.0_Embedded\HDAS16_V1.0_Embedded</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Fri Jun 24 01:32:21 2022
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060750: Last Updated: Sat Jun 25 02:29:19 2022
 <BR><P>
 <H3>Maximum Stack Usage =        416 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -764,8 +764,7 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[122]"></a>rt_hw_interrupt_disable</STRONG> (Thumb, 8 bytes, Stack size 0 bytes, context_rvds.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_thread_cleanup_execute
-<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_remove_thread
+<BR><BR>[Called By]<UL><LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_remove_thread
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_insert_thread
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_exit_critical
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_enter_critical
@@ -790,11 +789,11 @@ Global Symbols
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_timer_detach
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_thread_sleep
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_thread_exit
+<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_thread_cleanup_execute
 </UL>
 
 <P><STRONG><a name="[123]"></a>rt_hw_interrupt_enable</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, context_rvds.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_thread_cleanup_execute
-<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_remove_thread
+<BR><BR>[Called By]<UL><LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_remove_thread
 <LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_insert_thread
 <LI><a href="#[147]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_exit_critical
 <LI><a href="#[146]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_enter_critical
@@ -818,6 +817,7 @@ Global Symbols
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_timer_detach
 <LI><a href="#[15f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_thread_sleep
 <LI><a href="#[9a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_thread_exit
+<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_thread_cleanup_execute
 </UL>
 
 <P><STRONG><a name="[154]"></a>rt_hw_context_switch</STRONG> (Thumb, 32 bytes, Stack size 0 bytes, context_rvds.o(.text))
@@ -907,13 +907,13 @@ Global Symbols
 <P><STRONG><a name="[d3]"></a>__aeabi_memclr4</STRONG> (Thumb, 0 bytes, Stack size 4 bytes, rt_memclr_w.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 4<LI>Call Chain = __aeabi_memclr4
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_MspInit
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FMC_MspInit
+<BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FMC_MspInit
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_FMC_Init
 <LI><a href="#[114]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;SystemClock_Config
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspInit
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_MspInit
 <LI><a href="#[118]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_msh_exec_cmd
 </UL>
 
@@ -1040,14 +1040,14 @@ Global Symbols
 <BR>[Address Reference Count : 1]<UL><LI> startup_stm32h743xx.o(RESET)
 </UL>
 <P><STRONG><a name="[d5]"></a>Error_Handler</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, main.o(i.Error_Handler))
-<BR><BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_MspInit
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FMC_MspInit
+<BR><BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FMC_MspInit
 <LI><a href="#[10f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_UART8_Init
 <LI><a href="#[10e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_SPI1_Init
 <LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_I2C1_Init
 <LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_FMC_Init
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspInit
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_MspInit
 </UL>
 
 <P><STRONG><a name="[fd]"></a>FMC_NORSRAM_Extended_Timing_Init</STRONG> (Thumb, 58 bytes, Stack size 20 bytes, stm32h7xx_ll_fmc.o(i.FMC_NORSRAM_Extended_Timing_Init))
@@ -1089,11 +1089,11 @@ Global Symbols
 <P><STRONG><a name="[d6]"></a>HAL_GPIO_Init</STRONG> (Thumb, 506 bytes, Stack size 40 bytes, stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = HAL_GPIO_Init
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_MspInit
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FMC_MspInit
+<BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FMC_MspInit
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;MX_GPIO_Init
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspInit
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_MspInit
 </UL>
 
 <P><STRONG><a name="[138]"></a>HAL_GPIO_ReadPin</STRONG> (Thumb, 10 bytes, Stack size 0 bytes, stm32h7xx_hal_gpio.o(i.HAL_GPIO_ReadPin))
@@ -1121,9 +1121,9 @@ Global Symbols
 
 <P><STRONG><a name="[eb]"></a>HAL_GetTick</STRONG> (Thumb, 6 bytes, Stack size 0 bytes, stm32h7xx_hal.o(i.HAL_GetTick))
 <BR><BR>[Called By]<UL><LI><a href="#[d4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCCEx_PeriphCLKConfig
+<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
 <LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_OscConfig
 <LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_RCC_ClockConfig
 <LI><a href="#[ea]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_PWREx_ConfigSupply
@@ -1259,10 +1259,10 @@ Global Symbols
 <LI><a href="#[ed]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCCEx_PLL2_Config
 <LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GetTick
 </UL>
-<BR>[Called By]<UL><LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_MspInit
-<LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FMC_MspInit
+<BR>[Called By]<UL><LI><a href="#[d2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_FMC_MspInit
 <LI><a href="#[102]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_UART_MspInit
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_MspInit
+<LI><a href="#[e2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_MspInit
 </UL>
 
 <P><STRONG><a name="[ef]"></a>HAL_RCC_ClockConfig</STRONG> (Thumb, 580 bytes, Stack size 40 bytes, stm32h7xx_hal_rcc.o(i.HAL_RCC_ClockConfig))
@@ -1476,15 +1476,15 @@ Global Symbols
 <P><STRONG><a name="[10b]"></a>MX_I2C1_Init</STRONG> (Thumb, 76 bytes, Stack size 8 bytes, i2c.o(i.MX_I2C1_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 328<LI>Call Chain = MX_I2C1_Init &rArr; HAL_I2C_Init &rArr; HAL_I2C_MspInit &rArr; HAL_RCCEx_PeriphCLKConfig &rArr; RCCEx_PLL3_Config
 </UL>
-<BR>[Calls]<UL><LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_Init
+<BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
+<LI><a href="#[e1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2C_Init
 <LI><a href="#[10d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2CEx_ConfigDigitalFilter
 <LI><a href="#[10c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_I2CEx_ConfigAnalogFilter
-<LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
 </UL>
 <BR>[Called By]<UL><LI><a href="#[142]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;$Super$$main
 </UL>
 
-<P><STRONG><a name="[10e]"></a>MX_SPI1_Init</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, spi.o(i.MX_SPI1_Init))
+<P><STRONG><a name="[10e]"></a>MX_SPI1_Init</STRONG> (Thumb, 84 bytes, Stack size 16 bytes, spi.o(i.MX_SPI1_Init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 368<LI>Call Chain = MX_SPI1_Init &rArr; HAL_SPI_Init &rArr; HAL_SPI_MspInit &rArr; HAL_RCCEx_PeriphCLKConfig &rArr; RCCEx_PLL3_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[d5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Error_Handler
@@ -1698,13 +1698,13 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> mthread.o(i.hdas_thread_creat)
 </UL>
-<P><STRONG><a name="[9d]"></a>lan_thread_entry</STRONG> (Thumb, 202 bytes, Stack size 24 bytes, mthread.o(i.lan_thread_entry))
+<P><STRONG><a name="[9d]"></a>lan_thread_entry</STRONG> (Thumb, 212 bytes, Stack size 24 bytes, mthread.o(i.lan_thread_entry))
 <BR><BR>[Stack]<UL><LI>Max Depth = 168<LI>Call Chain = lan_thread_entry &rArr; HAL_SPI_Receive &rArr; HAL_SPI_TransmitReceive &rArr; SPI_WaitOnFlagUntilTimeout
 </UL>
-<BR>[Calls]<UL><LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
+<BR>[Calls]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
 <LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_thread_mdelay
 <LI><a href="#[dd]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_kprintf
+<LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
 <LI><a href="#[cf]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_GPIO_WritePin
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> mthread.o(i.hdas_thread_creat)
@@ -1782,7 +1782,7 @@ Global Symbols
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> cmd.o(FSymTab)
 </UL>
-<P><STRONG><a name="[142]"></a>$Super$$main</STRONG> (Thumb, 168 bytes, Stack size 0 bytes, main.o(i.main))
+<P><STRONG><a name="[142]"></a>$Super$$main</STRONG> (Thumb, 172 bytes, Stack size 0 bytes, main.o(i.main))
 <BR><BR>[Stack]<UL><LI>Max Depth = 392<LI>Call Chain = $Super$$main &rArr; MX_FMC_Init &rArr; HAL_SRAM_Init &rArr; HAL_SRAM_MspInit &rArr; HAL_FMC_MspInit &rArr; HAL_RCCEx_PeriphCLKConfig &rArr; RCCEx_PLL3_Config
 </UL>
 <BR>[Calls]<UL><LI><a href="#[139]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_thread_mdelay
@@ -2117,15 +2117,15 @@ Global Symbols
 <P><STRONG><a name="[9a]"></a>rt_thread_exit</STRONG> (Thumb, 82 bytes, Stack size 16 bytes, thread.o(i.rt_thread_exit))
 <BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = rt_thread_exit &rArr; rt_timer_detach &rArr; rt_object_detach
 </UL>
-<BR>[Calls]<UL><LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_list_insert_after
-<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_thread_cleanup_execute
-<LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_remove_thread
+<BR>[Calls]<UL><LI><a href="#[156]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_remove_thread
 <LI><a href="#[15b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_object_is_systemobject
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule
 <LI><a href="#[150]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_object_detach
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_hw_interrupt_enable
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_hw_interrupt_disable
 <LI><a href="#[15a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_timer_detach
+<LI><a href="#[15c]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_list_insert_after
+<LI><a href="#[121]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_thread_cleanup_execute
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> thread.o(i._rt_thread_init)
 </UL>
@@ -2141,8 +2141,8 @@ Global Symbols
 <P><STRONG><a name="[12b]"></a>rt_thread_init</STRONG> (Thumb, 48 bytes, Stack size 56 bytes, thread.o(i.rt_thread_init))
 <BR><BR>[Stack]<UL><LI>Max Depth = 160<LI>Call Chain = rt_thread_init &rArr; _rt_thread_init &rArr; rt_timer_init &rArr; rt_object_init &rArr; rt_exit_critical &rArr; rt_schedule
 </UL>
-<BR>[Calls]<UL><LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_rt_thread_init
-<LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_object_init
+<BR>[Calls]<UL><LI><a href="#[151]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_object_init
+<LI><a href="#[11b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_rt_thread_init
 </UL>
 <BR>[Called By]<UL><LI><a href="#[137]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;hdas_thread_creat
 <LI><a href="#[15d]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_thread_idle_init
@@ -2168,11 +2168,11 @@ Global Symbols
 <P><STRONG><a name="[160]"></a>rt_thread_resume</STRONG> (Thumb, 60 bytes, Stack size 16 bytes, thread.o(i.rt_thread_resume))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = rt_thread_resume &rArr; rt_timer_stop
 </UL>
-<BR>[Calls]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_list_remove
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_insert_thread
+<BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_insert_thread
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_hw_interrupt_enable
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_hw_interrupt_disable
 <LI><a href="#[162]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_timer_stop
+<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_list_remove
 </UL>
 <BR>[Called By]<UL><LI><a href="#[12e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_thread_startup
 </UL>
@@ -2221,19 +2221,19 @@ Global Symbols
 <P><STRONG><a name="[9b]"></a>rt_thread_timeout</STRONG> (Thumb, 30 bytes, Stack size 8 bytes, thread.o(i.rt_thread_timeout))
 <BR><BR>[Stack]<UL><LI>Max Depth = 24<LI>Call Chain = rt_thread_timeout &rArr; rt_schedule
 </UL>
-<BR>[Calls]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_list_remove
-<LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_insert_thread
+<BR>[Calls]<UL><LI><a href="#[155]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule_insert_thread
 <LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule
+<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_list_remove
 </UL>
 <BR>[Address Reference Count : 1]<UL><LI> thread.o(i._rt_thread_init)
 </UL>
 <P><STRONG><a name="[166]"></a>rt_thread_yield</STRONG> (Thumb, 86 bytes, Stack size 16 bytes, thread.o(i.rt_thread_yield))
 <BR><BR>[Stack]<UL><LI>Max Depth = 32<LI>Call Chain = rt_thread_yield &rArr; rt_schedule
 </UL>
-<BR>[Calls]<UL><LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_list_remove
-<LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule
+<BR>[Calls]<UL><LI><a href="#[148]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_schedule
 <LI><a href="#[123]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_hw_interrupt_enable
 <LI><a href="#[122]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_hw_interrupt_disable
+<LI><a href="#[161]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_list_remove
 </UL>
 <BR>[Called By]<UL><LI><a href="#[112]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;rt_tick_increase
 </UL>
@@ -2404,9 +2404,9 @@ Local Symbols
 <P><STRONG><a name="[f6]"></a>SPI_CloseTransfer</STRONG> (Thumb, 188 bytes, Stack size 8 bytes, stm32h7xx_hal_spi.o(i.SPI_CloseTransfer))
 <BR><BR>[Stack]<UL><LI>Max Depth = 8<LI>Call Chain = SPI_CloseTransfer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
+<BR>[Called By]<UL><LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
+<LI><a href="#[f5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_TransmitReceive
 <LI><a href="#[f7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Transmit
-<LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;HAL_SPI_Receive
 </UL>
 
 <P><STRONG><a name="[f8]"></a>SPI_WaitOnFlagUntilTimeout</STRONG> (Thumb, 66 bytes, Stack size 24 bytes, stm32h7xx_hal_spi.o(i.SPI_WaitOnFlagUntilTimeout))

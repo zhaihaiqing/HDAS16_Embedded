@@ -452,14 +452,14 @@
           <GroupName>W6100</GroupName>
           <Files>
             <File>
-              <FileName>socket.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\W6100\socket.c</FilePath>
-            </File>
-            <File>
               <FileName>w6100.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\W6100\w6100.c</FilePath>
+            </File>
+            <File>
+              <FileName>socket.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\W6100\socket.c</FilePath>
             </File>
             <File>
               <FileName>wizchip_conf.c</FileName>

@@ -144,7 +144,7 @@ void lan_thread_entry(void *par)
 		W_RSTN_L();
 		rt_thread_mdelay(50);
 		W_RSTN_H();
-		rt_thread_mdelay(3000);
+		rt_thread_mdelay(1000);
 	
 	
 	while(1)
@@ -157,7 +157,7 @@ void lan_thread_entry(void *par)
 		rx[2]=0;
 		
 		tx[0]=0x00;
-		tx[1]=0x03;
+		tx[1]=0x02;
 		tx[2]=0x01;
 		
 //		HAL_SPI_TransmitReceive(&hspi1,&tx[0],&rx[0],1,0xffff);
@@ -165,14 +165,22 @@ void lan_thread_entry(void *par)
 //		HAL_SPI_TransmitReceive(&hspi1,&tx[2],&rx[2],1,0xffff);
 		
 		HAL_SPI_Transmit(&hspi1,tx,3,0xffff);
-		HAL_SPI_Receive(&hspi1,rx,3,0xffff);
+		
+		if(HAL_SPI_Receive(&hspi1,rx,1,0xffff) != HAL_OK)
+		{
+			log_info("SPI rx error!\r\n");
+		}
+		else
+		{
+			log_info("rx[0]:0x%x rx[1]:0x%x rx[2]:0x%x\r\n",rx[0],rx[1],rx[2]);
+		}
 		
 		//HAL_SPI_Receive_IT(&hspi1,rx,2);
 		//HAL_SPI_TransmitReceive_IT(&hspi1,tx,rx,2);
 		
 		
 		
-		log_info("rx[0]:0x%x rx[1]:0x%x rx[2]:0x%x\r\n",rx[0],rx[1],rx[2]);
+		
 		
 		W_CSN_H();
 		

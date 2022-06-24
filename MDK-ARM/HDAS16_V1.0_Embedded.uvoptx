@@ -385,8 +385,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\W6100\socket.c</PathWithFileName>
-      <FilenameWithoutPath>socket.c</FilenameWithoutPath>
+      <PathWithFileName>..\W6100\w6100.c</PathWithFileName>
+      <FilenameWithoutPath>w6100.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -397,8 +397,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\W6100\w6100.c</PathWithFileName>
-      <FilenameWithoutPath>w6100.c</FilenameWithoutPath>
+      <PathWithFileName>..\W6100\socket.c</PathWithFileName>
+      <FilenameWithoutPath>socket.c</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -406,7 +406,7 @@
       <GroupNumber>3</GroupNumber>
       <FileNumber>15</FileNumber>
       <FileType>1</FileType>
-      <tvExp>0</tvExp>
+      <tvExp>1</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
       <PathWithFileName>..\W6100\wizchip_conf.c</PathWithFileName>

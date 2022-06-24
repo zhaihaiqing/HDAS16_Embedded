@@ -47,12 +47,128 @@ socket·¢ËÍ»º´æ¶¨ÒåÎª16K£¬²É¼¯400×éÊý¾Ý»ò³¬Ê±£¨1S£©ºó·¢ËÍÒ»´Î£¬ÕâÑùÔÚ20KµÄ²ÉÑùÂÊÏ
 
 Éè±¸²ÉÓÃTCP·þÎñÆ÷Ä£Ê½£¬²É¼¯µ½µÄÊý¾ÝÍ¨¹ýÒÔÌ«Íø·¢ËÍ³öÈ¥
 
-
-
-
-
-
 */
+
+
+
+wiz_NetInfo gWIZNETINFO = { .mac = {0x00,0x08,0xdc,0x57,0x57,0x20},
+							.ip = {192,168,0,13},
+							.sn = {255, 255, 255, 0},
+							.gw = {192, 168, 0, 1},
+							.dns = {168, 126, 63, 1},
+							.dhcp = NETINFO_STATIC,
+							.lla = {0xfe,0x80, 0x00,0x00,
+								 0x00,0x00, 0x00,0x00,
+								 0x02,0x08, 0xdc,0xff,
+								 0xfe,0x57, 0x57,0x61},
+				            .gua={0x20,0x01,0x02,0xb8,
+								 0x00,0x10,0x00,0x01,
+								 0x02,0x08,0xdc,0xff,
+								 0xfe,0x57,0x57,0x61},
+				            .sn6={0xff,0xff,0xff,0xff,
+								 0xff,0xff,0xff,0xff,
+								 0x00,0x00,0x00, 0x00,
+								 0x00,0x00,0x00,0x00},
+				            .gw6={0xfe, 0x80, 0x00,0x00,
+								  0x00,0x00,0x00,0x00,
+								  0x02,0x00, 0x87,0xff,
+								  0xfe,0x08, 0x4c,0x81}
+							};
+
+
+uint8_t WIZ_Dest_IP[4] = {192, 168, 0, 232};                  //DST_IP Address
+
+
+uint8_t DestIP6_L[16] = {0xfe,0x80, 0x00,0x00,
+						  0x00,0x00, 0x00,0x00,
+                          0x31,0x71,0x98,0x05,
+                          0x70,0x24,0x4b,0xb1
+						};
+
+uint8_t DestIP6_G[16] = {0x20,0x01,0x02,0xb8,
+                          0x00,0x10,0x00,0x01,
+                          0x31,0x71,0x98,0x05,
+                          0x70,0x24,0x4b,0xb1
+                         };
+
+uint8_t Router_IP[16]= {0xff,0x02,0x00,0x00,
+                          0x00,0x00,0x00,0x00,
+                          0x00,0x00,0x00,0x00,
+                          0x00,0x00,0x00,0x02
+                         };
+uint8_t data_buf[2048];
+
+
+void print_network_information(void);
+
+uint8_t rxData[2];
+
+
+	
+												 
+void csEnable(void)
+{
+	HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_RESET);
+}
+
+
+
+void csDisable(void)
+{
+	HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_SET);
+}
+
+
+
+void spiWriteByte(uint8_t tx)
+{
+	uint8_t rx;
+	//HAL_SPI_TransmitReceive(&hspi1, &tx, &rx, 1, 10);
+	HAL_SPI_Transmit(&hspi1,&tx,1,0xffff);
+	
+}
+
+
+
+uint8_t spiReadByte(void)
+{
+	uint8_t rx = 0, tx = 0xFF;
+	HAL_SPI_TransmitReceive(&hspi1, &tx, &rx, 1, 10);
+	return rx;
+}
+
+
+void W6100Initialze(void)
+{
+	intr_kind temp;
+	unsigned char W6100_AdrSet[2][4] = {{4,4,0,0},{4,4,0,0}};
+	/*
+	 */
+	temp = IK_DEST_UNREACH;
+
+	if(ctlwizchip(CW_INIT_WIZCHIP,(void*)W6100_AdrSet) == -1)
+	{
+		log_info("W6100 initialized fail.\r\n");
+	}
+
+	if(ctlwizchip(CW_SET_INTRMASK,&temp) == -1)
+	{
+		log_info("W6100 interrupt\r\n");
+	}
+	log_info("interrupt mask: %02x\r\n",getIMR());
+
+	do{//check phy status.
+		if(ctlwizchip(CW_GET_PHYLINK,(void*)&temp) == -1){
+			log_info("Unknown PHY link status.\r\n");
+		}
+	}while(temp == PHY_LINK_OFF);
+}
+
+
+
+
+
+
 
 
 
@@ -107,6 +223,54 @@ uint32_t AD_count=0;
 
 
 
+
+	
+
+
+
+void print_network_information(void)
+{
+	wizchip_getnetinfo(&gWIZNETINFO);
+	log_info("Mac address: %02x:%02x:%02x:%02x:%02x:%02x\n\r",gWIZNETINFO.mac[0],gWIZNETINFO.mac[1],gWIZNETINFO.mac[2],gWIZNETINFO.mac[3],gWIZNETINFO.mac[4],gWIZNETINFO.mac[5]);
+	log_info("IP address : %d.%d.%d.%d\n\r",gWIZNETINFO.ip[0],gWIZNETINFO.ip[1],gWIZNETINFO.ip[2],gWIZNETINFO.ip[3]);
+	log_info("SN Mask	   : %d.%d.%d.%d\n\r",gWIZNETINFO.sn[0],gWIZNETINFO.sn[1],gWIZNETINFO.sn[2],gWIZNETINFO.sn[3]);
+	log_info("Gate way   : %d.%d.%d.%d\n\r",gWIZNETINFO.gw[0],gWIZNETINFO.gw[1],gWIZNETINFO.gw[2],gWIZNETINFO.gw[3]);
+	log_info("DNS Server : %d.%d.%d.%d\n\r",gWIZNETINFO.dns[0],gWIZNETINFO.dns[1],gWIZNETINFO.dns[2],gWIZNETINFO.dns[3]);
+	log_info("LLA  : %.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X\r\n",gWIZNETINFO.lla[0],gWIZNETINFO.lla[1],gWIZNETINFO.lla[2],gWIZNETINFO.lla[3],\
+									gWIZNETINFO.lla[4],gWIZNETINFO.lla[5],gWIZNETINFO.lla[6],gWIZNETINFO.lla[7],\
+									gWIZNETINFO.lla[8],gWIZNETINFO.lla[9],gWIZNETINFO.lla[10],gWIZNETINFO.lla[11],\
+									gWIZNETINFO.lla[12],gWIZNETINFO.lla[13],gWIZNETINFO.lla[14],gWIZNETINFO.lla[15]);
+	log_info("GUA  : %.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X\n\r",gWIZNETINFO.gua[0],gWIZNETINFO.gua[1],gWIZNETINFO.gua[2],gWIZNETINFO.gua[3],\
+									gWIZNETINFO.gua[4],gWIZNETINFO.gua[5],gWIZNETINFO.gua[6],gWIZNETINFO.gua[7],\
+									gWIZNETINFO.gua[8],gWIZNETINFO.gua[9],gWIZNETINFO.gua[10],gWIZNETINFO.gua[11],\
+									gWIZNETINFO.gua[12],gWIZNETINFO.gua[13],gWIZNETINFO.gua[14],gWIZNETINFO.gua[15]);
+	log_info("SN6  : %.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X\n\r",gWIZNETINFO.sn6[0],gWIZNETINFO.sn6[1],gWIZNETINFO.sn6[2],gWIZNETINFO.sn6[3],\
+									gWIZNETINFO.sn6[4],gWIZNETINFO.sn6[5],gWIZNETINFO.sn6[6],gWIZNETINFO.sn6[7],\
+									gWIZNETINFO.sn6[8],gWIZNETINFO.sn6[9],gWIZNETINFO.sn6[10],gWIZNETINFO.sn6[11],\
+									gWIZNETINFO.sn6[12],gWIZNETINFO.sn6[13],gWIZNETINFO.sn6[14],gWIZNETINFO.sn6[15]);
+	log_info("GW6  : %.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X:%.2X%.2X\r\n",gWIZNETINFO.gw6[0],gWIZNETINFO.gw6[1],gWIZNETINFO.gw6[2],gWIZNETINFO.gw6[3],\
+									gWIZNETINFO.gw6[4],gWIZNETINFO.gw6[5],gWIZNETINFO.gw6[6],gWIZNETINFO.gw6[7],\
+									gWIZNETINFO.gw6[8],gWIZNETINFO.gw6[9],gWIZNETINFO.gw6[10],gWIZNETINFO.gw6[11],\
+									gWIZNETINFO.gw6[12],gWIZNETINFO.gw6[13],gWIZNETINFO.gw6[14],gWIZNETINFO.gw6[15]);
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -151,6 +315,63 @@ int main(void)
 	bsp_InitAD7606();
 	
 	HAL_GPIO_WritePin(APOW_CTRL_GPIO_Port, APOW_CTRL_Pin, GPIO_PIN_SET);
+	
+	
+	
+	rt_thread_mdelay(100);
+	
+	
+	
+//		W_RSTN_L();
+//		rt_thread_mdelay(200);
+//		
+//		W_RSTN_H();
+//		
+//		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_RESET);
+//		rt_thread_mdelay(300);
+//		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_SET);
+//		rt_thread_mdelay(300);
+//		
+//		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_RESET);
+//		rt_thread_mdelay(300);
+//		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_SET);
+//		rt_thread_mdelay(300);
+//		
+//		
+//		
+//		
+//		
+//	
+//	log_info("< W6100EVB Hal Driver Loop Back TEST!! >\n");
+
+//	//rt_enter_critical();
+//	
+//	//rt_hw_interrupt_disable();
+//	
+//  /* SPI method callback registration */
+//  reg_wizchip_spi_cbfunc(spiReadByte, spiWriteByte);
+//  /* CS function register */
+//  reg_wizchip_cs_cbfunc(csEnable,csDisable);
+
+//	
+//	
+//  NETUNLOCK();
+//  wizchip_setnetinfo(&gWIZNETINFO);
+//  W6100Initialze();
+
+////rt_hw_interrupt_enable();
+////rt_exit_critical();
+
+
+
+//  log_info("VERSION(%x) = %.2x \r\n", VER,getVER());
+//	
+//  print_network_information();
+
+	
+	
+	
+	
 	
 	
 	hdas_thread_creat();	//Ö´ÐÐ´´½¨ÈÎÎñº¯Êý£¬¿ªÊ¼RTOS
