@@ -48,6 +48,8 @@ extern "C" {
 #include "mthread.h"
 #include "fmc_ad7606.h"
 
+
+#include "w6100_init.h"
 #include "w6100.h"
 //#include "loopback/loopback.h"
 #include "wizchip_conf.h"

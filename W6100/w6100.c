@@ -1,354 +1,341 @@
-//*****************************************************************************
-//
-//! \file w6100.c
-//! \brief W6100 HAL Interface.
-//! \version 1.0.0
-//! \date 2018/08/22
-//! \par  Revision history//!       
-//!       <2018/08/22> 1st Release
-//! \author DKay
-//! \copyright
-//!
-//! Copyright (c)  2013, WIZnet Co., LTD.
-//! All rights reserved.
-//!
-//! Redistribution and use in source and binary forms, with or without
-//! modification, are permitted provided that the following conditions
-//! are met:
-//!
-//!     * Redistributions of source code must retain the above copyright
-//! notice, this list of conditions and the following disclaimer.
-//!     * Redistributions in binary form must reproduce the above copyright
-//! notice, this list of conditions and the following disclaimer in the
-//! documentation and/or other materials provided with the distribution.
-//!     * Neither the name of the <ORGANIZATION> nor the names of its
-//! contributors may be used to endorse or promote products derived
-//! from this software without specific prior written permission.
-//!
-//! THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-//! AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-//! IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-//! ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
-//! LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
-//! CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
-//! SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
-//! INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-//! CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
-//! ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
-//! THE POSSIBILITY OF SUCH DAMAGE.
-//
-//*****************************************************************************
-#include <stdio.h>
+/***********************************************************************************
+成都浩然电子有限公司
+WIZnet官方一级代理商,自09年起一直蝉联销量第一，为客户提供技术、产品、售后等全方位服务
+电话：028-86127089     0755-86066647
+传真：028-86127039
+网址：http://www.hschip.com
+日期：2020-03
+
+官方淘宝  
+电脑端:http://shop325030069.taobao.com/index.htm
+手机端:https://shop325030069.m.taobao.com
+
+
+硬件平台：
+浩然电子评估板  HS-EVBW6100/STM32    (HS-EVBW5100S/STM32底板全兼容)
+WIZnet技术交流QQ群：       722479032
+W5100S/W6100技术交流QQ群： 690436248
+
+										 
+SPI模式或间接总线模式通过 wizchip_conf.h 文件的
+//   #define _WIZCHIP_IO_MODE_           _WIZCHIP_IO_MODE_BUS_INDIR_     //  间接总线
+   #define _WIZCHIP_IO_MODE_         _WIZCHIP_IO_MODE_SPI_VDM_           //  SPI模式
+来进行选择
+***********************************************************************************/
+
+
 #include "w6100.h"
-#include "socket.h"
-//#include "usart.h"
+#include "SPI.h"
+#include <stdio.h>
+#include "w6100_init.h"
 
-#define _W6100_SPI_OP_          0x00
+#define _WIZCHIP_SPI_VDM_OP_    0x00
+#define _WIZCHIP_SPI_FDM_LEN1_  0x01
+#define _WIZCHIP_SPI_FDM_LEN2_  0x02
+#define _WIZCHIP_SPI_FDM_LEN4_  0x03
+//
+// If you want to use SPI FDM mode, Feel free contact to WIZnet. 
+// http://forum.wiznet.io
+//
 
-#if   (_WIZCHIP_ == W6100)
-//////////////////////////////////////////////////
-void     WIZCHIP_WRITE(uint32_t AddrSel, uint8_t wb )
+#if _WIZCHIP_ == 6100
+////////////////////////////////////////////////////////////////////////////////////////
+
+
+#define _W6100_SPI_OP_          _WIZCHIP_SPI_VDM_OP_
+
+/***
+*@brief: send data in BUS mode 
+*@parame: addr: register address
+*         data: value write to register
+*@return: none
+*****/
+void IINCHIP_BusSendData(uint32_t addr,uint8_t data)
 {
-   uint8_t spi_data[4];
+	 *((volatile uint8_t*)addr) = data;
 
-   WIZCHIP_CRITICAL_ENTER();
-   WIZCHIP.CS._select();
+}
+/***
+*@brief: read data in BUS mode 
+*@parame: addr: register address
+*         data: value read from register
+*@return: register value
+*****/
+uint8_t IINCHIP_BusReadData(uint32_t addr)
+{
+	 return *((volatile uint8_t*)addr) ;
 
-#if( (_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_SPI_))
-   AddrSel |= (_W6100_SPI_WRITE_ | _W6100_SPI_OP_);
+}
 
-   //if(!WIZCHIP.IF.SPI._read_burst || !WIZCHIP.IF.SPI._write_burst) 	// byte operation
-   if(!WIZCHIP.IF.SPI._write_burst) 	// byte operation
-   {
-		WIZCHIP.IF.SPI._write_byte((AddrSel & 0x00FF0000) >> 16);
-    	WIZCHIP.IF.SPI._write_byte((AddrSel & 0x0000FF00) >>  8);
-		WIZCHIP.IF.SPI._write_byte((AddrSel & 0x000000FF) >>  0);
-		WIZCHIP.IF.SPI._write_byte(wb);
-   }
-   else									// burst operation
-   {
-		spi_data[0] = (AddrSel & 0x00FF0000) >> 16;
-		spi_data[1] = (AddrSel & 0x0000FF00) >> 8;
-		spi_data[2] = (AddrSel & 0x000000FF) >> 0;
-		spi_data[3] = wb;
-		WIZCHIP.IF.SPI._write_burst(spi_data, 4);
-   }
+/***
+*@brief:  pull down cs pin 
+*@parame: none
+*@return: none
+*****/
+void IINCHIP_CSoff(void)
+{
+  //WIZ_CS(LOW);
+	HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_RESET);
+}
+
+/***
+*@brief: pull up cs pin 
+*@parame: none
+*@return: none
+*****/
+void IINCHIP_CSon(void)
+{
+   //WIZ_CS(HIGH);
+	HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_SET);
+}
+
+/***
+*@brief: send data in SPI mode 
+*@parame: data: value write to register
+*@return: none
+*****/
+//uint8_t IINCHIP_SpiSendData(uint8_t dat)
+//{
+//   return(SPI1_SendByte(dat));
+//}
+
+
+uint8_t IINCHIP_SpiSendData(uint8_t dat)
+{
+	//uint8_t rx = 0, tx = 0xFF;
+	uint8_t rx = 0;
+	HAL_SPI_TransmitReceive(&hspi1, &dat, &rx, 1, 10);
+	return rx;
+}
+
+
+
+
+//////////////////////////////////////////////////
+void WIZCHIP_WRITE(uint32_t AddrSel, uint8_t wb )
+{
+   uint8_t tAD[4];
+   tAD[0] = (uint8_t)((AddrSel & 0x00FF0000) >> 16);
+   tAD[1] = (uint8_t)((AddrSel & 0x0000FF00) >> 8);
+   tAD[2] = (uint8_t)(AddrSel & 0x000000ff);
+   tAD[3] = wb;
+
+   //WIZCHIP_CRITICAL_ENTER();
+  // WIZCHIP.CS._s_e_l_e_c_t_();
+     IINCHIP_CSoff(); 
+	
+#if( (_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_SPI_VDM_))
+    tAD[2] |= (_W6100_SPI_WRITE_ | _W6100_SPI_OP_);
+    //IINCHIP_SpiSendData( 0xf0);
+	  IINCHIP_SpiSendData(tAD[0]);// Address byte 1
+    IINCHIP_SpiSendData(tAD[1] );// Address byte 2
+    IINCHIP_SpiSendData(tAD[2]);// Address byte 1
+    IINCHIP_SpiSendData(tAD[3] );// Address byte 2
+    
+
 #elif ( (_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_BUS_INDIR_) )
-	  WIZCHIP.IF.BUS._write_data(IDM_AR0,(AddrSel & 0xFF0000) >>  16);
-		WIZCHIP.IF.BUS._write_data(IDM_AR1,(AddrSel & 0x00FF00) >>  8);
-    WIZCHIP.IF.BUS._write_data(IDM_BSB,(AddrSel & 0x0000FF));	
-    WIZCHIP.IF.BUS._write_data(IDM_DR,wb);
+   IINCHIP_BusSendData(IDM_AR0 ,tAD[0] );
+	 IINCHIP_BusSendData(IDM_AR1 ,tAD[1] );
+	 IINCHIP_BusSendData(IDM_BSR ,tAD[2] );
+	 IINCHIP_BusSendData(IDM_DR, tAD[3]);
 #else
    #error "Unknown _WIZCHIP_IO_MODE_ in W5100. !!!"
 #endif
-
-   WIZCHIP.CS._deselect();
-   WIZCHIP_CRITICAL_EXIT();
+   IINCHIP_CSon(); 
+  // WIZCHIP.CS._d_e_s_e_l_e_c_t_();
+  // WIZCHIP_CRITICAL_EXIT();
 }
+
+#define MODE_SPI  1
+#define MODE_BUS  0
+
 
 uint8_t  WIZCHIP_READ(uint32_t AddrSel)
 {
    uint8_t ret;
-   uint8_t spi_data[3];
+   uint8_t tAD[3];
+   tAD[0] = (uint8_t)((AddrSel & 0x00FF0000) >> 16);
+   tAD[1] = (uint8_t)((AddrSel & 0x0000FF00) >> 8);
+   tAD[2] = (uint8_t)(AddrSel & 0x000000ff);
 
-   WIZCHIP_CRITICAL_ENTER();
-   WIZCHIP.CS._select();
-
-#if( (_WIZCHIP_IO_MODE_ ==  _WIZCHIP_IO_MODE_SPI_))
-   AddrSel |= (_W6100_SPI_READ_ | _W6100_SPI_OP_);
-
-   if(!WIZCHIP.IF.SPI._read_burst || !WIZCHIP.IF.SPI._write_burst) 	// byte operation
-   {
-	    WIZCHIP.IF.SPI._write_byte((AddrSel & 0x00FF0000) >> 16);
-	    WIZCHIP.IF.SPI._write_byte((AddrSel & 0x0000FF00) >>  8);
-	   	WIZCHIP.IF.SPI._write_byte((AddrSel & 0x000000FF) >>  0);
-   }
-   else																// burst operation
-   {
-		spi_data[0] = (AddrSel & 0x00FF0000) >> 16;
-		spi_data[1] = (AddrSel & 0x0000FF00) >> 8;
-		spi_data[2] = (AddrSel & 0x000000FF) >> 0;
-		WIZCHIP.IF.SPI._write_burst(spi_data, 3);
-   }
-
-   ret = WIZCHIP.IF.SPI._read_byte();
+  // WIZCHIP_CRITICAL_ENTER();
+  // WIZCHIP.CS._s_e_l_e_c_t_();
+ IINCHIP_CSoff(); 
+#if( (_WIZCHIP_IO_MODE_ ==  _WIZCHIP_IO_MODE_SPI_VDM_))
+   tAD[2] |= (_W6100_SPI_READ_ | _W6100_SPI_OP_);
+   IINCHIP_SpiSendData( tAD[0]);	
+   IINCHIP_SpiSendData( tAD[1]);
+   IINCHIP_SpiSendData( tAD[2]);	// 控制段
+   ret = IINCHIP_SpiSendData(0x00);      
 #elif ( (_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_BUS_INDIR_) )
-		WIZCHIP.IF.BUS._write_data(IDM_AR0,(AddrSel & 0xFF0000) >>  16);
-		WIZCHIP.IF.BUS._write_data(IDM_AR1,(AddrSel & 0x00FF00) >>  8);
-    WIZCHIP.IF.BUS._write_data(IDM_BSB,(AddrSel & 0x0000FF));
-    ret = WIZCHIP.IF.BUS._read_data(IDM_DR);
+   IINCHIP_BusSendData(IDM_AR0 ,tAD[0]);
+	 IINCHIP_BusSendData(IDM_AR1 ,tAD[1]);
+	 IINCHIP_BusSendData(IDM_BSR ,tAD[2] );
+	 ret = IINCHIP_BusReadData(IDM_DR);
 #else
-   #error "Unknown _WIZCHIP_IO_MODE_ in W5100S. !!!"   
+   #error "Unknown _WIZCHIP_IO_MODE_ in W6100. !!!"   
 #endif
 
-   WIZCHIP.CS._deselect();
-   WIZCHIP_CRITICAL_EXIT();
+  // WIZCHIP.CS._d_e_s_e_l_e_c_t_();
+  // WIZCHIP_CRITICAL_EXIT();
+	 IINCHIP_CSon(); 
    return ret;
 }
 
-void     WIZCHIP_WRITE_BUF(uint32_t AddrSel, uint8_t* pBuf, uint16_t len)
+void WIZCHIP_WRITE_BUF(uint32_t AddrSel, uint8_t* pBuf, datasize_t len)
 {
-   uint8_t spi_data[3];
-   uint16_t i;
+	 uint16_t idx = 0;		// idx定义为正在写入的第几个数
+   uint8_t tAD[3];
+   tAD[0] = (uint8_t)((AddrSel & 0x00FF0000) >> 16);
+   tAD[1] = (uint8_t)((AddrSel & 0x0000FF00) >> 8);
+   tAD[2] = (uint8_t)(AddrSel & 0x000000ff);
 
-   WIZCHIP_CRITICAL_ENTER();
-   WIZCHIP.CS._select();
+   IINCHIP_CSoff();  
+   // WIZCHIP_CRITICAL_ENTER();
+   //WIZCHIP.CS._s_e_l_e_c_t_();
 
-#if((_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_SPI_))
-   AddrSel |= (_W6100_SPI_WRITE_ | _W6100_SPI_OP_);
-
-   if(!WIZCHIP.IF.SPI._write_burst) 	// byte operation
+#if((_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_SPI_VDM_))
+   tAD[2] |= (_W6100_SPI_WRITE_ | _W6100_SPI_OP_);
+   //	printf("write\r\n");																
+   if(len == 0) log_info("Unexpected2 length 0\r\n");			// 写入数据为空；len表示写入数据的长度
+   IINCHIP_SpiSendData( tAD[0]);		// 地址段，提供16位偏移地址（0000 0000 0000 0000）
+   IINCHIP_SpiSendData( tAD[1]);		// 控制段，共8位（0000 0000 高5位BSB位为00000表示通用寄存器）
+   IINCHIP_SpiSendData( tAD[2]);    // 控制段+4(0000 0100 RWB位置1表示写入，OM位为00表示SPI工作模式为VDM)
+   for(idx = 0; idx < len; idx++)                				// 数据段，写入数据值
    {
-		WIZCHIP.IF.SPI._write_byte((AddrSel & 0x00FF0000) >> 16);
-		WIZCHIP.IF.SPI._write_byte((AddrSel & 0x0000FF00) >>  8);
-		WIZCHIP.IF.SPI._write_byte((AddrSel & 0x000000FF) >>  0);
-		for(i = 0; i < len; i++)
-			WIZCHIP.IF.SPI._write_byte(pBuf[i]);
+     IINCHIP_SpiSendData( pBuf[idx]);											// MCU通过SPI发送数据
    }
-   else									// burst operation
-   {
-		spi_data[0] = (AddrSel & 0x00FF0000) >> 16;
-		spi_data[1] = (AddrSel & 0x0000FF00) >> 8;
-		spi_data[2] = (AddrSel & 0x000000FF) >> 0;
-		WIZCHIP.IF.SPI._write_burst(spi_data, 3);
-		WIZCHIP.IF.SPI._write_burst(pBuf, len);
-   }
+
 #elif ( (_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_BUS_INDIR_) )
-	WIZCHIP.IF.BUS._write_data(IDM_AR0,(AddrSel & 0xFF0000) >>  16);
-    WIZCHIP.IF.BUS._write_data(IDM_AR1,(AddrSel & 0x00FF00) >>  8);
-    WIZCHIP.IF.BUS._write_data(IDM_BSB,(AddrSel & 0x0000FF));
-    for(i = 0 ; i < len; i++)
-       WIZCHIP.IF.BUS._write_data(IDM_DR,pBuf[i]);
+   IINCHIP_BusSendData(IDM_AR0 ,tAD[0]);
+	 IINCHIP_BusSendData(IDM_AR1 ,tAD[1]);
+	 	 IINCHIP_BusSendData(IDM_BSR ,tAD[2] );
+	 for(idx = 0; idx < len; idx++)                // Write data in loop
+   {
+		 IINCHIP_BusSendData(IDM_DR, pBuf[idx]);
+	 }
 #else
-   #error "Unknown _WIZCHIP_IO_MODE_ in W5100S. !!!!"
+   #error "Unknown _WIZCHIP_IO_MODE_ in W6100. !!!!"
 #endif
 
-   WIZCHIP.CS._deselect();
-   WIZCHIP_CRITICAL_EXIT();
+  // WIZCHIP.CS._d_e_s_e_l_e_c_t_();
+  // WIZCHIP_CRITICAL_EXIT();
+	IINCHIP_CSon(); 
 }
 
-void     WIZCHIP_READ_BUF (uint32_t AddrSel, uint8_t* pBuf, uint16_t len)
+void WIZCHIP_READ_BUF (uint32_t AddrSel, uint8_t* pBuf, datasize_t len)
 {
-   uint8_t spi_data[3];
-   uint16_t i;
+   uint8_t tAD[3];
+	 uint16_t idx = 0;		
+   tAD[0] = (uint8_t)((AddrSel & 0x00FF0000) >> 16);
+   tAD[1] = (uint8_t)((AddrSel & 0x0000FF00) >> 8);
+   tAD[2] = (uint8_t)(AddrSel & 0x000000ff);
 
-   WIZCHIP_CRITICAL_ENTER();
-   WIZCHIP.CS._select();
-
-#if((_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_SPI_))
-   AddrSel |= (_W6100_SPI_READ_ | _W6100_SPI_OP_);
-
-   if(!WIZCHIP.IF.SPI._read_burst || !WIZCHIP.IF.SPI._write_burst) 	// byte operation
-   {
-		WIZCHIP.IF.SPI._write_byte((AddrSel & 0x00FF0000) >> 16);
-		WIZCHIP.IF.SPI._write_byte((AddrSel & 0x0000FF00) >>  8);
-		WIZCHIP.IF.SPI._write_byte((AddrSel & 0x000000FF) >>  0);
-		for(i = 0; i < len; i++)
-		   pBuf[i] = WIZCHIP.IF.SPI._read_byte();
-   }
-   else																// burst operation
-   {
-		spi_data[0] = (AddrSel & 0x00FF0000) >> 16;
-		spi_data[1] = (AddrSel & 0x0000FF00) >> 8;
-		spi_data[2] = (AddrSel & 0x000000FF) >> 0;
-		WIZCHIP.IF.SPI._write_burst(spi_data, 3);
-		WIZCHIP.IF.SPI._read_burst(pBuf, len);
-   }
+  // WIZCHIP_CRITICAL_ENTER();
+  // WIZCHIP.CS._s_e_l_e_c_t_();
+	IINCHIP_CSoff();        
+if(len == 0)																				// len定义为读取数据的长度
+  {	
+   // printf("Unexpected2 length 0\r\n");								// 读取数据长度为0
+  }
+#if((_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_SPI_VDM_))
+   tAD[2] |= (_W6100_SPI_READ_ | _W6100_SPI_OP_);
+   IINCHIP_SpiSendData(tAD[0]);		// 地址段
+  IINCHIP_SpiSendData( tAD[1]);		// 控制段
+  IINCHIP_SpiSendData( tAD[2]);    		// 控制段
+  for(idx = 0; idx < len; idx++)                    	// 数据段，读取数据值
+  {
+    pBuf[idx] = IINCHIP_SpiSendData(0x00);							// 将MCU通过SPI发送过来的数据存放在buf数组中
+  }
 #elif ( (_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_BUS_INDIR_) )
-	WIZCHIP.IF.BUS._write_data(IDM_AR0,(AddrSel & 0xFF0000) >>  16);
-	WIZCHIP.IF.BUS._write_data(IDM_AR1,(AddrSel & 0x00FF00) >>  8);
-    WIZCHIP.IF.BUS._write_data(IDM_BSB,(AddrSel & 0x0000FF));	
-    for(i = 0 ; i < len; i++)
-       pBuf[i]	= WIZCHIP.IF.BUS._read_data(IDM_DR);
+   IINCHIP_BusSendData(IDM_AR0 ,tAD[0]);
+	 IINCHIP_BusSendData(IDM_AR1 ,tAD[1]);
+	 	 IINCHIP_BusSendData(IDM_BSR ,tAD[2] );
+	 for(idx = 0; idx < len; idx++)                // Write data in loop
+   {
+		 pBuf[idx] =IINCHIP_BusReadData(IDM_DR);
+	 }
+	
 #else
-   #error "Unknown _WIZCHIP_IO_MODE_ in W5100S. !!!!"
+   #error "Unknown _WIZCHIP_IO_MODE_ in W6100. !!!!"
 #endif
-   WIZCHIP.CS._deselect();
-   WIZCHIP_CRITICAL_EXIT();
+	 IINCHIP_CSon();  
 }
 
-
-
-
-void wiz_send_data(uint8_t sn, uint8_t *wizdata, uint16_t len)
+datasize_t getSn_TX_FSR(uint8_t sn)
 {
-   uint16_t ptr = 0;
+   datasize_t prev_val=-1,val=0;
+   do
+   {
+      prev_val = val;
+      val = WIZCHIP_READ(W6100_Sn_TX_FSR_(sn));
+      val = (val << 8) + WIZCHIP_READ(WIZCHIP_OFFSET_INC(W6100_Sn_TX_FSR_(sn),1));
+   }while (val != prev_val);
+   return val;
+}
+
+datasize_t getSn_RX_RSR(uint8_t sn)
+{
+   datasize_t prev_val=-1,val=0;
+   do
+   {
+      prev_val = val;
+      val = WIZCHIP_READ(W6100_Sn_RX_RSR_(sn));
+      val = (val << 8) + WIZCHIP_READ(WIZCHIP_OFFSET_INC(W6100_Sn_RX_RSR_(sn),1));
+   }while (val != prev_val);
+   return val;
+}
+
+void wiz_send_data(uint8_t sn, uint8_t *wizdata, datasize_t len)
+{
+   datasize_t ptr = 0;
    uint32_t addrsel = 0;
-
-//   if(len == 0)  return;
    ptr = getSn_TX_WR(sn);
-   //M20140501 : implict type casting -> explict type casting
-   //addrsel = (ptr << 8) + (WIZCHIP_TXBUF_BLOCK(sn) << 3);
-   addrsel = ((uint32_t)ptr << 8) + (WIZCHIP_TXBUF_BLOCK(sn) << 3);
-   //
+   addrsel = ((uint32_t)ptr << 8) + WIZCHIP_TXBUF_BLOCK(sn);
    WIZCHIP_WRITE_BUF(addrsel,wizdata, len);
-
    ptr += len;
    setSn_TX_WR(sn,ptr);
 }
 
-void wiz_recv_data(uint8_t sn, uint8_t *wizdata, uint16_t len)
+void wiz_recv_data(uint8_t sn, uint8_t *wizdata, datasize_t len)
 {
-   uint16_t ptr = 0;
+   datasize_t ptr = 0;
    uint32_t addrsel = 0;
-
    if(len == 0) return;
    ptr = getSn_RX_RD(sn);
-   //M20140501 : implict type casting -> explict type casting
-   //addrsel = ((ptr << 8) + (WIZCHIP_RXBUF_BLOCK(sn) << 3);
-   addrsel = ((uint32_t)ptr << 8) + (WIZCHIP_RXBUF_BLOCK(sn) << 3);
-   //
+   addrsel = ((uint32_t)ptr << 8) + WIZCHIP_RXBUF_BLOCK(sn);
    WIZCHIP_READ_BUF(addrsel, wizdata, len);
    ptr += len;
-
    setSn_RX_RD(sn,ptr);
 }
 
-
-void wiz_recv_ignore(uint8_t sn, uint16_t len)
+void wiz_recv_ignore(uint8_t sn, datasize_t len)
 {
-   uint16_t ptr = 0;
-
-   ptr = getSn_RX_RD(sn);
-   ptr += len;
-   setSn_RX_RD(sn,ptr);
+   setSn_RX_RD(sn,getSn_RX_RD(sn)+len);
 }
 
-void wiz_mdio_write(uint8_t PHYMDIO_regadr, uint16_t var)
+
+/// @cond DOXY_APPLY_CODE
+#if (_PHY_IO_MODE_ == _PHY_IO_MODE_MII_)
+/// @endcond
+void wiz_mdio_write(uint8_t phyregaddr, uint16_t var)
 {
-    WIZCHIP_WRITE(PHYRAR,PHYMDIO_regadr);
-    WIZCHIP_WRITE(PHYDIR1, (uint8_t)(var >> 8));
-    WIZCHIP_WRITE(PHYDIR0, (uint8_t)(var));
-    WIZCHIP_WRITE(PHYACR, PHYACR_WRITE);
-    while(WIZCHIP_READ(PHYACR));  //wait for command complete
+   setPHYRAR(phyregaddr);
+   setPHYDIR(var);
+   setPHYACR(PHYACR_WRITE);
+   while(getPHYACR());  //wait for command complete
 }
 
-uint16_t wiz_mdio_read(uint8_t PHYMDIO_regadr)
+uint16_t wiz_mdio_read(uint8_t phyregaddr)
 {
-    WIZCHIP_WRITE(PHYRAR,PHYMDIO_regadr);
-    WIZCHIP_WRITE(PHYACR, PHYACR_READ);
-    while(WIZCHIP_READ(PHYACR));  //wait for command complete
-    return ((uint16_t)WIZCHIP_READ(PHYDOR1) << 8) | WIZCHIP_READ(PHYDOR0);
+   setPHYRAR(phyregaddr);
+   setPHYACR(PHYACR_READ);
+   while(getPHYACR());  //wait for command complete
+   return getPHYDOR();
 }
-
-void chk_ip_version(uint8_t sn)
-{
-	uint8_t ESR = 0;
-
-	if (getSn_SR(sn) == SOCK_ESTABLISHED)
-	{
-		ESR = getSn_ESR(sn);
-		if (ESR&4)	;	//log_info("IPv6 client is connected\r\n");
-		else		;	//log_info("IPv4 client is connected\r\n");
-	}
-	else	;	//log_info("socket isn`t established\r\n");	
-}
-
-int8_t getDestAddr(uint8_t sn, uint8_t * dest_addr)		//only TCP
-{
-	uint8_t dest_ver;
-	
-	if (getSn_SR(sn) != SOCK_ESTABLISHED) return SOCKERR_SOCKSTATUS;
-	
-	dest_ver = getSn_ESR(sn);
-	if (dest_ver & 0x04)  //IPv6
-	{
-		getSn_DIP6R(sn,dest_addr);
-	}
-	else	getSn_DIPR(sn,dest_addr);
-	
-	return 0;
-}
-
-void wiz_delay_ms(uint32_t milliseconds)
-{
-	uint32_t i;
-	for(i = 0 ; i < milliseconds ; i++)
-	{
-		//Write any values to clear the TCNTCLKR register
-		setTCNTCLR();
-
-		// Wait until counter register value reaches 10.(10 = 1ms : TCNTR is 100us tick counter register)
-		while(getTCNTR() < 0x0a){}
-	}
-}
-
-uint16_t getSn_RX_RSR(uint8_t s)
-{
-	uint16_t val_halfword=0,val1_halfword=0;
-    uint8_t val[2]={0, };
-    uint8_t val1[2]={0, };
-	do{
-		WIZCHIP_READ_BUF(Sn_RX_RSR(s), val1, 2);
-		val1_halfword = (uint16_t)(val1[0]<<8)+ val1[1];
-		if (val1_halfword != 0){
-		    WIZCHIP_READ_BUF(Sn_RX_RSR(s), val, 2);
-		    val_halfword = (uint16_t)(val[0]<<8)+ val[1];
-		}
-	}while (val_halfword != val1_halfword);
-	return val_halfword;
-}
-
-void setSLPIPR(uint8_t * addr)
-{
-           WIZCHIP_WRITE_BUF(SLPIPR12, addr, 4); 
-}
-
-void getSLPIPR(uint8_t * addr)
-{
-           WIZCHIP_READ_BUF(SLPIPR12, addr, 4); 
-}
-
-void setSLPIP6R(uint8_t * addr)
-{
-           WIZCHIP_WRITE_BUF(SLPIPR00, addr, 16); 
-}
-
-void getSLPIP6R(uint8_t * addr)
-{
-           WIZCHIP_READ_BUF(SLPIPR00, addr, 16); 
-}
+/// @cond DOXY_APPLY_CODE
 #endif
+/// @endcond
 
-
-//#endif
+////////////////////////////////////////////////////////////////////////////////////////
+#endif

@@ -452,6 +452,11 @@
           <GroupName>W6100</GroupName>
           <Files>
             <File>
+              <FileName>w6100_init.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\W6100\w6100_init.c</FilePath>
+            </File>
+            <File>
               <FileName>w6100.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\W6100\w6100.c</FilePath>

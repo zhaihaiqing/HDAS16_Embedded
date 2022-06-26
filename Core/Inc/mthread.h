@@ -32,6 +32,7 @@ void lan_thread_entry(void *par);
 void key1_thread_entry(void *par);
 void key2_thread_entry(void *par);
 void key3_thread_entry(void *par);
+void led0_thread_entry(void *par);
 void led1_thread_entry(void *par);
 //void led2_thread_entry(void *par);
 
