@@ -147,6 +147,9 @@ void SystemClock_Config(void);
 #define W_CSN_L()		HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_RESET);
 #define W_CSN_H()		HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_SET);
 
+#define LAN_RST_L()	HAL_GPIO_WritePin(RMII_RST_GPIO_Port,GPIO_PIN_12,GPIO_PIN_RESET);
+#define LAN_RST_H()	HAL_GPIO_WritePin(RMII_RST_GPIO_Port,GPIO_PIN_12,GPIO_PIN_SET);
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

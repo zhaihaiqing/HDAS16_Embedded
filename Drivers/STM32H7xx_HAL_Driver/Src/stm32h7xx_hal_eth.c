@@ -342,7 +342,8 @@ HAL_StatusTypeDef HAL_ETH_Init(ETH_HandleTypeDef *heth)
       /* Set State as Error */
       heth->gState = HAL_ETH_STATE_ERROR;
       /* Return Error */
-      return HAL_ERROR;
+     return HAL_ERROR;
+			//break;
     }
   }
 

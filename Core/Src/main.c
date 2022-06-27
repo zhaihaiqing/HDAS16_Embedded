@@ -75,7 +75,7 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  //MX_ETH_Init();
+  
   MX_FMC_Init();
   MX_SPI1_Init();
   MX_I2C1_Init();
@@ -93,6 +93,18 @@ int main(void)
 	bsp_InitAD7606();
 	
 	rt_thread_mdelay(100);
+	
+	
+	
+	log_info("Init ETH...\r\n");
+	LAN_RST_L();
+	rt_thread_mdelay(100);
+	LAN_RST_H();
+	rt_thread_mdelay(1000);
+	
+	MX_ETH_Init();
+	
+	log_info("Init ETH OK!\r\n");
 	
 	hdas_thread_creat();	//执行创建任务函数，开始RTOS
 	
@@ -154,6 +166,9 @@ void SystemClock_Config(void)
   /** Configure the main internal regulator output voltage
   */
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE0);
+	
+	/* Enable D2 domain SRAM3 Clock (0x30040000 AXI)*/
+  __HAL_RCC_D2SRAM3_CLK_ENABLE();
 
   while(!__HAL_PWR_GET_FLAG(PWR_FLAG_VOSRDY)) {}
   /** Macro to configure the PLL clock source
