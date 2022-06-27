@@ -24,7 +24,13 @@
 
 
 /*MAC地址首字节必须为偶数
-  如果多块W5100s网络适配板在同一现场工作，请使用不同的MAC地址
+
+网络参数：
+
+固定IP
+
+TCP模式，主板采用服务器端
+  
 */
 
 /*
@@ -42,52 +48,6 @@ void CPU_CACHE_Enable(void);
 void MPU_Config( void );
 
 void HAL_Get_CPU_RCC_Clock(void);
-	
-/* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-
-/* USER CODE END Includes */
-
-/* Private typedef -----------------------------------------------------------*/
-/* USER CODE BEGIN PTD */
-
-/* USER CODE END PTD */
-
-/* Private define ------------------------------------------------------------*/
-/* USER CODE BEGIN PD */
-/* USER CODE END PD */
-
-/* Private macro -------------------------------------------------------------*/
-/* USER CODE BEGIN PM */
-
-/* USER CODE END PM */
-
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE BEGIN PV */
-
-/* USER CODE END PV */
-
-/* Private function prototypes -----------------------------------------------*/
-//void SystemClock_Config(void);
-/* USER CODE BEGIN PFP */
-
-/* USER CODE END PFP */
-
-/* Private user code ---------------------------------------------------------*/
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
-
-/**
-  * @brief  The application entry point.
-  * @retval int
-  */
-
-
-
-
-
 
 
 uint32_t AD_count=0;
@@ -128,42 +88,11 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-	
-	
-	
-	
+	HAL_GPIO_WritePin(APOW_CTRL_GPIO_Port, APOW_CTRL_Pin, GPIO_PIN_SET);
+	rt_thread_mdelay(100);
 	bsp_InitAD7606();
 	
-	HAL_GPIO_WritePin(APOW_CTRL_GPIO_Port, APOW_CTRL_Pin, GPIO_PIN_SET);
-	
-	
-	
 	rt_thread_mdelay(100);
-	
-	
-	
-//	
-//	log_info("\r\nHasion Electronics W6100 TEST\r\n\r\n");
-//	
-//	/***** 硬重启W6100 *****/
-//	Reset_W6100();           // 复位 W6100  2020-03-11
-////	/***** W6100的IP信息初始化 *****/
-//	Set_Network();														// 配置初始化IP等信息并打印 2020-03-11
-//	setRCR(3);
-//  setRTR(4000);
-//	
-//	log_info("wait PHY_LINK\r\n");
-//	while(wizphy_getphylink()==PHY_LINK_OFF) // 等待物理连接成功后，再进入到socket操作，2020-03-13
-//	{
-//		;
-//	}
-	
-	
-
-
-	
-	
-	
 	
 	hdas_thread_creat();	//执行创建任务函数，开始RTOS
 	

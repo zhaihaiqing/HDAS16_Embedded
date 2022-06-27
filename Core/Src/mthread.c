@@ -154,84 +154,24 @@ uint8_t drv_spi_read_write_byte( uint8_t TxByte )
 void lan_thread_entry(void *par)
 {
 	
-	uint8_t rx[3]={0};
-	uint8_t tx[3]={0};
-	
-	uint32_t count=0;
+//	uint8_t rx[3]={0};
+//	uint8_t tx[3]={0};
+//	
+//	uint32_t count=0;
 		
 	
 	rt_thread_mdelay(200);
 	
-	log_info("\r\nHasion Electronics W6100 TEST\r\n\r\n");
+	
 
 
 	
-	/***** 硬重启W6100 *****/
-	Reset_W6100();           // 复位 W6100  2020-03-11
-	//	/***** W6100的IP信息初始化 *****/
-	Set_Network();														// 配置初始化IP等信息并打印 2020-03-11
-	setRCR(3);
-	setRTR(4000);
-	
-	LOG_Net_info();
-	
-	LAN_Link_Flag=0;
-	log_info("[%d]wait PHY_LINK...\r\n",count);
-	
-	while(wizphy_getphylink()==PHY_LINK_OFF) // 等待物理连接成功后，再进入到socket操作，2020-03-13
-	{
-		rt_thread_mdelay(1000);
-		count++;
-		log_info("[%d]wait PHY_LINK...\r\n",count);
-	}
-	
-	LAN_Link_Flag=1;
-	log_info("PHY_LINK\r\n");
-	
-	
+
 	
 	while(1)
 	{
-		rt_thread_mdelay(1000);
+		rt_thread_mdelay(200);
 	}
-		
-	
-	
-	
-//	while(1)
-//	{
-//		
-//		W_CSN_L();
-//		
-//		rx[0]=0;
-//		rx[1]=0;
-//		rx[2]=0;
-//		
-//		tx[0]=0x00;
-//		tx[1]=0x02;
-//		tx[2]=0x01;
-//		
-//		
-//		HAL_SPI_Transmit(&hspi1,tx,3,0xffff);
-//		
-//		if(HAL_SPI_Receive(&hspi1,rx,1,0xffff) != HAL_OK)
-//		{
-//			log_info("SPI rx error!\r\n");
-//		}
-//		else
-//		{
-//			log_info("rx[0]:0x%x rx[1]:0x%x rx[2]:0x%x\r\n",rx[0],rx[1],rx[2]);
-//		}
-//		
-//		W_CSN_H();
-//		
-//		
-//		rt_thread_mdelay(500);
-//		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_SET);
-//		
-//		rt_thread_mdelay(500);
-//		HAL_GPIO_WritePin(LED2_GPIO_Port, LED2_Pin, GPIO_PIN_RESET);
-//	}
 }
 
 

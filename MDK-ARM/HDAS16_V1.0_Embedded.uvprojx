@@ -337,7 +337,7 @@
               <MiscControls></MiscControls>
               <Define>USE_HAL_DRIVER,STM32H743xx</Define>
               <Undefine></Undefine>
-              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;..\RTT-nano;..\RTT-nano\include\libc;..\RTT-nano\include;..\RTT-nano\kernal;..\RTT-nano\shell;..\W6100</IncludePath>
+              <IncludePath>../Core/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc;../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy;../Drivers/CMSIS/Device/ST/STM32H7xx/Include;../Drivers/CMSIS/Include;..\RTT-nano;..\RTT-nano\include\libc;..\RTT-nano\include;..\RTT-nano\kernal;..\RTT-nano\shell;..\LAN8742;..\LWIP</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -449,29 +449,10 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>W6100</GroupName>
-          <Files>
-            <File>
-              <FileName>w6100_init.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\W6100\w6100_init.c</FilePath>
-            </File>
-            <File>
-              <FileName>w6100.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\W6100\w6100.c</FilePath>
-            </File>
-            <File>
-              <FileName>socket.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\W6100\socket.c</FilePath>
-            </File>
-            <File>
-              <FileName>wizchip_conf.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\W6100\wizchip_conf.c</FilePath>
-            </File>
-          </Files>
+          <GroupName>LAN8742</GroupName>
+        </Group>
+        <Group>
+          <GroupName>LWIP</GroupName>
         </Group>
         <Group>
           <GroupName>Drivers/STM32H7xx_HAL_Driver</GroupName>
