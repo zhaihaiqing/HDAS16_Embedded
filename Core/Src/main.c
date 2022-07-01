@@ -138,7 +138,7 @@ int main(void)
 			
 			for(uint8_t i=0;i<=7;i++)
 			{
-				log_info("AD_B_dat[%d]:0x%x\r\n",i,AD_A_dat[i]);
+				log_info("AD_B_dat[%d]:0x%x\r\n",i,AD_B_dat[i]);
 			}
 			log_info("\r\n");
 		}

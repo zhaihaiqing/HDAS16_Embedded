@@ -167,14 +167,14 @@ void AD7606_B_ISR(void)
 {
 	
 	
-	AD_B_dat[0] = READ_AD7606_A_RESULT();	/* 读第1路样本 */
-	AD_B_dat[1] = READ_AD7606_A_RESULT();	/* 读第2路样本 */
-	AD_B_dat[2] = READ_AD7606_A_RESULT();	/* 读第3路样本 */
-	AD_B_dat[3] = READ_AD7606_A_RESULT();	/* 读第4路样本 */
-	AD_B_dat[4] = READ_AD7606_A_RESULT();	/* 读第5路样本 */
-	AD_B_dat[5] = READ_AD7606_A_RESULT();	/* 读第6路样本 */
-	AD_B_dat[6] = READ_AD7606_A_RESULT();	/* 读第7路样本 */
-	AD_B_dat[7] = READ_AD7606_A_RESULT();	/* 读第8路样本 */
+	AD_B_dat[0] = READ_AD7606_B_RESULT();	/* 读第1路样本 */
+	AD_B_dat[1] = READ_AD7606_B_RESULT();	/* 读第2路样本 */
+	AD_B_dat[2] = READ_AD7606_B_RESULT();	/* 读第3路样本 */
+	AD_B_dat[3] = READ_AD7606_B_RESULT();	/* 读第4路样本 */
+	AD_B_dat[4] = READ_AD7606_B_RESULT();	/* 读第5路样本 */
+	AD_B_dat[5] = READ_AD7606_B_RESULT();	/* 读第6路样本 */
+	AD_B_dat[6] = READ_AD7606_B_RESULT();	/* 读第7路样本 */
+	AD_B_dat[7] = READ_AD7606_B_RESULT();	/* 读第8路样本 */
 	
 	AD_flag |= 0x10;
 	
