@@ -27,7 +27,7 @@ ALIGN(RT_ALIGN_SIZE)
 static struct rt_thread lan_thread;			/*以太网命令接收线程控制块，数据发送有两种方式,一种是命令ACK、查询返回信息，
 																					另一种是主动发送的数据包
 																				*/
-static char lan_thread_stack[512];				//线程堆栈
+static char lan_thread_stack[4096];				//线程堆栈
 #define LAN_THREAD_PRIORITY          6		//线程优先级，按键扫描为最高优先级
 #define LAN_THREAD_TIMESLICE         100		//线程的时间片大小
 
@@ -150,14 +150,17 @@ uint8_t drv_spi_read_write_byte( uint8_t TxByte )
 }
 
 
+uint8_t buff[2048];
 
 void lan_thread_entry(void *par)
 {
-	
+	uint16 local_port=5000;
 	uint8_t rx[3]={0};
 	uint8_t tx[3]={0};
 	
 	uint32_t count=0;
+	
+	uint8 sn;
 		
 	
 	rt_thread_mdelay(200);
@@ -176,7 +179,7 @@ void lan_thread_entry(void *par)
 	LOG_Net_info();
 	
 	LAN_Link_Flag=0;
-	log_info("[%d]wait PHY_LINK...\r\n",count);
+	log_info("[%d]wait PHY_LINK...\r\n",count);	
 	
 	while(wizphy_getphylink()==PHY_LINK_OFF) // 等待物理连接成功后，再进入到socket操作，2020-03-13
 	{
@@ -189,9 +192,29 @@ void lan_thread_entry(void *par)
 	log_info("PHY_LINK\r\n");
 	
 	
-	
-	while(1)
+	count=0;
+	while(1)					//socket操作
 	{
+		
+		
+		if(wizphy_getphylink()==PHY_LINK_OFF)// 如果没插网线，关闭使用的socket。
+		{
+			for(sn=0;sn<7;sn++)
+			{
+			  close(sn);
+			}	
+			count++;
+			log_info("[%d]PHY_LINK_OFF,Plase check...\r\n",count);
+			
+		}
+		else
+		{
+			loopback_tcps(0, buff, local_port, AS_IPDUAL);
+		}
+			
+		
+		
+		
 		rt_thread_mdelay(1000);
 	}
 		
