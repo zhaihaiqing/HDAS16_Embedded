@@ -61,6 +61,15 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
+
+#define debug
+
+#ifdef debug
+		#define log_info(...)  printf(__VA_ARGS__)
+#else
+		#define log_info(...)
+#endif
+
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

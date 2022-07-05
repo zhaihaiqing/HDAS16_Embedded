@@ -20,7 +20,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
-
+#ifdef __GNUC__
+  /* With GCC/RAISONANCE, small printf (option LD Linker->Libraries->Small printf
+     set to 'Yes') calls __io_putchar() */
+  #define PUTCHAR_PROTOTYPE int __io_putchar(int ch)
+#else
+  #define PUTCHAR_PROTOTYPE int fputc(int ch, FILE *f)
+#endif /* __GNUC__ */
 
 
 /*MAC地址首字节必须为偶数
@@ -85,15 +91,29 @@ void HAL_Get_CPU_RCC_Clock(void);
   */
 
 
-
+int fputc(int ch,FILE *f)
+{
+	HAL_UART_Transmit(&huart8,(uint8_t*)&ch,1,10);
+	return ch;
+}
 
 
 
 
 uint32_t AD_count=0;
+uint8_t buff[2048]={0};
+uint8_t LAN_Link_Flag=0;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
+	
+	uint16 local_port=5000;
+	uint8_t rx[3]={0};
+	uint8_t tx[3]={0};
+	
+	uint32_t count=0;
+	
+	uint8 sn;
 
   /* USER CODE END 1 */
 
@@ -103,7 +123,11 @@ int main(void)
   
 
   /* USER CODE BEGIN Init */
+	HAL_Init();
+	
 
+	SystemClock_Config();
+	
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -115,11 +139,17 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+	MX_UART8_Init();
+	log_info("1AD_count=%d\r\n",AD_count);
+	
   //MX_ETH_Init();
   MX_FMC_Init();
+	log_info("2AD_count=%d\r\n",AD_count);
   MX_SPI1_Init();
-  MX_I2C1_Init();
-  MX_UART8_Init();
+	log_info("3AD_count=%d\r\n",AD_count);
+  //MX_I2C1_Init();
+	log_info("4AD_count=%d\r\n",AD_count);
+  
   /* USER CODE BEGIN 2 */
 
 	HAL_Get_CPU_RCC_Clock();
@@ -138,9 +168,9 @@ int main(void)
 	
 	
 	
-	rt_thread_mdelay(100);
+	HAL_Delay(100);
 	
-	
+	log_info("5AD_count=%d\r\n",AD_count);
 	
 //	
 //	log_info("\r\nHasion Electronics W6100 TEST\r\n\r\n");
@@ -165,21 +195,44 @@ int main(void)
 	
 	
 	
-	hdas_thread_creat();	//执行创建任务函数，开始RTOS
+	//hdas_thread_creat();	//执行创建任务函数，开始RTOS
+	
+	/***** 硬重启W6100 *****/
+	Reset_W6100();           // 复位 W6100  2020-03-11
+	//	/***** W6100的IP信息初始化 *****/
+	Set_Network();														// 配置初始化IP等信息并打印 2020-03-11
+	setRCR(3);
+	setRTR(4000);
+	
+	LOG_Net_info();
+	
+	LAN_Link_Flag=0;
+	log_info("[%d]wait PHY_LINK...\r\n",count);	
+	
+	while(wizphy_getphylink()==PHY_LINK_OFF) // 等待物理连接成功后，再进入到socket操作，2020-03-13
+	{
+		HAL_Delay(1000);
+		count++;
+		log_info("[%d]wait PHY_LINK...\r\n",count);
+	}
+	
+	LAN_Link_Flag=1;
+	log_info("PHY_LINK\r\n");
+	
+	
+	while(1)//socket操作测试
+	{
+		
+	}
 	
 	
 	
-	
-	
-	
-	
-	
-  while (1)
+  while (1)//AD7606操作测试
   {
-		rt_thread_mdelay(10);
+		HAL_Delay(10);
 		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_RESET);
 
-		rt_thread_mdelay(10);
+		HAL_Delay(10);
 		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_SET);
 		
 
@@ -339,9 +392,9 @@ void CPU_CACHE_Enable(void)
 /* USER CODE BEGIN 4 */
 void HAL_Get_CPU_RCC_Clock(void)
 {
-	rt_kprintf("[HAL_Get_CPU_RCC_Clock]HAL_RCC_SysClockFreq:%dMHz\r\n",HAL_RCC_GetSysClockFreq()/1000000);
-	rt_kprintf("[HAL_Get_CPU_RCC_Clock]HAL_RCC_HCLKFreq:%dMHz\r\n",HAL_RCC_GetHCLKFreq()/1000000);
-	rt_kprintf("[HAL_Get_CPU_RCC_Clock]HAL_RCC_PCLK1Freq:%dMHz\r\n",HAL_RCC_GetPCLK1Freq()/1000000);
+	log_info("[HAL_Get_CPU_RCC_Clock]HAL_RCC_SysClockFreq:%dMHz\r\n",HAL_RCC_GetSysClockFreq()/1000000);
+	log_info("[HAL_Get_CPU_RCC_Clock]HAL_RCC_HCLKFreq:%dMHz\r\n",HAL_RCC_GetHCLKFreq()/1000000);
+	log_info("[HAL_Get_CPU_RCC_Clock]HAL_RCC_PCLK1Freq:%dMHz\r\n",HAL_RCC_GetPCLK1Freq()/1000000);
 	log_info("[HAL_Get_CPU_RCC_Clock]HAL_RCC_PCLK2Freq:%dMHz\r\n",HAL_RCC_GetPCLK2Freq()/1000000);	
 	
 	//log_info("[%s][%s][%d]Error_Handler\r\n",__FILE__,__func__,__LINE__);

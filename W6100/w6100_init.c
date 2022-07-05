@@ -370,9 +370,9 @@ void Reset_W6100(void) // 2018-07-17
 {
  // int i;
 		HAL_GPIO_WritePin(W_RSTN_GPIO_Port,W_RSTN_Pin,GPIO_PIN_RESET);
-		rt_thread_mdelay(50);
+		HAL_Delay(50);
 		HAL_GPIO_WritePin(W_RSTN_GPIO_Port,W_RSTN_Pin,GPIO_PIN_SET);
-		rt_thread_mdelay(1000);	
+		HAL_Delay(1000);	
 }
 
 

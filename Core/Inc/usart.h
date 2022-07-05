@@ -28,15 +28,15 @@ extern "C" {
 #include "main.h"
 //#include "string.h"
 										
-#define  debug_log
+//#define  debug_log
 
-#ifdef debug_log
+//#ifdef debug_log
 
-   #define  log_info  rt_kprintf
+//   #define  log_info  rt_kprintf
 
-#else
-   #define  log_info(...)
-#endif
+//#else
+//   #define  log_info(...)
+//#endif
 
 /* USER CODE BEGIN Includes */
 
