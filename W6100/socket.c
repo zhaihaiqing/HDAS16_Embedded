@@ -27,6 +27,7 @@ SPI模式或间接总线模式通过 wizchip_conf.h 文件的
 #include <stdio.h>
 #include "socket.h"
 #include "w6100.h"
+#include "main.h"
 
 #define SOCK_ANY_PORT_NUM  0x0400
 
@@ -691,6 +692,96 @@ int16_t peeksockmsg(uint8_t sn, uint8_t* submsg, uint16_t subsize)
 
 
 
+
+
+/*********
+*@brief: TCP Server
+*
+**********************/
+int32_t tcps_senddata_ipv4(uint8_t sn, uint16_t port, uint8_t* buf)  //2020-03-11
+{
+    int32_t ret;
+    int8_t status,inter;
+    uint8_t tmp = 0;
+    datasize_t received_size;
+    uint8_t arg_tmp8;
+      
+		getsockopt(sn, SO_STATUS, &status);  // 获取socket sn的状态  2020-03-11
+		switch(status)
+    {
+					
+      case SOCK_ESTABLISHED :   // 处于SOCK_ESTABLISHED状态，可以进行收发  2020-03-11
+         ctlsocket(sn,CS_GET_INTERRUPT,&inter);   // 读取中断2020-03-11 inter=getSn_IR(sn);  等效可替换
+         if(inter & Sn_IR_CON)       // 连接中断产生表示，TCP连接成功，中断下，其它内容可根据需要添加或删除 2020-03-11 
+         {
+           arg_tmp8 = Sn_IR_CON;
+           ctlsocket(sn,CS_CLR_INTERRUPT,&arg_tmp8); // 回写，清除中断标记，进入连接中断后需要清除。2020-03-11
+         }
+			
+				if(AD_flag==0x11)//判断AD是否采集到数据
+				{
+					AD_flag=0;
+					ret = send(sn, (uint8_t *)AD_A_dat, sizeof(AD_A_dat));
+				}
+				 
+//				 getsockopt(sn, SO_RECVBUF, &received_size); // 判断socket有没有接受到数据：同 received_size=getSn_RX_RSR(sn);等效可替换 2020-03-11
+//				 if(received_size>0)
+//				 {	 
+//           ret = recv(sn, buf, received_size);  //将缓存中收到的数据放入buf中received_size是希望收到的数据，返回ret是实际收到的数据 2020-03-11	 
+//					 ret = send(sn, buf, ret);   // 发送函数，发送buf中长度为ret的数据 2020-03-11
+//				 } 	 
+       break;
+						
+						
+						
+       case SOCK_CLOSE_WAIT :   // 该状态即将关闭， 但还处于连接状态，先处理完收发后，再回DISCON命令，完成4次挥手。
+
+				 if(AD_flag==0x11)//判断AD是否采集到数据
+				{
+					AD_flag=0;
+					ret = send(sn, (uint8_t *)AD_A_dat, sizeof(AD_A_dat));
+				}
+				
+					
+//         ret = recv(sn, buf, received_size);  //将缓存中收到的数据放入buf中received_size是希望收到的数据，返回ret是实际收到的数据 2020-03-11
+//			   if(ret>0)  //buf中的数据大于0，可以启动发送
+//				 {	 
+//						ret = send(sn, buf, ret);   // 发送函数，发送buf中长度为ret的数据
+//				 } 	
+				
+          if((ret = disconnect(sn)) != SOCK_OK) return ret;   //  调用DISCON命令，完成4次挥手。2020-03-11
+
+          break;
+				 
+       case SOCK_INIT :    //SOCK初始完成 ，配置为TCP状态成功 2020-03-11
+          if( (ret = listen(sn)) != SOCK_OK)  // 配置为服务器模式 2020-03-11
+					return ret;
+         break;
+					
+       case SOCK_CLOSED:     // 处于CLOSE状态，需要配置SOCKET函数  2020-03-11	  
+         tmp = socket(sn, Sn_MR_TCP4, port, SOCK_IO_NONBLOCK); //配置socket 2020-03-11  
+				 printf("\r\nW6100 IPV4 Server port: %d\r\n",port); //打印配置socket 2020-03-11	
+         if(tmp != sn)    /* reinitialize the socket */
+         {
+             #ifdef _LOOPBACK_DEBUG_
+                prin24("%d : Fail to create socket.\r\n",sn);
+             #endif
+           return SOCKERR_SOCKNUM;
+         }
+         break;
+					
+        default:
+          break;
+				
+       }
+    return 1;
+}
+
+
+
+
+
+
 /*********
 *@brief: TCP Server
 *
@@ -764,7 +855,7 @@ int32_t loopback_tcps(uint8_t sn, uint8_t* buf, uint16_t port, uint8_t loopback_
          if(tmp != sn)    /* reinitialize the socket */
          {
              #ifdef _LOOPBACK_DEBUG_
-                printf("%d : Fail to create socket.\r\n",sn);
+                prin24("%d : Fail to create socket.\r\n",sn);
              #endif
            return SOCKERR_SOCKNUM;
          }

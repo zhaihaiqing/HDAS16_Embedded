@@ -50,7 +50,10 @@ Section Cross References
     main.o(i.main) refers to w6100.o(i.WIZCHIP_WRITE) for WIZCHIP_WRITE
     main.o(i.main) refers to w6100_init.o(i.LOG_Net_info) for LOG_Net_info
     main.o(i.main) refers to wizchip_conf.o(i.wizphy_getphylink) for wizphy_getphylink
+    main.o(i.main) refers to socket.o(i.tcps_senddata_ipv4) for tcps_senddata_ipv4
+    main.o(i.main) refers to socket.o(i.close) for close
     main.o(i.main) refers to main.o(.data) for .data
+    main.o(i.main) refers to main.o(.bss) for .bss
     gpio.o(i.MX_GPIO_Init) refers to memseta.o(.text) for __aeabi_memclr4
     gpio.o(i.MX_GPIO_Init) refers to stm32h7xx_hal_gpio.o(i.HAL_GPIO_WritePin) for HAL_GPIO_WritePin
     gpio.o(i.MX_GPIO_Init) refers to stm32h7xx_hal_gpio.o(i.HAL_GPIO_Init) for HAL_GPIO_Init
@@ -272,6 +275,15 @@ Section Cross References
     socket.o(i.socket) refers to w6100.o(i.WIZCHIP_READ) for WIZCHIP_READ
     socket.o(i.socket) refers to socket.o(.data) for .data
     socket.o(i.socket) refers to socket.o(.bss) for .bss
+    socket.o(i.tcps_senddata_ipv4) refers to socket.o(i.getsockopt) for getsockopt
+    socket.o(i.tcps_senddata_ipv4) refers to socket.o(i.ctlsocket) for ctlsocket
+    socket.o(i.tcps_senddata_ipv4) refers to socket.o(i.send) for send
+    socket.o(i.tcps_senddata_ipv4) refers to socket.o(i.disconnect) for disconnect
+    socket.o(i.tcps_senddata_ipv4) refers to socket.o(i.listen) for listen
+    socket.o(i.tcps_senddata_ipv4) refers to socket.o(i.socket) for socket
+    socket.o(i.tcps_senddata_ipv4) refers to printfa.o(i.__0printf) for __2printf
+    socket.o(i.tcps_senddata_ipv4) refers to fmc_ad7606.o(.data) for AD_flag
+    socket.o(i.tcps_senddata_ipv4) refers to fmc_ad7606.o(.bss) for AD_A_dat
     wizchip_conf.o(i.ctlnetservice) refers to wizchip_conf.o(i.wizchip_arp) for wizchip_arp
     wizchip_conf.o(i.ctlnetservice) refers to wizchip_conf.o(i.wizchip_ping) for wizchip_ping
     wizchip_conf.o(i.ctlnetservice) refers to wizchip_conf.o(i.wizchip_dad) for wizchip_dad
@@ -1243,7 +1255,6 @@ Removing Unused input sections from the image.
     Removing main.o(.rrx_text), (6 bytes).
     Removing main.o(i.CPU_CACHE_Enable), (136 bytes).
     Removing main.o(i.MPU_Config), (74 bytes).
-    Removing main.o(.bss), (2048 bytes).
     Removing gpio.o(.rev16_text), (4 bytes).
     Removing gpio.o(.revsh_text), (4 bytes).
     Removing gpio.o(.rrx_text), (6 bytes).
@@ -1313,30 +1324,21 @@ Removing Unused input sections from the image.
     Removing w6100.o(.rrx_text), (6 bytes).
     Removing w6100.o(i.IINCHIP_BusReadData), (4 bytes).
     Removing w6100.o(i.IINCHIP_BusSendData), (4 bytes).
-    Removing w6100.o(i.getSn_RX_RSR), (60 bytes).
-    Removing w6100.o(i.getSn_TX_FSR), (60 bytes).
     Removing w6100.o(i.wiz_recv_data), (100 bytes).
     Removing w6100.o(i.wiz_recv_ignore), (92 bytes).
-    Removing w6100.o(i.wiz_send_data), (92 bytes).
-    Removing socket.o(i.close), (116 bytes).
+    Removing socket.o(.rev16_text), (4 bytes).
+    Removing socket.o(.revsh_text), (4 bytes).
+    Removing socket.o(.rrx_text), (6 bytes).
     Removing socket.o(i.connect), (236 bytes).
-    Removing socket.o(i.ctlsocket), (200 bytes).
-    Removing socket.o(i.disconnect), (144 bytes).
-    Removing socket.o(i.getsockopt), (436 bytes).
-    Removing socket.o(i.listen), (90 bytes).
     Removing socket.o(i.loopback_tcpc), (588 bytes).
     Removing socket.o(i.loopback_tcps), (360 bytes).
     Removing socket.o(i.loopback_udps), (272 bytes).
     Removing socket.o(i.peeksockmsg), (132 bytes).
     Removing socket.o(i.recv), (156 bytes).
     Removing socket.o(i.recvfrom), (456 bytes).
-    Removing socket.o(i.send), (240 bytes).
     Removing socket.o(i.sendto), (364 bytes).
     Removing socket.o(i.setsockopt), (312 bytes).
-    Removing socket.o(i.socket), (496 bytes).
-    Removing socket.o(.bss), (32 bytes).
     Removing socket.o(.conststring), (74 bytes).
-    Removing socket.o(.data), (24 bytes).
     Removing wizchip_conf.o(i.ctlnetservice), (54 bytes).
     Removing wizchip_conf.o(i.ctlnetwork), (104 bytes).
     Removing wizchip_conf.o(i.ctlwizchip), (420 bytes).
@@ -2010,7 +2012,7 @@ Removing Unused input sections from the image.
     Removing system_stm32h7xx.o(.rrx_text), (6 bytes).
     Removing system_stm32h7xx.o(i.SystemCoreClockUpdate), (320 bytes).
 
-772 unused section(s) (total 73091 bytes) removed from the image.
+762 unused section(s) (total 69067 bytes) removed from the image.
 
 ==============================================================================
 
@@ -2058,35 +2060,35 @@ Image Symbol Table
     ../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_ll_fmc.c 0x00000000   Number         0  stm32h7xx_ll_fmc.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
     ../clib/microlib/division.c              0x00000000   Number         0  uidiv.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry12a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry12b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry12b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry12a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
+    ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llsshr.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf1.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf8.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf7.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfa.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
-    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf6.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf5.o ABSOLUTE
     ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf4.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf3.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf2.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printf0.o ABSOLUTE
+    ../clib/microlib/printf/printf.c         0x00000000   Number         0  printfb.o ABSOLUTE
     ../clib/microlib/printf/stubs.s          0x00000000   Number         0  stubs.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
     ../clib/microlib/string/memset.c         0x00000000   Number         0  memseta.o ABSOLUTE
@@ -2094,8 +2096,8 @@ Image Symbol Table
     ../clib/microlib/string/strlen.c         0x00000000   Number         0  strlen.o ABSOLUTE
     ../clib/microlib/string/strncpy.c        0x00000000   Number         0  strncpy.o ABSOLUTE
     ../clib/microlib/string/strstr.c         0x00000000   Number         0  strstr.o ABSOLUTE
-    ../clib/microlib/string/strtok.c         0x00000000   Number         0  strtok_r.o ABSOLUTE
     ../clib/microlib/string/strtok.c         0x00000000   Number         0  strtok.o ABSOLUTE
+    ../clib/microlib/string/strtok.c         0x00000000   Number         0  strtok_r.o ABSOLUTE
     ../clib/microlib/stubs.s                 0x00000000   Number         0  iusefp.o ABSOLUTE
     ../fplib/microlib/fpadd.c                0x00000000   Number         0  dadd.o ABSOLUTE
     ../fplib/microlib/fpdiv.c                0x00000000   Number         0  ddiv.o ABSOLUTE
@@ -2145,6 +2147,7 @@ Image Symbol Table
     ..\W6100\w6100_init.c                    0x00000000   Number         0  w6100_init.o ABSOLUTE
     ..\W6100\wizchip_conf.c                  0x00000000   Number         0  wizchip_conf.o ABSOLUTE
     ..\\Core\\Src\\fmc_ad7606.c              0x00000000   Number         0  fmc_ad7606.o ABSOLUTE
+    ..\\W6100\\socket.c                      0x00000000   Number         0  socket.o ABSOLUTE
     ..\\W6100\\w6100.c                       0x00000000   Number         0  w6100.o ABSOLUTE
     ..\\W6100\\w6100_init.c                  0x00000000   Number         0  w6100_init.o ABSOLUTE
     cdrcmple.s                               0x00000000   Number         0  cdrcmple.o ABSOLUTE
@@ -2286,29 +2289,50 @@ Image Symbol Table
     i._printf_pre_padding                    0x08004c28   Section        0  printfa.o(i._printf_pre_padding)
     _printf_pre_padding                      0x08004c29   Thumb Code    46  printfa.o(i._printf_pre_padding)
     i.bsp_InitAD7606                         0x08004c56   Section        0  fmc_ad7606.o(i.bsp_InitAD7606)
-    i.fputc                                  0x08004c68   Section        0  main.o(i.fputc)
-    i.main                                   0x08004c80   Section        0  main.o(i.main)
-    i.wizchip_init                           0x08004dbc   Section        0  wizchip_conf.o(i.wizchip_init)
-    i.wizchip_sw_reset                       0x08004e3c   Section        0  wizchip_conf.o(i.wizchip_sw_reset)
-    i.wizphy_getphylink                      0x08004f6c   Section        0  wizchip_conf.o(i.wizphy_getphylink)
-    .constdata                               0x08004f7c   Section       24  stm32h7xx_hal_uart.o(.constdata)
-    .constdata                               0x08004f94   Section       16  stm32h7xx_hal_uart_ex.o(.constdata)
-    numerator                                0x08004f94   Data           8  stm32h7xx_hal_uart_ex.o(.constdata)
-    denominator                              0x08004f9c   Data           8  stm32h7xx_hal_uart_ex.o(.constdata)
-    .constdata                               0x08004fa4   Section       16  system_stm32h7xx.o(.constdata)
+    i.close                                  0x08004c68   Section        0  socket.o(i.close)
+    i.ctlsocket                              0x08004cdc   Section        0  socket.o(i.ctlsocket)
+    i.disconnect                             0x08004da4   Section        0  socket.o(i.disconnect)
+    i.fputc                                  0x08004e34   Section        0  main.o(i.fputc)
+    i.getSn_RX_RSR                           0x08004e4c   Section        0  w6100.o(i.getSn_RX_RSR)
+    i.getSn_TX_FSR                           0x08004e88   Section        0  w6100.o(i.getSn_TX_FSR)
+    i.getsockopt                             0x08004ec4   Section        0  socket.o(i.getsockopt)
+    i.listen                                 0x08005078   Section        0  socket.o(i.listen)
+    i.main                                   0x080050d4   Section        0  main.o(i.main)
+    i.send                                   0x08005250   Section        0  socket.o(i.send)
+    i.socket                                 0x08005340   Section        0  socket.o(i.socket)
+    i.tcps_senddata_ipv4                     0x08005530   Section        0  socket.o(i.tcps_senddata_ipv4)
+    i.wiz_send_data                          0x08005600   Section        0  w6100.o(i.wiz_send_data)
+    i.wizchip_init                           0x0800565c   Section        0  wizchip_conf.o(i.wizchip_init)
+    i.wizchip_sw_reset                       0x080056dc   Section        0  wizchip_conf.o(i.wizchip_sw_reset)
+    i.wizphy_getphylink                      0x0800580c   Section        0  wizchip_conf.o(i.wizphy_getphylink)
+    .constdata                               0x0800581c   Section       24  stm32h7xx_hal_uart.o(.constdata)
+    .constdata                               0x08005834   Section       16  stm32h7xx_hal_uart_ex.o(.constdata)
+    numerator                                0x08005834   Data           8  stm32h7xx_hal_uart_ex.o(.constdata)
+    denominator                              0x0800583c   Data           8  stm32h7xx_hal_uart_ex.o(.constdata)
+    .constdata                               0x08005844   Section       16  system_stm32h7xx.o(.constdata)
     .data                                    0x24000000   Section        8  main.o(.data)
     .data                                    0x24000008   Section        1  fmc_ad7606.o(.data)
     .data                                    0x2400000c   Section        8  fmc.o(.data)
     FMC_Initialized                          0x2400000c   Data           4  fmc.o(.data)
     FMC_DeInitialized                        0x24000010   Data           4  fmc.o(.data)
-    .data                                    0x24000014   Section       12  stm32h7xx_hal.o(.data)
-    .data                                    0x24000020   Section        8  system_stm32h7xx.o(.data)
-    .data                                    0x24000028   Section        4  stdout.o(.data)
-    .bss                                     0x2400002c   Section       32  fmc_ad7606.o(.bss)
-    .bss                                     0x2400004c   Section      152  fmc.o(.bss)
-    .bss                                     0x240000e4   Section      136  spi.o(.bss)
-    .bss                                     0x2400016c   Section      144  usart.o(.bss)
-    STACK                                    0x24000200   Section     4096  startup_stm32h743xx.o(STACK)
+    .data                                    0x24000014   Section       24  socket.o(.data)
+    sock_any_port                            0x24000014   Data           2  socket.o(.data)
+    sock_io_mode                             0x24000016   Data           2  socket.o(.data)
+    sock_is_sending                          0x24000018   Data           2  socket.o(.data)
+    destport                                 0x2400001a   Data           2  socket.o(.data)
+    sock_pack_info                           0x2400001c   Data           8  socket.o(.data)
+    .data                                    0x2400002c   Section       12  stm32h7xx_hal.o(.data)
+    .data                                    0x24000038   Section        8  system_stm32h7xx.o(.data)
+    .data                                    0x24000040   Section        4  stdout.o(.data)
+    .bss                                     0x24000044   Section     2048  main.o(.bss)
+    .bss                                     0x24000844   Section       32  fmc_ad7606.o(.bss)
+    .bss                                     0x24000864   Section      152  fmc.o(.bss)
+    .bss                                     0x240008fc   Section      136  spi.o(.bss)
+    .bss                                     0x24000984   Section      144  usart.o(.bss)
+    .bss                                     0x24000a14   Section       32  socket.o(.bss)
+    sock_remained_size                       0x24000a14   Data          16  socket.o(.bss)
+    destip                                   0x24000a24   Data          16  socket.o(.bss)
+    STACK                                    0x24000a38   Section     4096  startup_stm32h743xx.o(STACK)
     .ARM.__AT_0x30040000                     0x30040000   Section       96  eth.o(.ARM.__AT_0x30040000)
     .ARM.__AT_0x30040060                     0x30040060   Section       96  eth.o(.ARM.__AT_0x30040060)
     .ARM.__AT_0x30040200                     0x30040200   Section     6112  eth.o(.ARM.__AT_0x30040200)
@@ -2632,31 +2656,44 @@ Image Symbol Table
     __scatterload_null                       0x080043bd   Thumb Code     2  handlers.o(i.__scatterload_null)
     __scatterload_zeroinit                   0x080043bf   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
     bsp_InitAD7606                           0x08004c57   Thumb Code    16  fmc_ad7606.o(i.bsp_InitAD7606)
-    fputc                                    0x08004c69   Thumb Code    18  main.o(i.fputc)
-    main                                     0x08004c81   Thumb Code   184  main.o(i.main)
-    wizchip_init                             0x08004dbd   Thumb Code   118  wizchip_conf.o(i.wizchip_init)
-    wizchip_sw_reset                         0x08004e3d   Thumb Code   258  wizchip_conf.o(i.wizchip_sw_reset)
-    wizphy_getphylink                        0x08004f6d   Thumb Code    16  wizchip_conf.o(i.wizphy_getphylink)
-    UARTPrescTable                           0x08004f7c   Data          24  stm32h7xx_hal_uart.o(.constdata)
-    D1CorePrescTable                         0x08004fa4   Data          16  system_stm32h7xx.o(.constdata)
-    Region$$Table$$Base                      0x08004fb4   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x08004fd4   Number         0  anon$$obj.o(Region$$Table)
+    close                                    0x08004c69   Thumb Code   106  socket.o(i.close)
+    ctlsocket                                0x08004cdd   Thumb Code   188  socket.o(i.ctlsocket)
+    disconnect                               0x08004da5   Thumb Code   140  socket.o(i.disconnect)
+    fputc                                    0x08004e35   Thumb Code    18  main.o(i.fputc)
+    getSn_RX_RSR                             0x08004e4d   Thumb Code    50  w6100.o(i.getSn_RX_RSR)
+    getSn_TX_FSR                             0x08004e89   Thumb Code    50  w6100.o(i.getSn_TX_FSR)
+    getsockopt                               0x08004ec5   Thumb Code   386  socket.o(i.getsockopt)
+    listen                                   0x08005079   Thumb Code    90  socket.o(i.listen)
+    main                                     0x080050d5   Thumb Code   226  main.o(i.main)
+    send                                     0x08005251   Thumb Code   230  socket.o(i.send)
+    socket                                   0x08005341   Thumb Code   464  socket.o(i.socket)
+    tcps_senddata_ipv4                       0x08005531   Thumb Code   168  socket.o(i.tcps_senddata_ipv4)
+    wiz_send_data                            0x08005601   Thumb Code    84  w6100.o(i.wiz_send_data)
+    wizchip_init                             0x0800565d   Thumb Code   118  wizchip_conf.o(i.wizchip_init)
+    wizchip_sw_reset                         0x080056dd   Thumb Code   258  wizchip_conf.o(i.wizchip_sw_reset)
+    wizphy_getphylink                        0x0800580d   Thumb Code    16  wizchip_conf.o(i.wizphy_getphylink)
+    UARTPrescTable                           0x0800581c   Data          24  stm32h7xx_hal_uart.o(.constdata)
+    D1CorePrescTable                         0x08005844   Data          16  system_stm32h7xx.o(.constdata)
+    Region$$Table$$Base                      0x08005854   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08005874   Number         0  anon$$obj.o(Region$$Table)
     LAN_Link_Flag                            0x24000000   Data           1  main.o(.data)
     AD_count                                 0x24000004   Data           4  main.o(.data)
     AD_flag                                  0x24000008   Data           1  fmc_ad7606.o(.data)
-    uwTickFreq                               0x24000014   Data           1  stm32h7xx_hal.o(.data)
-    uwTickPrio                               0x24000018   Data           4  stm32h7xx_hal.o(.data)
-    uwTick                                   0x2400001c   Data           4  stm32h7xx_hal.o(.data)
-    SystemCoreClock                          0x24000020   Data           4  system_stm32h7xx.o(.data)
-    SystemD2Clock                            0x24000024   Data           4  system_stm32h7xx.o(.data)
-    __stdout                                 0x24000028   Data           4  stdout.o(.data)
-    AD_A_dat                                 0x2400002c   Data          16  fmc_ad7606.o(.bss)
-    AD_B_dat                                 0x2400003c   Data          16  fmc_ad7606.o(.bss)
-    hsram1                                   0x2400004c   Data          76  fmc.o(.bss)
-    hsram2                                   0x24000098   Data          76  fmc.o(.bss)
-    hspi1                                    0x240000e4   Data         136  spi.o(.bss)
-    huart8                                   0x2400016c   Data         144  usart.o(.bss)
-    __initial_sp                             0x24001200   Data           0  startup_stm32h743xx.o(STACK)
+    connect_flag                             0x24000024   Data           8  socket.o(.data)
+    uwTickFreq                               0x2400002c   Data           1  stm32h7xx_hal.o(.data)
+    uwTickPrio                               0x24000030   Data           4  stm32h7xx_hal.o(.data)
+    uwTick                                   0x24000034   Data           4  stm32h7xx_hal.o(.data)
+    SystemCoreClock                          0x24000038   Data           4  system_stm32h7xx.o(.data)
+    SystemD2Clock                            0x2400003c   Data           4  system_stm32h7xx.o(.data)
+    __stdout                                 0x24000040   Data           4  stdout.o(.data)
+    buff                                     0x24000044   Data        2048  main.o(.bss)
+    AD_A_dat                                 0x24000844   Data          16  fmc_ad7606.o(.bss)
+    AD_B_dat                                 0x24000854   Data          16  fmc_ad7606.o(.bss)
+    hsram1                                   0x24000864   Data          76  fmc.o(.bss)
+    hsram2                                   0x240008b0   Data          76  fmc.o(.bss)
+    hspi1                                    0x240008fc   Data         136  spi.o(.bss)
+    huart8                                   0x24000984   Data         144  usart.o(.bss)
+    __initial_sp                             0x24001a38   Data           0  startup_stm32h743xx.o(STACK)
     DMARxDscrTab                             0x30040000   Data          96  eth.o(.ARM.__AT_0x30040000)
     DMATxDscrTab                             0x30040060   Data          96  eth.o(.ARM.__AT_0x30040060)
     Rx_Buff                                  0x30040200   Data        6112  eth.o(.ARM.__AT_0x30040200)
@@ -2669,38 +2706,38 @@ Memory Map of the image
 
   Image Entry point : 0x08000299
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00005000, Max: 0x00200000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x000058b8, Max: 0x00200000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00004fd4, Max: 0x00200000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x00005874, Max: 0x00200000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
     0x08000000   0x08000000   0x00000298   Data   RO            3    RESET               startup_stm32h743xx.o
-    0x08000298   0x08000298   0x00000000   Code   RO         5362  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x08000298   0x08000298   0x00000004   Code   RO         5644    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x0800029c   0x0800029c   0x00000004   Code   RO         5647    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x080002a0   0x080002a0   0x00000000   Code   RO         5649    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x080002a0   0x080002a0   0x00000000   Code   RO         5651    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x080002a0   0x080002a0   0x00000008   Code   RO         5652    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x080002a8   0x080002a8   0x00000004   Code   RO         5659    .ARM.Collect$$$$0000000E  mc_w.l(entry12b.o)
-    0x080002ac   0x080002ac   0x00000000   Code   RO         5654    .ARM.Collect$$$$0000000F  mc_w.l(entry10a.o)
-    0x080002ac   0x080002ac   0x00000000   Code   RO         5656    .ARM.Collect$$$$00000011  mc_w.l(entry11a.o)
-    0x080002ac   0x080002ac   0x00000004   Code   RO         5645    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000298   0x08000298   0x00000000   Code   RO         5379  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x08000298   0x08000298   0x00000004   Code   RO         5661    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x0800029c   0x0800029c   0x00000004   Code   RO         5664    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x080002a0   0x080002a0   0x00000000   Code   RO         5666    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x080002a0   0x080002a0   0x00000000   Code   RO         5668    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x080002a0   0x080002a0   0x00000008   Code   RO         5669    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x080002a8   0x080002a8   0x00000004   Code   RO         5676    .ARM.Collect$$$$0000000E  mc_w.l(entry12b.o)
+    0x080002ac   0x080002ac   0x00000000   Code   RO         5671    .ARM.Collect$$$$0000000F  mc_w.l(entry10a.o)
+    0x080002ac   0x080002ac   0x00000000   Code   RO         5673    .ARM.Collect$$$$00000011  mc_w.l(entry11a.o)
+    0x080002ac   0x080002ac   0x00000004   Code   RO         5662    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
     0x080002b0   0x080002b0   0x00000024   Code   RO            4    .text               startup_stm32h743xx.o
-    0x080002d4   0x080002d4   0x00000062   Code   RO         5365    .text               mc_w.l(uldiv.o)
-    0x08000336   0x08000336   0x00000024   Code   RO         5367    .text               mc_w.l(memseta.o)
-    0x0800035a   0x0800035a   0x0000002c   Code   RO         5661    .text               mc_w.l(uidiv.o)
-    0x08000386   0x08000386   0x0000001e   Code   RO         5663    .text               mc_w.l(llshl.o)
-    0x080003a4   0x080003a4   0x00000020   Code   RO         5665    .text               mc_w.l(llushr.o)
-    0x080003c4   0x080003c4   0x00000000   Code   RO         5667    .text               mc_w.l(iusefp.o)
-    0x080003c4   0x080003c4   0x0000014e   Code   RO         5668    .text               mf_w.l(dadd.o)
-    0x08000512   0x08000512   0x000000e4   Code   RO         5670    .text               mf_w.l(dmul.o)
-    0x080005f6   0x080005f6   0x000000de   Code   RO         5672    .text               mf_w.l(ddiv.o)
-    0x080006d4   0x080006d4   0x00000030   Code   RO         5674    .text               mf_w.l(dfixul.o)
-    0x08000704   0x08000704   0x00000030   Code   RO         5676    .text               mf_w.l(cdrcmple.o)
-    0x08000734   0x08000734   0x00000024   Code   RO         5678    .text               mc_w.l(init.o)
-    0x08000758   0x08000758   0x00000024   Code   RO         5680    .text               mc_w.l(llsshr.o)
-    0x0800077c   0x0800077c   0x000000ba   Code   RO         5682    .text               mf_w.l(depilogue.o)
+    0x080002d4   0x080002d4   0x00000062   Code   RO         5382    .text               mc_w.l(uldiv.o)
+    0x08000336   0x08000336   0x00000024   Code   RO         5384    .text               mc_w.l(memseta.o)
+    0x0800035a   0x0800035a   0x0000002c   Code   RO         5678    .text               mc_w.l(uidiv.o)
+    0x08000386   0x08000386   0x0000001e   Code   RO         5680    .text               mc_w.l(llshl.o)
+    0x080003a4   0x080003a4   0x00000020   Code   RO         5682    .text               mc_w.l(llushr.o)
+    0x080003c4   0x080003c4   0x00000000   Code   RO         5684    .text               mc_w.l(iusefp.o)
+    0x080003c4   0x080003c4   0x0000014e   Code   RO         5685    .text               mf_w.l(dadd.o)
+    0x08000512   0x08000512   0x000000e4   Code   RO         5687    .text               mf_w.l(dmul.o)
+    0x080005f6   0x080005f6   0x000000de   Code   RO         5689    .text               mf_w.l(ddiv.o)
+    0x080006d4   0x080006d4   0x00000030   Code   RO         5691    .text               mf_w.l(dfixul.o)
+    0x08000704   0x08000704   0x00000030   Code   RO         5693    .text               mf_w.l(cdrcmple.o)
+    0x08000734   0x08000734   0x00000024   Code   RO         5695    .text               mc_w.l(init.o)
+    0x08000758   0x08000758   0x00000024   Code   RO         5697    .text               mc_w.l(llsshr.o)
+    0x0800077c   0x0800077c   0x000000ba   Code   RO         5699    .text               mf_w.l(depilogue.o)
     0x08000836   0x08000836   0x00000002   PAD
     0x08000838   0x08000838   0x0000003c   Code   RO          366    i.AD7606_A_ISR      fmc_ad7606.o
     0x08000874   0x08000874   0x0000003c   Code   RO          367    i.AD7606_B_ISR      fmc_ad7606.o
@@ -2712,52 +2749,52 @@ Memory Map of the image
     0x08000984   0x08000984   0x00000006   Code   RO          604    i.EXTI4_IRQHandler  stm32h7xx_it.o
     0x0800098a   0x0800098a   0x00000006   Code   RO          605    i.EXTI9_5_IRQHandler  stm32h7xx_it.o
     0x08000990   0x08000990   0x00000004   Code   RO           14    i.Error_Handler     main.o
-    0x08000994   0x08000994   0x00000040   Code   RO         4160    i.FMC_NORSRAM_Extended_Timing_Init  stm32h7xx_ll_fmc.o
-    0x080009d4   0x080009d4   0x00000094   Code   RO         4161    i.FMC_NORSRAM_Init  stm32h7xx_ll_fmc.o
-    0x08000a68   0x08000a68   0x00000068   Code   RO         4162    i.FMC_NORSRAM_Timing_Init  stm32h7xx_ll_fmc.o
-    0x08000ad0   0x08000ad0   0x00000024   Code   RO         2819    i.HAL_Delay         stm32h7xx_hal.o
+    0x08000994   0x08000994   0x00000040   Code   RO         4177    i.FMC_NORSRAM_Extended_Timing_Init  stm32h7xx_ll_fmc.o
+    0x080009d4   0x080009d4   0x00000094   Code   RO         4178    i.FMC_NORSRAM_Init  stm32h7xx_ll_fmc.o
+    0x08000a68   0x08000a68   0x00000068   Code   RO         4179    i.FMC_NORSRAM_Timing_Init  stm32h7xx_ll_fmc.o
+    0x08000ad0   0x08000ad0   0x00000024   Code   RO         2836    i.HAL_Delay         stm32h7xx_hal.o
     0x08000af4   0x08000af4   0x000000e0   Code   RO          427    i.HAL_FMC_MspInit   fmc.o
     0x08000bd4   0x08000bd4   0x00000024   Code   RO          370    i.HAL_GPIO_EXTI_Callback  fmc_ad7606.o
-    0x08000bf8   0x08000bf8   0x00000018   Code   RO         1957    i.HAL_GPIO_EXTI_IRQHandler  stm32h7xx_hal_gpio.o
-    0x08000c10   0x08000c10   0x0000022c   Code   RO         1958    i.HAL_GPIO_Init     stm32h7xx_hal_gpio.o
-    0x08000e3c   0x08000e3c   0x00000010   Code   RO         1961    i.HAL_GPIO_TogglePin  stm32h7xx_hal_gpio.o
-    0x08000e4c   0x08000e4c   0x0000000a   Code   RO         1962    i.HAL_GPIO_WritePin  stm32h7xx_hal_gpio.o
+    0x08000bf8   0x08000bf8   0x00000018   Code   RO         1974    i.HAL_GPIO_EXTI_IRQHandler  stm32h7xx_hal_gpio.o
+    0x08000c10   0x08000c10   0x0000022c   Code   RO         1975    i.HAL_GPIO_Init     stm32h7xx_hal_gpio.o
+    0x08000e3c   0x08000e3c   0x00000010   Code   RO         1978    i.HAL_GPIO_TogglePin  stm32h7xx_hal_gpio.o
+    0x08000e4c   0x08000e4c   0x0000000a   Code   RO         1979    i.HAL_GPIO_WritePin  stm32h7xx_hal_gpio.o
     0x08000e56   0x08000e56   0x00000002   PAD
-    0x08000e58   0x08000e58   0x0000000c   Code   RO         2830    i.HAL_GetREVID      stm32h7xx_hal.o
-    0x08000e64   0x08000e64   0x0000000c   Code   RO         2831    i.HAL_GetTick       stm32h7xx_hal.o
+    0x08000e58   0x08000e58   0x0000000c   Code   RO         2847    i.HAL_GetREVID      stm32h7xx_hal.o
+    0x08000e64   0x08000e64   0x0000000c   Code   RO         2848    i.HAL_GetTick       stm32h7xx_hal.o
     0x08000e70   0x08000e70   0x00000110   Code   RO           15    i.HAL_Get_CPU_RCC_Clock  main.o
-    0x08000f80   0x08000f80   0x00000010   Code   RO         2837    i.HAL_IncTick       stm32h7xx_hal.o
-    0x08000f90   0x08000f90   0x0000005c   Code   RO         2838    i.HAL_Init          stm32h7xx_hal.o
-    0x08000fec   0x08000fec   0x00000040   Code   RO         2839    i.HAL_InitTick      stm32h7xx_hal.o
+    0x08000f80   0x08000f80   0x00000010   Code   RO         2854    i.HAL_IncTick       stm32h7xx_hal.o
+    0x08000f90   0x08000f90   0x0000005c   Code   RO         2855    i.HAL_Init          stm32h7xx_hal.o
+    0x08000fec   0x08000fec   0x00000040   Code   RO         2856    i.HAL_InitTick      stm32h7xx_hal.o
     0x0800102c   0x0800102c   0x0000001c   Code   RO          694    i.HAL_MspInit       stm32h7xx_hal_msp.o
-    0x08001048   0x08001048   0x0000001a   Code   RO         1328    i.HAL_NVIC_EnableIRQ  stm32h7xx_hal_cortex.o
+    0x08001048   0x08001048   0x0000001a   Code   RO         1345    i.HAL_NVIC_EnableIRQ  stm32h7xx_hal_cortex.o
     0x08001062   0x08001062   0x00000002   PAD
-    0x08001064   0x08001064   0x00000040   Code   RO         1334    i.HAL_NVIC_SetPriority  stm32h7xx_hal_cortex.o
-    0x080010a4   0x080010a4   0x00000024   Code   RO         1335    i.HAL_NVIC_SetPriorityGrouping  stm32h7xx_hal_cortex.o
-    0x080010c8   0x080010c8   0x00000054   Code   RO         2559    i.HAL_PWREx_ConfigSupply  stm32h7xx_hal_pwr_ex.o
-    0x0800111c   0x0800111c   0x00000024   Code   RO         1579    i.HAL_RCCEx_GetD3PCLK1Freq  stm32h7xx_hal_rcc_ex.o
-    0x08001140   0x08001140   0x00000144   Code   RO         1581    i.HAL_RCCEx_GetPLL2ClockFreq  stm32h7xx_hal_rcc_ex.o
-    0x08001284   0x08001284   0x00000144   Code   RO         1582    i.HAL_RCCEx_GetPLL3ClockFreq  stm32h7xx_hal_rcc_ex.o
-    0x080013c8   0x080013c8   0x000008d2   Code   RO         1588    i.HAL_RCCEx_PeriphCLKConfig  stm32h7xx_hal_rcc_ex.o
+    0x08001064   0x08001064   0x00000040   Code   RO         1351    i.HAL_NVIC_SetPriority  stm32h7xx_hal_cortex.o
+    0x080010a4   0x080010a4   0x00000024   Code   RO         1352    i.HAL_NVIC_SetPriorityGrouping  stm32h7xx_hal_cortex.o
+    0x080010c8   0x080010c8   0x00000054   Code   RO         2576    i.HAL_PWREx_ConfigSupply  stm32h7xx_hal_pwr_ex.o
+    0x0800111c   0x0800111c   0x00000024   Code   RO         1596    i.HAL_RCCEx_GetD3PCLK1Freq  stm32h7xx_hal_rcc_ex.o
+    0x08001140   0x08001140   0x00000144   Code   RO         1598    i.HAL_RCCEx_GetPLL2ClockFreq  stm32h7xx_hal_rcc_ex.o
+    0x08001284   0x08001284   0x00000144   Code   RO         1599    i.HAL_RCCEx_GetPLL3ClockFreq  stm32h7xx_hal_rcc_ex.o
+    0x080013c8   0x080013c8   0x000008d2   Code   RO         1605    i.HAL_RCCEx_PeriphCLKConfig  stm32h7xx_hal_rcc_ex.o
     0x08001c9a   0x08001c9a   0x00000002   PAD
-    0x08001c9c   0x08001c9c   0x0000025c   Code   RO         1464    i.HAL_RCC_ClockConfig  stm32h7xx_hal_rcc.o
-    0x08001ef8   0x08001ef8   0x00000044   Code   RO         1469    i.HAL_RCC_GetHCLKFreq  stm32h7xx_hal_rcc.o
-    0x08001f3c   0x08001f3c   0x00000024   Code   RO         1471    i.HAL_RCC_GetPCLK1Freq  stm32h7xx_hal_rcc.o
-    0x08001f60   0x08001f60   0x00000024   Code   RO         1472    i.HAL_RCC_GetPCLK2Freq  stm32h7xx_hal_rcc.o
-    0x08001f84   0x08001f84   0x00000138   Code   RO         1473    i.HAL_RCC_GetSysClockFreq  stm32h7xx_hal_rcc.o
-    0x080020bc   0x080020bc   0x00000530   Code   RO         1476    i.HAL_RCC_OscConfig  stm32h7xx_hal_rcc.o
-    0x080025ec   0x080025ec   0x00000158   Code   RO         4448    i.HAL_SPI_Init      stm32h7xx_hal_spi.o
+    0x08001c9c   0x08001c9c   0x0000025c   Code   RO         1481    i.HAL_RCC_ClockConfig  stm32h7xx_hal_rcc.o
+    0x08001ef8   0x08001ef8   0x00000044   Code   RO         1486    i.HAL_RCC_GetHCLKFreq  stm32h7xx_hal_rcc.o
+    0x08001f3c   0x08001f3c   0x00000024   Code   RO         1488    i.HAL_RCC_GetPCLK1Freq  stm32h7xx_hal_rcc.o
+    0x08001f60   0x08001f60   0x00000024   Code   RO         1489    i.HAL_RCC_GetPCLK2Freq  stm32h7xx_hal_rcc.o
+    0x08001f84   0x08001f84   0x00000138   Code   RO         1490    i.HAL_RCC_GetSysClockFreq  stm32h7xx_hal_rcc.o
+    0x080020bc   0x080020bc   0x00000530   Code   RO         1493    i.HAL_RCC_OscConfig  stm32h7xx_hal_rcc.o
+    0x080025ec   0x080025ec   0x00000158   Code   RO         4465    i.HAL_SPI_Init      stm32h7xx_hal_spi.o
     0x08002744   0x08002744   0x000000c4   Code   RO          518    i.HAL_SPI_MspInit   spi.o
-    0x08002808   0x08002808   0x00000324   Code   RO         4457    i.HAL_SPI_TransmitReceive  stm32h7xx_hal_spi.o
-    0x08002b2c   0x08002b2c   0x0000006c   Code   RO         4306    i.HAL_SRAM_Init     stm32h7xx_hal_sram.o
+    0x08002808   0x08002808   0x00000324   Code   RO         4474    i.HAL_SPI_TransmitReceive  stm32h7xx_hal_spi.o
+    0x08002b2c   0x08002b2c   0x0000006c   Code   RO         4323    i.HAL_SRAM_Init     stm32h7xx_hal_sram.o
     0x08002b98   0x08002b98   0x00000004   Code   RO          429    i.HAL_SRAM_MspInit  fmc.o
-    0x08002b9c   0x08002b9c   0x00000026   Code   RO         1339    i.HAL_SYSTICK_Config  stm32h7xx_hal_cortex.o
-    0x08002bc2   0x08002bc2   0x00000040   Code   RO         5216    i.HAL_UARTEx_DisableFifoMode  stm32h7xx_hal_uart_ex.o
-    0x08002c02   0x08002c02   0x0000004c   Code   RO         5224    i.HAL_UARTEx_SetRxFifoThreshold  stm32h7xx_hal_uart_ex.o
-    0x08002c4e   0x08002c4e   0x0000004c   Code   RO         5225    i.HAL_UARTEx_SetTxFifoThreshold  stm32h7xx_hal_uart_ex.o
-    0x08002c9a   0x08002c9a   0x0000006a   Code   RO         4825    i.HAL_UART_Init     stm32h7xx_hal_uart.o
+    0x08002b9c   0x08002b9c   0x00000026   Code   RO         1356    i.HAL_SYSTICK_Config  stm32h7xx_hal_cortex.o
+    0x08002bc2   0x08002bc2   0x00000040   Code   RO         5233    i.HAL_UARTEx_DisableFifoMode  stm32h7xx_hal_uart_ex.o
+    0x08002c02   0x08002c02   0x0000004c   Code   RO         5241    i.HAL_UARTEx_SetRxFifoThreshold  stm32h7xx_hal_uart_ex.o
+    0x08002c4e   0x08002c4e   0x0000004c   Code   RO         5242    i.HAL_UARTEx_SetTxFifoThreshold  stm32h7xx_hal_uart_ex.o
+    0x08002c9a   0x08002c9a   0x0000006a   Code   RO         4842    i.HAL_UART_Init     stm32h7xx_hal_uart.o
     0x08002d04   0x08002d04   0x00000080   Code   RO          560    i.HAL_UART_MspInit  usart.o
-    0x08002d84   0x08002d84   0x000000be   Code   RO         4834    i.HAL_UART_Transmit  stm32h7xx_hal_uart.o
+    0x08002d84   0x08002d84   0x000000be   Code   RO         4851    i.HAL_UART_Transmit  stm32h7xx_hal_uart.o
     0x08002e42   0x08002e42   0x00000002   Code   RO          606    i.HardFault_Handler  stm32h7xx_it.o
     0x08002e44   0x08002e44   0x00000010   Code   RO          897    i.IINCHIP_CSoff     w6100.o
     0x08002e54   0x08002e54   0x00000010   Code   RO          898    i.IINCHIP_CSon      w6100.o
@@ -2771,70 +2808,85 @@ Memory Map of the image
     0x080035da   0x080035da   0x00000002   Code   RO          608    i.NMI_Handler       stm32h7xx_it.o
     0x080035dc   0x080035dc   0x00000002   Code   RO          609    i.PendSV_Handler    stm32h7xx_it.o
     0x080035de   0x080035de   0x00000002   PAD
-    0x080035e0   0x080035e0   0x00000120   Code   RO         1591    i.RCCEx_PLL2_Config  stm32h7xx_hal_rcc_ex.o
-    0x08003700   0x08003700   0x00000120   Code   RO         1592    i.RCCEx_PLL3_Config  stm32h7xx_hal_rcc_ex.o
+    0x080035e0   0x080035e0   0x00000120   Code   RO         1608    i.RCCEx_PLL2_Config  stm32h7xx_hal_rcc_ex.o
+    0x08003700   0x08003700   0x00000120   Code   RO         1609    i.RCCEx_PLL3_Config  stm32h7xx_hal_rcc_ex.o
     0x08003820   0x08003820   0x00000034   Code   RO          723    i.Reset_W6100       w6100_init.o
-    0x08003854   0x08003854   0x000000bc   Code   RO         4467    i.SPI_CloseTransfer  stm32h7xx_hal_spi.o
-    0x08003910   0x08003910   0x00000042   Code   RO         4484    i.SPI_WaitOnFlagUntilTimeout  stm32h7xx_hal_spi.o
+    0x08003854   0x08003854   0x000000bc   Code   RO         4484    i.SPI_CloseTransfer  stm32h7xx_hal_spi.o
+    0x08003910   0x08003910   0x00000042   Code   RO         4501    i.SPI_WaitOnFlagUntilTimeout  stm32h7xx_hal_spi.o
     0x08003952   0x08003952   0x00000002   Code   RO          610    i.SVC_Handler       stm32h7xx_it.o
     0x08003954   0x08003954   0x00000174   Code   RO          724    i.Set_Network       w6100_init.o
     0x08003ac8   0x08003ac8   0x00000004   Code   RO          611    i.SysTick_Handler   stm32h7xx_it.o
     0x08003acc   0x08003acc   0x000000b8   Code   RO           17    i.SystemClock_Config  main.o
-    0x08003b84   0x08003b84   0x000000dc   Code   RO         5329    i.SystemInit        system_stm32h7xx.o
-    0x08003c60   0x08003c60   0x00000044   Code   RO         5229    i.UARTEx_SetNbDataToProcess  stm32h7xx_hal_uart_ex.o
-    0x08003ca4   0x08003ca4   0x000000c8   Code   RO         4839    i.UART_AdvFeatureConfig  stm32h7xx_hal_uart.o
-    0x08003d6c   0x08003d6c   0x00000060   Code   RO         4840    i.UART_CheckIdleState  stm32h7xx_hal_uart.o
-    0x08003dcc   0x08003dcc   0x000003ac   Code   RO         4857    i.UART_SetConfig    stm32h7xx_hal_uart.o
-    0x08004178   0x08004178   0x000000ca   Code   RO         4864    i.UART_WaitOnFlagUntilTimeout  stm32h7xx_hal_uart.o
+    0x08003b84   0x08003b84   0x000000dc   Code   RO         5346    i.SystemInit        system_stm32h7xx.o
+    0x08003c60   0x08003c60   0x00000044   Code   RO         5246    i.UARTEx_SetNbDataToProcess  stm32h7xx_hal_uart_ex.o
+    0x08003ca4   0x08003ca4   0x000000c8   Code   RO         4856    i.UART_AdvFeatureConfig  stm32h7xx_hal_uart.o
+    0x08003d6c   0x08003d6c   0x00000060   Code   RO         4857    i.UART_CheckIdleState  stm32h7xx_hal_uart.o
+    0x08003dcc   0x08003dcc   0x000003ac   Code   RO         4874    i.UART_SetConfig    stm32h7xx_hal_uart.o
+    0x08004178   0x08004178   0x000000ca   Code   RO         4881    i.UART_WaitOnFlagUntilTimeout  stm32h7xx_hal_uart.o
     0x08004242   0x08004242   0x00000002   Code   RO          612    i.UsageFault_Handler  stm32h7xx_it.o
     0x08004244   0x08004244   0x00000032   Code   RO          900    i.WIZCHIP_READ      w6100.o
     0x08004276   0x08004276   0x00000046   Code   RO          901    i.WIZCHIP_READ_BUF  w6100.o
     0x080042bc   0x080042bc   0x00000038   Code   RO          902    i.WIZCHIP_WRITE     w6100.o
     0x080042f4   0x080042f4   0x00000078   Code   RO          903    i.WIZCHIP_WRITE_BUF  w6100.o
-    0x0800436c   0x0800436c   0x00000020   Code   RO         5616    i.__0printf         mc_w.l(printfa.o)
-    0x0800438c   0x0800438c   0x00000022   Code   RO         1341    i.__NVIC_SetPriority  stm32h7xx_hal_cortex.o
-    0x080043ae   0x080043ae   0x0000000e   Code   RO         5686    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x080043bc   0x080043bc   0x00000002   Code   RO         5687    i.__scatterload_null  mc_w.l(handlers.o)
-    0x080043be   0x080043be   0x0000000e   Code   RO         5688    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x080043cc   0x080043cc   0x00000184   Code   RO         5623    i._fp_digits        mc_w.l(printfa.o)
-    0x08004550   0x08004550   0x000006b4   Code   RO         5624    i._printf_core      mc_w.l(printfa.o)
-    0x08004c04   0x08004c04   0x00000024   Code   RO         5625    i._printf_post_padding  mc_w.l(printfa.o)
-    0x08004c28   0x08004c28   0x0000002e   Code   RO         5626    i._printf_pre_padding  mc_w.l(printfa.o)
+    0x0800436c   0x0800436c   0x00000020   Code   RO         5633    i.__0printf         mc_w.l(printfa.o)
+    0x0800438c   0x0800438c   0x00000022   Code   RO         1358    i.__NVIC_SetPriority  stm32h7xx_hal_cortex.o
+    0x080043ae   0x080043ae   0x0000000e   Code   RO         5703    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x080043bc   0x080043bc   0x00000002   Code   RO         5704    i.__scatterload_null  mc_w.l(handlers.o)
+    0x080043be   0x080043be   0x0000000e   Code   RO         5705    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x080043cc   0x080043cc   0x00000184   Code   RO         5640    i._fp_digits        mc_w.l(printfa.o)
+    0x08004550   0x08004550   0x000006b4   Code   RO         5641    i._printf_core      mc_w.l(printfa.o)
+    0x08004c04   0x08004c04   0x00000024   Code   RO         5642    i._printf_post_padding  mc_w.l(printfa.o)
+    0x08004c28   0x08004c28   0x0000002e   Code   RO         5643    i._printf_pre_padding  mc_w.l(printfa.o)
     0x08004c56   0x08004c56   0x00000010   Code   RO          371    i.bsp_InitAD7606    fmc_ad7606.o
     0x08004c66   0x08004c66   0x00000002   PAD
-    0x08004c68   0x08004c68   0x00000018   Code   RO           18    i.fputc             main.o
-    0x08004c80   0x08004c80   0x0000013c   Code   RO           19    i.main              main.o
-    0x08004dbc   0x08004dbc   0x00000080   Code   RO         1129    i.wizchip_init      wizchip_conf.o
-    0x08004e3c   0x08004e3c   0x00000130   Code   RO         1138    i.wizchip_sw_reset  wizchip_conf.o
-    0x08004f6c   0x08004f6c   0x00000010   Code   RO         1141    i.wizphy_getphylink  wizchip_conf.o
-    0x08004f7c   0x08004f7c   0x00000018   Data   RO         4865    .constdata          stm32h7xx_hal_uart.o
-    0x08004f94   0x08004f94   0x00000010   Data   RO         5230    .constdata          stm32h7xx_hal_uart_ex.o
-    0x08004fa4   0x08004fa4   0x00000010   Data   RO         5330    .constdata          system_stm32h7xx.o
-    0x08004fb4   0x08004fb4   0x00000020   Data   RO         5684    Region$$Table       anon$$obj.o
+    0x08004c68   0x08004c68   0x00000074   Code   RO         1002    i.close             socket.o
+    0x08004cdc   0x08004cdc   0x000000c8   Code   RO         1004    i.ctlsocket         socket.o
+    0x08004da4   0x08004da4   0x00000090   Code   RO         1005    i.disconnect        socket.o
+    0x08004e34   0x08004e34   0x00000018   Code   RO           18    i.fputc             main.o
+    0x08004e4c   0x08004e4c   0x0000003c   Code   RO          904    i.getSn_RX_RSR      w6100.o
+    0x08004e88   0x08004e88   0x0000003c   Code   RO          905    i.getSn_TX_FSR      w6100.o
+    0x08004ec4   0x08004ec4   0x000001b4   Code   RO         1006    i.getsockopt        socket.o
+    0x08005078   0x08005078   0x0000005a   Code   RO         1007    i.listen            socket.o
+    0x080050d2   0x080050d2   0x00000002   PAD
+    0x080050d4   0x080050d4   0x0000017c   Code   RO           19    i.main              main.o
+    0x08005250   0x08005250   0x000000f0   Code   RO         1014    i.send              socket.o
+    0x08005340   0x08005340   0x000001f0   Code   RO         1017    i.socket            socket.o
+    0x08005530   0x08005530   0x000000d0   Code   RO         1018    i.tcps_senddata_ipv4  socket.o
+    0x08005600   0x08005600   0x0000005c   Code   RO          908    i.wiz_send_data     w6100.o
+    0x0800565c   0x0800565c   0x00000080   Code   RO         1143    i.wizchip_init      wizchip_conf.o
+    0x080056dc   0x080056dc   0x00000130   Code   RO         1152    i.wizchip_sw_reset  wizchip_conf.o
+    0x0800580c   0x0800580c   0x00000010   Code   RO         1155    i.wizphy_getphylink  wizchip_conf.o
+    0x0800581c   0x0800581c   0x00000018   Data   RO         4882    .constdata          stm32h7xx_hal_uart.o
+    0x08005834   0x08005834   0x00000010   Data   RO         5247    .constdata          stm32h7xx_hal_uart_ex.o
+    0x08005844   0x08005844   0x00000010   Data   RO         5347    .constdata          system_stm32h7xx.o
+    0x08005854   0x08005854   0x00000020   Data   RO         5701    Region$$Table       anon$$obj.o
 
 
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08004fd4, Size: 0x00000000, Max: 0x00020000, ABSOLUTE)
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x08005874, Size: 0x00000000, Max: 0x00020000, ABSOLUTE)
 
     **** No section assigned to this execution region ****
 
 
-    Execution Region RW_IRAM2 (Exec base: 0x24000000, Load base: 0x08004fd4, Size: 0x00001200, Max: 0x00080000, ABSOLUTE)
+    Execution Region RW_IRAM2 (Exec base: 0x24000000, Load base: 0x08005874, Size: 0x00001a38, Max: 0x00080000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x24000000   0x08004fd4   0x00000008   Data   RW           21    .data               main.o
-    0x24000008   0x08004fdc   0x00000001   Data   RW          373    .data               fmc_ad7606.o
-    0x24000009   0x08004fdd   0x00000003   PAD
-    0x2400000c   0x08004fe0   0x00000008   Data   RW          432    .data               fmc.o
-    0x24000014   0x08004fe8   0x0000000c   Data   RW         2860    .data               stm32h7xx_hal.o
-    0x24000020   0x08004ff4   0x00000008   Data   RW         5331    .data               system_stm32h7xx.o
-    0x24000028   0x08004ffc   0x00000004   Data   RW         5660    .data               mc_w.l(stdout.o)
-    0x2400002c        -       0x00000020   Zero   RW          372    .bss                fmc_ad7606.o
-    0x2400004c        -       0x00000098   Zero   RW          431    .bss                fmc.o
-    0x240000e4        -       0x00000088   Zero   RW          520    .bss                spi.o
-    0x2400016c        -       0x00000090   Zero   RW          562    .bss                usart.o
-    0x240001fc   0x08005000   0x00000004   PAD
-    0x24000200        -       0x00001000   Zero   RW            1    STACK               startup_stm32h743xx.o
+    0x24000000   0x08005874   0x00000008   Data   RW           21    .data               main.o
+    0x24000008   0x0800587c   0x00000001   Data   RW          373    .data               fmc_ad7606.o
+    0x24000009   0x0800587d   0x00000003   PAD
+    0x2400000c   0x08005880   0x00000008   Data   RW          432    .data               fmc.o
+    0x24000014   0x08005888   0x00000018   Data   RW         1021    .data               socket.o
+    0x2400002c   0x080058a0   0x0000000c   Data   RW         2877    .data               stm32h7xx_hal.o
+    0x24000038   0x080058ac   0x00000008   Data   RW         5348    .data               system_stm32h7xx.o
+    0x24000040   0x080058b4   0x00000004   Data   RW         5677    .data               mc_w.l(stdout.o)
+    0x24000044        -       0x00000800   Zero   RW           20    .bss                main.o
+    0x24000844        -       0x00000020   Zero   RW          372    .bss                fmc_ad7606.o
+    0x24000864        -       0x00000098   Zero   RW          431    .bss                fmc.o
+    0x240008fc        -       0x00000088   Zero   RW          520    .bss                spi.o
+    0x24000984        -       0x00000090   Zero   RW          562    .bss                usart.o
+    0x24000a14        -       0x00000020   Zero   RW         1019    .bss                socket.o
+    0x24000a34   0x080058b8   0x00000004   PAD
+    0x24000a38        -       0x00001000   Zero   RW            1    STACK               startup_stm32h743xx.o
 
 
 
@@ -2878,8 +2930,8 @@ Image component sizes
        420         42          0          8        152       2485   fmc.o
        372         52          0          1         32       3978   fmc_ad7606.o
        720         46          0          0          0       1511   gpio.o
-       800        360          0          8          0    1310934   main.o
-         0          0          0          0          0       3920   socket.o
+       864        382          0          8       2048    1313370   main.o
+      1930        200          0         24         32       9899   socket.o
        288         26          0          0        136       1921   spi.o
         36          8        664          0       4096        836   startup_stm32h743xx.o
        232         44          0         12          0      23428   stm32h7xx_hal.o
@@ -2897,14 +2949,14 @@ Image component sizes
        316         14          0          0          0       3888   stm32h7xx_ll_fmc.o
        220         40         16          8          0       1494   system_stm32h7xx.o
        232         22          0          0        144       1872   usart.o
-       364         40          0          0          0       4815   w6100.o
+       576         68          0          0          0       6729   w6100.o
       1188        384          0          0          0       2115   w6100_init.o
-       448         56          0          0          0       3327   wizchip_conf.o
+       448         56          0          0          0       7247   wizchip_conf.o
 
     ----------------------------------------------------------------------
-     16032       1560        752         40      10868    1469730   Object Totals
+     18240       1810        752         64      12948    1483979   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        10          0          0          3          4          0   (incl. Padding)
+        12          0          0          3          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2958,15 +3010,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     19684       1666        752         44      10868    1462474   Grand Totals
-     19684       1666        752         44      10868    1462474   ELF Image Totals
-     19684       1666        752         44          0          0   ROM Totals
+     21892       1916        752         68      12948    1475623   Grand Totals
+     21892       1916        752         68      12948    1475623   ELF Image Totals
+     21892       1916        752         68          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                20436 (  19.96kB)
-    Total RW  Size (RW Data + ZI Data)             10912 (  10.66kB)
-    Total ROM Size (Code + RO Data + RW Data)      20480 (  20.00kB)
+    Total RO  Size (Code + RO Data)                22644 (  22.11kB)
+    Total RW  Size (RW Data + ZI Data)             13016 (  12.71kB)
+    Total ROM Size (Code + RO Data + RW Data)      22712 (  22.18kB)
 
 ==============================================================================
 

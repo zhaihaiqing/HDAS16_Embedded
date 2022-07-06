@@ -222,7 +222,27 @@ int main(void)
 	
 	while(1)//socket操作测试
 	{
+		if(wizphy_getphylink()==PHY_LINK_OFF)
+		{
+			for(sn=0;sn<7;sn++)
+			{
+				close(sn);
+			}
+			log_info("PHY_LINK_OFF\r\n");
+		}
+		else 	//采集到一组数据
+		{
+			//loopback_tcps(0, buff, local_port, AS_IPDUAL);
+			//AD_flag=0;
+			
+			tcps_senddata_ipv4(0, local_port,buff);
+			//loopback_tcps(0, buff, local_port, AS_IPV4);
+		}
 		
+//		if(AD_flag==0x11)
+//		{
+//			;
+//		}
 	}
 	
 	

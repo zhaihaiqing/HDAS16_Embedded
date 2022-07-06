@@ -574,4 +574,6 @@ int32_t loopback_udps(uint8_t sn, uint8_t* buf, uint16_t port, uint8_t loopback_
 int32_t loopback_tcps(uint8_t sn, uint8_t* buf, uint16_t port, uint8_t loopback_mode);
 int32_t loopback_tcpc(uint8_t sn, uint8_t* buf,uint16_t port,  uint8_t* destip, uint16_t destport, uint8_t loopback_mode);
 
+int32_t tcps_senddata_ipv4(uint8_t sn, uint16_t port, uint8_t* buf );
+
 #endif   // _SOCKET_H_
