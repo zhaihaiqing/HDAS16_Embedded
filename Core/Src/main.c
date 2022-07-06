@@ -159,42 +159,15 @@ int main(void)
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
 	
-	
-	
-	
 	bsp_InitAD7606();
 	
 	HAL_GPIO_WritePin(APOW_CTRL_GPIO_Port, APOW_CTRL_Pin, GPIO_PIN_SET);
 	
 	
-	
 	HAL_Delay(100);
-	
 	log_info("5AD_count=%d\r\n",AD_count);
 	
-//	
-//	log_info("\r\nHasion Electronics W6100 TEST\r\n\r\n");
-//	
-//	/***** 硬重启W6100 *****/
-//	Reset_W6100();           // 复位 W6100  2020-03-11
-////	/***** W6100的IP信息初始化 *****/
-//	Set_Network();														// 配置初始化IP等信息并打印 2020-03-11
-//	setRCR(3);
-//  setRTR(4000);
-//	
-//	log_info("wait PHY_LINK\r\n");
-//	while(wizphy_getphylink()==PHY_LINK_OFF) // 等待物理连接成功后，再进入到socket操作，2020-03-13
-//	{
-//		;
-//	}
-	
-	
 
-
-	
-	
-	
-	
 	//hdas_thread_creat();	//执行创建任务函数，开始RTOS
 	
 	/***** 硬重启W6100 *****/
@@ -219,7 +192,8 @@ int main(void)
 	LAN_Link_Flag=1;
 	log_info("PHY_LINK\r\n");
 	
-	
+
+#if 1	
 	while(1)//socket操作测试
 	{
 		if(wizphy_getphylink()==PHY_LINK_OFF)
@@ -228,6 +202,7 @@ int main(void)
 			{
 				close(sn);
 			}
+			HAL_Delay(1000);
 			log_info("PHY_LINK_OFF\r\n");
 		}
 		else 	//采集到一组数据
@@ -239,11 +214,8 @@ int main(void)
 			//loopback_tcps(0, buff, local_port, AS_IPV4);
 		}
 		
-//		if(AD_flag==0x11)
-//		{
-//			;
-//		}
 	}
+#endif
 	
 	
 	
@@ -256,22 +228,22 @@ int main(void)
 		HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_SET);
 		
 
-		if(AD_flag==0x11)
+		if(AD_flag==0x01)
 		{
 			AD_flag=0;
 			AD_count++;
 			
 			log_info("AD_count=%d\r\n",AD_count);
 			
-			for(uint8_t i=0;i<=7;i++)
+			for(uint8_t i=0;i<=15;i++)
 			{
-				log_info("AD_A_dat[%d]:0x%x\r\n",i,AD_A_dat[i]);
+				log_info("AD_dat[%d]:0x%x\r\n",i,AD_dat[i]);
 			}
 			
-			for(uint8_t i=0;i<=7;i++)
-			{
-				log_info("AD_B_dat[%d]:0x%x\r\n",i,AD_A_dat[i]);
-			}
+//			for(uint8_t i=0;i<=7;i++)
+//			{
+//				log_info("AD_B_dat[%d]:0x%x\r\n",i,AD_B_dat[i]);
+//			}
 			log_info("\r\n");
 		}
 		

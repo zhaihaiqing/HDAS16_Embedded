@@ -78,7 +78,8 @@ typedef enum
 
 
 
-
+extern uint16_t AD_dat[640];
+extern uint16_t AD_buff[640];
 extern uint16_t AD_A_dat[8];
 extern uint16_t AD_B_dat[8];
 extern uint8_t AD_flag;

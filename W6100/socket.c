@@ -718,10 +718,11 @@ int32_t tcps_senddata_ipv4(uint8_t sn, uint16_t port, uint8_t* buf)  //2020-03-1
            ctlsocket(sn,CS_CLR_INTERRUPT,&arg_tmp8); // 回写，清除中断标记，进入连接中断后需要清除。2020-03-11
          }
 			
-				if(AD_flag==0x11)//判断AD是否采集到数据
+				if(AD_flag==0x01)//判断AD是否采集到数据
 				{
 					AD_flag=0;
-					ret = send(sn, (uint8_t *)AD_A_dat, sizeof(AD_A_dat));
+					ret = send(sn, (uint8_t *)AD_buff, 1280);
+					
 				}
 				 
 //				 getsockopt(sn, SO_RECVBUF, &received_size); // 判断socket有没有接受到数据：同 received_size=getSn_RX_RSR(sn);等效可替换 2020-03-11
