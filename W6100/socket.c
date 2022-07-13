@@ -721,7 +721,7 @@ int32_t tcps_senddata_ipv4(uint8_t sn, uint16_t port, uint8_t* buf)  //2020-03-1
 				if(AD_flag==0x01)//判断AD是否采集到数据
 				{
 					AD_flag=0;
-					ret = send(sn, (uint8_t *)AD_buff, 1280);
+					ret = send(sn, (uint8_t *)AD_buff, ONE_PACKET_DAT_SIZE*ONE_FRAME_DP_NUM+8);
 					
 				}
 				 
@@ -737,10 +737,10 @@ int32_t tcps_senddata_ipv4(uint8_t sn, uint16_t port, uint8_t* buf)  //2020-03-1
 						
        case SOCK_CLOSE_WAIT :   // 该状态即将关闭， 但还处于连接状态，先处理完收发后，再回DISCON命令，完成4次挥手。
 
-				 if(AD_flag==0x11)//判断AD是否采集到数据
+				 if(AD_flag==0x01)//判断AD是否采集到数据
 				{
 					AD_flag=0;
-					ret = send(sn, (uint8_t *)AD_A_dat, sizeof(AD_A_dat));
+					ret = send(sn, (uint8_t *)AD_buff, ONE_PACKET_DAT_SIZE*ONE_FRAME_DP_NUM+8);
 				}
 				
 					

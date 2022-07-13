@@ -193,6 +193,11 @@ int main(void)
 	log_info("PHY_LINK\r\n");
 	
 
+	AD_buff[0]=0x5555;
+	AD_buff[1]=0x5555;
+	AD_buff[962]=0xffff;
+	AD_buff[963]=0xffff;
+	
 #if 1	
 	while(1)//socket²Ù×÷²âÊÔ
 	{
@@ -212,6 +217,21 @@ int main(void)
 			
 			tcps_senddata_ipv4(0, local_port,buff);
 			//loopback_tcps(0, buff, local_port, AS_IPV4);
+		}
+		
+		HAL_Delay(100);
+		
+		{
+			uint16_t ix=60;
+			while(ix--)
+			{
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
+				//HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
+				HAL_Delay(1);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
+				//HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
+				HAL_Delay(1);
+			}
 		}
 		
 	}

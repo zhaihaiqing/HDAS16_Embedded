@@ -70,6 +70,14 @@ extern "C" {
 		#define log_info(...)
 #endif
 
+
+
+#define  ONE_PACKET_DAT_SIZE	32			//一个数据包所包含的字节数=2*8*2=32
+#define	 ONE_FRAME_DP_NUM 		60			//单帧数据所包含的采样次数，所以一帧数据=40次采样数据
+#define  DATA_BUFF_SIZE_BYTE				(ONE_PACKET_DAT_SIZE*ONE_FRAME_DP_NUM)	//字节数
+#define  DATA_BUFF_SIZE_HALF_WORD		(ONE_PACKET_DAT_SIZE*ONE_FRAME_DP_NUM/2)//16bits
+
+
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/

@@ -383,12 +383,12 @@ void Set_Network(void)  // 2020-03-11
 {
 	uint8_t tmp_array[16];
 	uint8_t mac[6]={0x48,0x53,0x0b,0x00,0x11,0x22};   // MAC地址
-  uint8_t lip[4]={192,168,1,10};                    // 本机IPV4地址  
+  uint8_t lip[4]={192,168,1,200};                    // 本机IPV4地址  
   uint8_t sub[4]={255,255,255,0};                   // 子网掩码
   uint8_t gw[4]={192,168,1,1};                      // 网关
   //uint8 dns[4]={8,8,8,8};
-	uint8_t txsize[8] ={2,2,2,2,2,2,2,2};   // 每个socket的发送缓慢配置为2K.
-	uint8_t rxsize[8] ={2,2,2,2,2,2,2,2};   // 每个socket的接收缓存配置为2K 
+	uint8_t txsize[8] ={8,2,2,2,2,2,2,2};   // 每个socket的发送缓慢配置为2K.
+	uint8_t rxsize[8] ={8,2,2,2,2,2,2,2};   // 每个socket的接收缓存配置为2K 
 	uint8_t ip[6]={0,0,0,0};
 	
 	

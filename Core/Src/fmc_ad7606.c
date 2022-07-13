@@ -30,10 +30,7 @@
 
 
 
-#define  ONE_PACKET_DAT_SIZE	32			//一个数据包所包含的字节数=2*8*2=32
-#define	 ONE_FRAME_DP_NUM 		40			//单帧数据所包含的采样次数，所以一帧数据=40次采样数据
-#define  DATA_BUFF_SIZE_BYTE				(ONE_PACKET_DAT_SIZE*ONE_FRAME_DP_NUM)	//字节数
-#define  DATA_BUFF_SIZE_HALF_WORD		(ONE_PACKET_DAT_SIZE*ONE_FRAME_DP_NUM/2)//16bits
+
 
 
 
@@ -149,8 +146,8 @@ void AD7606_Reset(void)
 
 
 
-uint16_t AD_dat[640]={0};
-uint16_t AD_buff[640]={0};
+uint16_t AD_dat[960]={0};
+uint16_t AD_buff[964]={0};
 
 //uint16_t AD_dat[16]={0};
 uint16_t AD_A_dat[8]={0};
@@ -185,11 +182,12 @@ void AD7606_A_ISR(void)
 	AD_dat[AD_S_count*16+15] = READ_AD7606_B_RESULT();	/* 读第8路样本 */
 	
 	AD_S_count++;
-	if(AD_S_count>=40)
+	if(AD_S_count>=ONE_FRAME_DP_NUM)
 	{
 		AD_S_count=0;
 		AD_flag = 0x01;
-		memcpy(AD_buff,AD_dat,1280);
+		memcpy(&AD_buff[2],AD_dat,ONE_PACKET_DAT_SIZE*ONE_FRAME_DP_NUM);
+		log_info("ADC Sampling...\r\n");
 	}
 	
 	
