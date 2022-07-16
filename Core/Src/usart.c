@@ -25,6 +25,13 @@
 
 UART_HandleTypeDef huart8;
 
+uint8_t Uart_Rxcount=0;
+uint8_t Uart_Rxbuff[150]={0};
+uint8_t Uart_Rxdat=0;
+uint8_t Uart_Rx_flag=0;
+
+
+
 /* UART8 init function */
 void MX_UART8_Init(void)
 {
@@ -64,6 +71,8 @@ void MX_UART8_Init(void)
     Error_Handler();
   }
   /* USER CODE BEGIN UART8_Init 2 */
+	
+	HAL_UART_Receive_IT(&huart8,&Uart_Rxdat,1);//开启接收模式
 
   /* USER CODE END UART8_Init 2 */
 
@@ -104,6 +113,12 @@ void HAL_UART_MspInit(UART_HandleTypeDef* uartHandle)
     HAL_GPIO_Init(GPIOJ, &GPIO_InitStruct);
 
   /* USER CODE BEGIN UART8_MspInit 1 */
+		
+		__HAL_UART_ENABLE_IT(&huart8,UART_IT_IDLE);
+		
+		HAL_NVIC_SetPriority(UART8_IRQn, 0, 0);
+    HAL_NVIC_EnableIRQ(UART8_IRQn);
+		
 
   /* USER CODE END UART8_MspInit 1 */
   }
@@ -128,11 +143,33 @@ void HAL_UART_MspDeInit(UART_HandleTypeDef* uartHandle)
 
   /* USER CODE BEGIN UART8_MspDeInit 1 */
 
+		HAL_NVIC_DisableIRQ(UART8_IRQn);
+		
+		
   /* USER CODE END UART8_MspDeInit 1 */
   }
 }
 
 /* USER CODE BEGIN 1 */
+
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef* uartHandle)
+{	
+	if(uartHandle->Instance==UART8)
+	{
+		HAL_UART_Receive_IT(&huart8,&Uart_Rxdat,1);
+		Uart_Rxbuff[Uart_Rxcount++]=Uart_Rxdat;
+		//Uart_Rxcount++;
+		
+		
+		
+			
+	}
+}
+
+
+
+
 
 /* USER CODE END 1 */
 

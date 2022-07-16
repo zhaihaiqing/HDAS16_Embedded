@@ -187,7 +187,7 @@ void AD7606_A_ISR(void)
 		AD_S_count=0;
 		AD_flag = 0x01;
 		memcpy(&AD_buff[2],AD_dat,ONE_PACKET_DAT_SIZE*ONE_FRAME_DP_NUM);
-		log_info("ADC Sampling...\r\n");
+		//log_info("ADC Sampling...\r\n");
 	}
 	
 	

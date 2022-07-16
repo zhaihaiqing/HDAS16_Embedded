@@ -40,6 +40,11 @@ extern I2C_HandleTypeDef hi2c1;
 
 void MX_I2C1_Init(void);
 
+uint32_t I2C_EE_BufferRead(uint16_t Device_addr, uint8_t reg_addr, uint8_t* pBuffer, uint16_t NumByteToRead);
+uint8_t I2C_EE_ByteWrite(uint16_t Device_addr,uint8_t reg_addr,uint8_t dat);
+
+uint8_t I2C_EE_BufferWrite(uint16_t Device_addr,uint8_t reg_addr,uint8_t* pBuffer, uint16_t length);
+
 /* USER CODE BEGIN Prototypes */
 
 /* USER CODE END Prototypes */

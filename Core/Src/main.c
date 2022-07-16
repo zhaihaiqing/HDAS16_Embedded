@@ -42,6 +42,10 @@ socket·¢ËÍ»º´æ¶¨ÒåÎª16K£¬²É¼¯400×éÊý¾Ý»ò³¬Ê±£¨1S£©ºó·¢ËÍÒ»´Î£¬ÕâÑùÔÚ20KµÄ²ÉÑùÂÊÏ
 */
 
 
+	
+	
+	
+	
 
 
 void CPU_CACHE_Enable(void);
@@ -97,12 +101,15 @@ int fputc(int ch,FILE *f)
 	return ch;
 }
 
-
+NetworkPar_type NetworkPar_def={0};
 
 
 uint32_t AD_count=0;
 uint8_t buff[2048]={0};
 uint8_t LAN_Link_Flag=0;
+uint8_t test_dat=0;
+uint8_t test_buff[128]={0};
+uint8_t test_buff2[128]={0};
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -140,15 +147,11 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
 	MX_UART8_Init();
-	log_info("1AD_count=%d\r\n",AD_count);
 	
   //MX_ETH_Init();
   MX_FMC_Init();
-	log_info("2AD_count=%d\r\n",AD_count);
   MX_SPI1_Init();
-	log_info("3AD_count=%d\r\n",AD_count);
-  //MX_I2C1_Init();
-	log_info("4AD_count=%d\r\n",AD_count);
+  MX_I2C1_Init();
   
   /* USER CODE BEGIN 2 */
 
@@ -164,8 +167,76 @@ int main(void)
 	HAL_GPIO_WritePin(APOW_CTRL_GPIO_Port, APOW_CTRL_Pin, GPIO_PIN_SET);
 	
 	
+	log_info("Hardware Init OK!!!\r\n");
+	
 	HAL_Delay(100);
-	log_info("5AD_count=%d\r\n",AD_count);
+	
+	
+	////³õÊ¼»¯ÍøÂç²ÎÊý
+	
+	NetworkPar_def.lip[0]=192;
+	NetworkPar_def.lip[1]=168;
+	NetworkPar_def.lip[2]=1;
+	NetworkPar_def.lip[3]=200;
+	
+	NetworkPar_def.sub[0]=255;
+	NetworkPar_def.sub[1]=255;
+	NetworkPar_def.sub[2]=255;
+	NetworkPar_def.sub[3]=0;
+	
+	NetworkPar_def.gw[0]=192;
+	NetworkPar_def.gw[1]=168;
+	NetworkPar_def.gw[2]=1;
+	NetworkPar_def.gw[3]=1;
+	
+	
+	if(I2C_EE_BufferRead(0xa0,0x0,(void *)&NetworkPar,sizeof(NetworkPar)) != HAL_OK)
+	{
+		memcpy((uint8_t *)&NetworkPar,(uint8_t *)&NetworkPar_def,sizeof(NetworkPar_def));	//¸øÍøÂç¸´ÖÆÄ¬ÈÏ²ÎÊý
+	}
+	
+	if(NetworkPar_def.lip[0]<127)
+	{
+		memcpy((uint8_t *)&NetworkPar,(uint8_t *)&NetworkPar_def,sizeof(NetworkPar_def));	//¸øÍøÂç¸´ÖÆÄ¬ÈÏ²ÎÊý
+	}
+	
+	//¼ì²éÍøÂç²ÎÊýÕýÈ·ÐÔ¡£·ñÔò½«¸´ÖÆÄ¬ÈÏ²ÎÊý
+	
+
+	
+	
+	
+//#if 1
+//	
+//	for(uint8_t i=0;i<128;i++)
+//		test_buff2[i]=i;
+//	
+//	while(1)
+//	{
+//	
+//	//I2C_EE_ByteWrite(0xa0,0x00,0x55);
+//		
+//		
+//		I2C_EE_BufferWrite(0xa0,0x0,test_buff2,32);
+//	
+//		HAL_Delay(100);
+//		
+//	I2C_EE_BufferRead(0xa0,0x0,test_buff,32);
+//		
+//		for(uint8_t i=0;i<32;i++)
+//		{
+//			log_info("test_buff[%d]:0x%x\r\n",i,test_buff[i]);
+//		}
+//	
+//	log_info("I2C test_buff[0]=0x%x\r\n",test_buff[0]);
+//	
+//		HAL_Delay(5000);
+//		
+//	}
+//	
+//#endif
+	
+	
 	
 
 	//hdas_thread_creat();	//Ö´ÐÐ´´½¨ÈÎÎñº¯Êý£¬¿ªÊ¼RTOS
@@ -192,33 +263,102 @@ int main(void)
 	LAN_Link_Flag=1;
 	log_info("PHY_LINK\r\n");
 	
-
+	
+	
+	//Êý¾ÝÖ¡µÄÖ¡Í·ºÍÖ¡Î²¸ñÊ½
+	
 	AD_buff[0]=0x5555;
 	AD_buff[1]=0x5555;
 	AD_buff[962]=0xffff;
 	AD_buff[963]=0xffff;
 	
+	
 #if 1	
 	while(1)//socket²Ù×÷²âÊÔ
 	{
+		//ÍøÂç·¢ËÍ
+		
+		WDI_L();
+		
 		if(wizphy_getphylink()==PHY_LINK_OFF)
 		{
 			for(sn=0;sn<7;sn++)
 			{
 				close(sn);
 			}
-			HAL_Delay(1000);
+			
+			WDI_H();
+			HAL_Delay(250);
+			
+			WDI_L();
+			HAL_Delay(250);
+			
+			WDI_H();
+			HAL_Delay(250);
+			
+			WDI_L();
+			HAL_Delay(250);
+			
+			
 			log_info("PHY_LINK_OFF\r\n");
 		}
 		else 	//²É¼¯µ½Ò»×éÊý¾Ý
-		{
-			//loopback_tcps(0, buff, local_port, AS_IPDUAL);
-			//AD_flag=0;
-			
+		{			
 			tcps_senddata_ipv4(0, local_port,buff);
-			//loopback_tcps(0, buff, local_port, AS_IPV4);
 		}
 		
+		WDI_H();
+		
+		//´®¿ÚÖ¸Áî
+		if(Uart_Rx_flag==1)
+		{
+			
+			//½øÈëÃüÁî´¦Àíº¯Êý,Ê×ÏÈÅÐ¶ÏÊÕµ½µÄÊý¾ÝÊÇ·ñÕýÈ·£¬Èç¹ûÕýÈ·£¬Ôò½«Êý¾Ý´æÈëEEPROM£¬È»ºó¼ÌÐøÔËÐÐ£¬ÐÂ²ÎÊý½«ÔÚÖØÆôºóÉúÐ§¡£
+			// 7E 45 7E 45 01 xx xx xx xx SUM     ÉèÖÃIPV4µØÖ·
+			// 7E 45 7E 45 02 xx xx xx xx SUM			ÉèÖÃ×ÓÍøÑÚÂë
+			// 7E 45 7E 45 03 xx xx xx xx SUM			ÉèÖÃÍø¹Ø
+			
+			//¼ì²éÖ¡Í·¡¢Êý¾Ý³¤¶È¡¢¼ìÑéºÍÕýÈ·ÐÔ
+			
+			if(Uart_Rxbuff[4] == 0x01)
+			{
+				NetworkPar.lip[0]=Uart_Rxbuff[5];
+				NetworkPar.lip[1]=Uart_Rxbuff[6];
+				NetworkPar.lip[2]=Uart_Rxbuff[7];
+				NetworkPar.lip[3]=Uart_Rxbuff[8];
+				
+			}
+			else if(Uart_Rxbuff[4] == 0x02)
+			{
+				NetworkPar.sub[0]=Uart_Rxbuff[5];
+				NetworkPar.sub[1]=Uart_Rxbuff[6];
+				NetworkPar.sub[2]=Uart_Rxbuff[7];
+				NetworkPar.sub[3]=Uart_Rxbuff[8];
+			}
+			else if(Uart_Rxbuff[4] == 0x03)
+			{
+				NetworkPar.gw[0]=Uart_Rxbuff[5];
+				NetworkPar.gw[1]=Uart_Rxbuff[6];
+				NetworkPar.gw[2]=Uart_Rxbuff[7];
+				NetworkPar.gw[3]=Uart_Rxbuff[8];
+			}
+			else
+			{
+				log_info("Uart dat error\r\n");
+			}
+			
+			
+			I2C_EE_BufferWrite(0xa0,0x0,(uint8_t *)&NetworkPar,sizeof(NetworkPar));
+			
+			//log_info("Uart_Rx:0x%x,Uart_Rxcount:%d\r\n",Uart_Rxbuff[0],Uart_Rxcount);
+			
+			Uart_Rx_flag=0;
+			Uart_Rxcount=0;
+		}
+		
+		
+		
+		//²âÊÔ´úÂë£¬Êä³öÂö³åÐÅºÅ
 		HAL_Delay(100);
 		
 		{
@@ -233,6 +373,9 @@ int main(void)
 				HAL_Delay(1);
 			}
 		}
+		
+		
+		
 		
 	}
 #endif

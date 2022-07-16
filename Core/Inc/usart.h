@@ -44,6 +44,10 @@ extern "C" {
 
 extern UART_HandleTypeDef huart8;
 
+extern uint8_t Uart_Rxcount;
+extern uint8_t Uart_Rxbuff[150];
+extern uint8_t Uart_Rx_flag;
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

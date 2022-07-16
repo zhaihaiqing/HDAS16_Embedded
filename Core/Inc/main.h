@@ -169,6 +169,10 @@ void SystemClock_Config(void);
 #define W_CSN_L()		HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_RESET);
 #define W_CSN_H()		HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_SET);
 
+
+#define WDI_L() HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_RESET);
+#define WDI_H() HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_SET);
+
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */

@@ -376,7 +376,7 @@ void Reset_W6100(void) // 2018-07-17
 }
 
 
-
+NetworkPar_type  NetworkPar;
 
 
 void Set_Network(void)  // 2020-03-11
@@ -437,7 +437,7 @@ void LOG_Net_info(void)
 	uint8_t tmp_array[16];
 	uint8_t ip[6]={0,0,0,0};
 	
-	log_info("VERSION() = %.2x \r\n",getVER());
+	log_info("W6100 VERSION() = %.2x \r\n",getVER());
 	
 	//以下将以上设置的参数读出来验证是否正确?
   getSHAR(ip);

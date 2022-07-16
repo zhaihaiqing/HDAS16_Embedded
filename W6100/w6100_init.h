@@ -51,6 +51,21 @@ SPI模式或间接总线模式通过 wizchip_conf.h 文件的
 
 
 
+typedef struct __attribute__ ((__packed__))   //声明结构体变量，结构体对齐方式为字节对齐
+{
+	uint8_t lip[4];				//IPV4
+	uint8_t sub[4];				//子网
+	uint8_t gw[4];				//网关	
+	
+}NetworkPar_type;
+
+
+extern NetworkPar_type  NetworkPar;
+
+
+
+
+
 void LOG_Net_info(void);
 void Set_Network(void);
 

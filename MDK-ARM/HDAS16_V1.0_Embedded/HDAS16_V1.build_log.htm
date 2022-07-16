@@ -27,7 +27,37 @@ Project File Date:  07/06/2022
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'HDAS16_V1.0_Embedded'
-"HDAS16_V1.0_Embedded\HDAS16_V1.0_Embedded" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+../Core/Src/main.c(385): warning:  #128-D: loop is not reachable
+    while (1)//AD7606²Ù×÷²âÊÔ
+../Core/Src/main.c(118): warning:  #177-D: variable "rx"  was declared but never referenced
+  	uint8_t rx[3]={0};
+../Core/Src/main.c(119): warning:  #177-D: variable "tx"  was declared but never referenced
+  	uint8_t tx[3]={0};
+../Core/Src/main.c: 3 warnings, 0 errors
+compiling fmc.c...
+compiling fmc_ad7606.c...
+compiling gpio.c...
+compiling i2c.c...
+compiling eth.c...
+compiling usart.c...
+compiling spi.c...
+compiling stm32h7xx_hal_msp.c...
+compiling stm32h7xx_it.c...
+compiling w6100.c...
+compiling w6100_init.c...
+..\W6100\w6100_init.c(384): warning:  #177-D: variable "tmp_array"  was declared but never referenced
+  	uint8_t tmp_array[16];
+..\W6100\w6100_init.c(392): warning:  #177-D: variable "ip"  was declared but never referenced
+  	uint8_t ip[6]={0,0,0,0};
+..\W6100\w6100_init.c: 2 warnings, 0 errors
+compiling socket.c...
+..\W6100\socket.c(706): warning:  #177-D: variable "received_size"  was declared but never referenced
+      datasize_t received_size;
+..\W6100\socket.c: 1 warning, 0 errors
+linking...
+Program Size: Code=28632 RO-data=752 RW-data=72 ZI-data=17016  
+"HDAS16_V1.0_Embedded\HDAS16_V1.0_Embedded" - 0 Error(s), 6 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -51,7 +81,7 @@ Package Vendor: Keil
 
    * Component: ARM::CMSIS:CORE:5.6.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:01
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

@@ -22,6 +22,9 @@
 
 /* USER CODE BEGIN 0 */
 
+#define EEPROM_PAGESIZE   32
+#define I2C_PAGESIZE	32
+
 /* USER CODE END 0 */
 
 I2C_HandleTypeDef hi2c1;
@@ -38,7 +41,7 @@ void MX_I2C1_Init(void)
 
   /* USER CODE END I2C1_Init 1 */
   hi2c1.Instance = I2C1;
-  hi2c1.Init.Timing = 0x307075B1;
+  hi2c1.Init.Timing = 0x40805E8A;
   hi2c1.Init.OwnAddress1 = 0;
   hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
   hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
@@ -133,6 +136,180 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* i2cHandle)
 }
 
 /* USER CODE BEGIN 1 */
+
+uint32_t I2C_EE_BufferRead(uint16_t Device_addr, uint8_t reg_addr, uint8_t* pBuffer, uint16_t NumByteToRead)
+{
+	HAL_StatusTypeDef status = HAL_OK;
+	
+	status = HAL_I2C_Mem_Read(&hi2c1,Device_addr,reg_addr,I2C_MEMADD_SIZE_16BIT,pBuffer,NumByteToRead,1000);
+	//log_info("I2c Read status=0x%x\r\n",status);
+	
+	return status;
+}
+
+
+uint8_t I2C_EE_ByteWrite(uint16_t Device_addr,uint8_t reg_addr,uint8_t dat)
+{
+	HAL_StatusTypeDef status = HAL_OK;
+	
+	status = HAL_I2C_Mem_Write(&hi2c1,Device_addr,reg_addr,I2C_MEMADD_SIZE_16BIT,&dat,1,100);
+	
+	//log_info("I2c Write status=0x%x\r\n",status);
+	
+	
+	 if (status != HAL_OK) 
+	 {
+		 log_info("I2c Write error\r\n");
+	 }
+	 
+//	 while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY) 
+//	{
+//			 
+//	 }
+	
+	 //while (HAL_I2C_IsDeviceReady(&hi2c1, Device_addr, EEPROM_MAX_TRIALS, 1000) == HAL_TIMEOUT);  //死循环直到硬件设备准备好
+	 
+//	 while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)   					//死循环直到状态READY
+//	{
+//		
+//	}
+	 
+	 return status;	
+}
+
+
+uint8_t I2C_EE_PageWrite(uint16_t Device_addr,uint8_t reg_addr,uint8_t* pBuffer,uint16_t NumByteToWrite)
+{
+	HAL_StatusTypeDef status = HAL_OK;
+	
+	status=HAL_I2C_Mem_Write(&hi2c1, Device_addr,reg_addr,I2C_MEMADD_SIZE_16BIT, (uint8_t*)(pBuffer),NumByteToWrite,1000);
+	
+	if (status != HAL_OK) 
+	 {
+		 log_info("I2c Write error\r\n");
+	 }
+	 
+	 return status;	
+}
+
+uint8_t I2C_EE_BufferWrite(uint16_t Device_addr,uint8_t reg_addr,uint8_t* pBuffer, uint16_t length)
+{
+	uint8_t temp=0;
+	temp=reg_addr%I2C_PAGESIZE;
+	
+	if(temp)
+	{
+		temp=I2C_PAGESIZE-temp;
+		if(length>=temp)
+		{
+			I2C_EE_PageWrite(Device_addr,reg_addr ,pBuffer,  temp);
+			length -= temp;
+			reg_addr += temp;
+			pBuffer += temp;
+		}
+		else
+		{
+			if(I2C_EE_PageWrite(Device_addr,reg_addr ,pBuffer,  length) != HAL_OK) return 0;
+			
+			length=0;
+			
+		}
+	}
+	
+	while(length)
+	{
+		if(length>=I2C_PAGESIZE)
+		{
+			if(I2C_EE_PageWrite(Device_addr,reg_addr ,pBuffer,  I2C_PAGESIZE) != HAL_OK) return 0;
+			length-=I2C_PAGESIZE;
+			reg_addr+=I2C_PAGESIZE;
+			pBuffer+=I2C_PAGESIZE;
+		}
+		else
+		{
+			if(I2C_EE_PageWrite(Device_addr,reg_addr ,pBuffer,  length) != HAL_OK) return 0;
+			length=0;
+		}
+	}
+	
+	
+	return 1;
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+//	uint8_t NumOfPage = 0, NumOfSingle = 0, Addr = 0, count = 0;
+//	
+//	Addr = reg_addr % EEPROM_PAGESIZE;
+//	
+//  count = EEPROM_PAGESIZE - Addr;
+//  NumOfPage =  length / EEPROM_PAGESIZE;
+//  NumOfSingle = length % EEPROM_PAGESIZE;
+//	
+//	 /* If WriteAddr is I2C_PageSize aligned  */
+//    if (Addr == 0) {
+//        /* If NumByteToWrite < I2C_PageSize */
+//        if (NumOfPage == 0) {
+//            I2C_EE_PageWrite(Device_addr,reg_addr ,pBuffer,  NumOfSingle);
+//        }
+//        /* If NumByteToWrite > I2C_PageSize */
+//        else {
+//            while (NumOfPage--) {
+//                I2C_EE_PageWrite(Device_addr, reg_addr, pBuffer, EEPROM_PAGESIZE);
+//                reg_addr +=  EEPROM_PAGESIZE;
+//                pBuffer += EEPROM_PAGESIZE;
+//            }
+
+//            if (NumOfSingle!=0) {
+//                I2C_EE_PageWrite(Device_addr, reg_addr, pBuffer, NumOfSingle);
+//            }
+//        }
+//    }
+//    /* If WriteAddr is not I2C_PageSize aligned  */
+//    else {
+//        /* If NumByteToWrite < I2C_PageSize */
+//        if (NumOfPage== 0) {
+//            I2C_EE_PageWrite(Device_addr,reg_addr, pBuffer, NumOfSingle);
+//        }
+//        /* If NumByteToWrite > I2C_PageSize */
+//        else {
+//            length -= count;
+//            NumOfPage =  length / EEPROM_PAGESIZE;
+//            NumOfSingle = length % EEPROM_PAGESIZE;
+
+//            if (count != 0) {
+//                I2C_EE_PageWrite(Device_addr,reg_addr,pBuffer,  count);
+//                reg_addr += count;
+//                pBuffer += count;
+//            }
+
+//            while (NumOfPage--) {
+//                I2C_EE_PageWrite(Device_addr,reg_addr, pBuffer,  EEPROM_PAGESIZE);
+//                reg_addr +=  EEPROM_PAGESIZE;
+//                pBuffer += EEPROM_PAGESIZE;
+//            }
+//            if (NumOfSingle != 0) {
+//                I2C_EE_PageWrite(Device_addr, reg_addr, pBuffer,  NumOfSingle);
+//            }
+//        }
+//    }
+	
+	
+	
+}
+
+
+
+
+
+
+
 
 /* USER CODE END 1 */
 

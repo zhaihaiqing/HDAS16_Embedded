@@ -215,6 +215,25 @@ void EXTI4_IRQHandler(void)
   /* USER CODE END EXTI4_IRQn 1 */
 }
 
+void UART8_IRQHandler(void)
+{
+  /* USER CODE BEGIN UART8_IRQn 0 */
+
+  /* USER CODE END UART8_IRQn 0 */
+  HAL_UART_IRQHandler(&huart8);
+	
+	if(__HAL_UART_GET_FLAG(&huart8, UART_FLAG_IDLE) == SET)
+	{
+		__HAL_UART_CLEAR_FLAG(&huart8, UART_CLEAR_IDLEF);
+		
+		Uart_Rx_flag=1;
+		
+	}
+  /* USER CODE BEGIN UART8_IRQn 1 */
+
+  /* USER CODE END UART8_IRQn 1 */
+}
+
 /**
   * @brief This function handles EXTI line[9:5] interrupts.
   */
