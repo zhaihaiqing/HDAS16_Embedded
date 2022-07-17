@@ -109,6 +109,15 @@ uint8_t IINCHIP_SpiSendData(uint8_t dat)
 }
 
 
+//uint8_t IINCHIP_SpiSendBufData(uint8_t dat)
+//{
+//	//uint8_t rx = 0, tx = 0xFF;
+//	uint8_t rx = 0;
+//	HAL_SPI_TransmitReceive(&hspi1, &dat, &rx, 1, 10);
+//	return rx;
+//}
+
+
 
 
 //////////////////////////////////////////////////
@@ -184,6 +193,7 @@ uint8_t  WIZCHIP_READ(uint32_t AddrSel)
 
 void WIZCHIP_WRITE_BUF(uint32_t AddrSel, uint8_t* pBuf, datasize_t len)
 {
+	 uint8_t rx[2048] = {0};
 	 uint16_t idx = 0;		// idx定义为正在写入的第几个数
    uint8_t tAD[3];
    tAD[0] = (uint8_t)((AddrSel & 0x00FF0000) >> 16);
@@ -201,10 +211,13 @@ void WIZCHIP_WRITE_BUF(uint32_t AddrSel, uint8_t* pBuf, datasize_t len)
    IINCHIP_SpiSendData( tAD[0]);		// 地址段，提供16位偏移地址（0000 0000 0000 0000）
    IINCHIP_SpiSendData( tAD[1]);		// 控制段，共8位（0000 0000 高5位BSB位为00000表示通用寄存器）
    IINCHIP_SpiSendData( tAD[2]);    // 控制段+4(0000 0100 RWB位置1表示写入，OM位为00表示SPI工作模式为VDM)
-   for(idx = 0; idx < len; idx++)                				// 数据段，写入数据值
-   {
-     IINCHIP_SpiSendData( pBuf[idx]);											// MCU通过SPI发送数据
-   }
+	
+	 HAL_SPI_TransmitReceive(&hspi1, pBuf, rx, len, 50);
+	
+//   for(idx = 0; idx < len; idx++)                				// 数据段，写入数据值
+//   {
+//     IINCHIP_SpiSendData( pBuf[idx]);											// MCU通过SPI发送数据
+//   }
 
 #elif ( (_WIZCHIP_IO_MODE_ == _WIZCHIP_IO_MODE_BUS_INDIR_) )
    IINCHIP_BusSendData(IDM_AR0 ,tAD[0]);

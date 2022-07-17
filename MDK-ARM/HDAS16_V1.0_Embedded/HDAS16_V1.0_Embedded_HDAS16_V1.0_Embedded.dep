@@ -1,8 +1,8 @@
 Dependencies for Project 'HDAS16_V1.0_Embedded', Target 'HDAS16_V1.0_Embedded': (DO NOT MODIFY !)
 CompilerVersion: 5060960::V5.06 update 7 (build 960)::.\ARMCC
 F (startup_stm32h743xx.s)(0x62B5C144)(--cpu Cortex-M7.fp.dp -g --apcs=interwork --pd "__MICROLIB SETA 1"-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include--pd "__UVISION_VERSION SETA 536" --pd "_RTE_ SETA 1" --pd "STM32H743xx SETA 1" --pd "_RTE_ SETA 1"--list startup_stm32h743xx.lst --xref -o hdas16_v1.0_embedded\startup_stm32h743xx.o --depend hdas16_v1.0_embedded\startup_stm32h743xx.d)
-F (../Core/Src/main.c)(0x62D2ECCD)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\main.o --depend hdas16_v1.0_embedded\main.d)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+F (../Core/Src/main.c)(0x62D3E1BA)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\main.o --depend hdas16_v1.0_embedded\main.d)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -62,15 +62,15 @@ I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\socket.h)(0x62C59431)
 F (..\Core\Src\mthread.c)(0x62C46B7B)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\mthread.o --depend hdas16_v1.0_embedded\mthread.d)
-F (../Core/Src/gpio.c)(0x62CEEF79)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\gpio.o --depend hdas16_v1.0_embedded\gpio.d)
+F (../Core/Src/gpio.c)(0x62D3E199)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\gpio.o --depend hdas16_v1.0_embedded\gpio.d)
 I (../Core/Inc/gpio.h)(0x62B5C141)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -129,14 +129,14 @@ I (../Core/Inc/usart.h)(0x62D22BA4)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\socket.h)(0x62C59431)
 F (../Core/Src/eth.c)(0x62C4241D)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\eth.o --depend hdas16_v1.0_embedded\eth.d)
 I (../Core/Inc/eth.h)(0x62B5C141)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -195,13 +195,13 @@ I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\socket.h)(0x62C59431)
 F (..\Core\Src\fmc_ad7606.c)(0x62D214EC)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\fmc_ad7606.o --depend hdas16_v1.0_embedded\fmc_ad7606.d)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -261,14 +261,14 @@ I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\socket.h)(0x62C59431)
 F (../Core/Src/fmc.c)(0x62B5C141)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\fmc.o --depend hdas16_v1.0_embedded\fmc.d)
 I (../Core/Inc/fmc.h)(0x62B5C141)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -327,14 +327,14 @@ I (../Core/Inc/usart.h)(0x62D22BA4)
 I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\socket.h)(0x62C59431)
 F (../Core/Src/i2c.c)(0x62D2DAF9)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\i2c.o --depend hdas16_v1.0_embedded\i2c.d)
 I (../Core/Inc/i2c.h)(0x62D2DA5A)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -393,14 +393,14 @@ I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\socket.h)(0x62C59431)
-F (../Core/Src/spi.c)(0x62B9CE7C)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\spi.o --depend hdas16_v1.0_embedded\spi.d)
+F (../Core/Src/spi.c)(0x62D3DC32)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\spi.o --depend hdas16_v1.0_embedded\spi.d)
 I (../Core/Inc/spi.h)(0x62B5C141)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -459,14 +459,14 @@ I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\socket.h)(0x62C59431)
 F (../Core/Src/usart.c)(0x62D2373D)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\usart.o --depend hdas16_v1.0_embedded\usart.d)
 I (../Core/Inc/usart.h)(0x62D22BA4)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -525,13 +525,13 @@ I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\socket.h)(0x62C59431)
 F (../Core/Src/stm32h7xx_it.c)(0x62D236AF)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\stm32h7xx_it.o --depend hdas16_v1.0_embedded\stm32h7xx_it.d)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -591,14 +591,14 @@ I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\socket.h)(0x62C59431)
 I (../Core/Inc/stm32h7xx_it.h)(0x62B5C141)
 F (../Core/Src/stm32h7xx_hal_msp.c)(0x62B5C141)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\stm32h7xx_hal_msp.o --depend hdas16_v1.0_embedded\stm32h7xx_hal_msp.d)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -658,13 +658,13 @@ I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\socket.h)(0x62C59431)
-F (..\W6100\w6100_init.c)(0x62D2DE71)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\w6100_init.o --depend hdas16_v1.0_embedded\w6100_init.d)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+F (..\W6100\w6100_init.c)(0x62D3D580)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\w6100_init.o --depend hdas16_v1.0_embedded\w6100_init.d)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x6025237E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdarg.h)(0x60252376)
@@ -672,7 +672,7 @@ I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\W6100.h)(0x62C4241E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -729,12 +729,12 @@ I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
 I (..\W6100\socket.h)(0x62C59431)
-F (..\W6100\w6100.c)(0x62C4241E)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\w6100.o --depend hdas16_v1.0_embedded\w6100.d)
+F (..\W6100\w6100.c)(0x62D3DB3B)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\w6100.o --depend hdas16_v1.0_embedded\w6100.d)
 I (..\W6100\w6100.h)(0x62C4241E)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (../Core/Inc/SPI.h)(0x62B5C141)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -792,16 +792,16 @@ I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 I (..\W6100\socket.h)(0x62C59431)
-F (..\W6100\socket.c)(0x62CEF684)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\socket.o --depend hdas16_v1.0_embedded\socket.d)
+F (..\W6100\socket.c)(0x62D3DC9B)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\socket.o --depend hdas16_v1.0_embedded\socket.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stdio.h)(0x60252374)
 I (..\W6100\socket.h)(0x62C59431)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x6025237E)
 I (..\W6100\wizchip_conf.h)(0x62C4241F)
 I (..\W6100\w6100.h)(0x62C4241E)
-I (../Core/Inc/main.h)(0x62D2EC8A)
+I (../Core/Inc/main.h)(0x62D3E499)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)
@@ -859,7 +859,7 @@ I (../Core/Inc/gpio.h)(0x62B5C141)
 I (../Core/Inc/fmc.h)(0x62B5C141)
 I (../Core/Inc/mthread.h)(0x62B7FDAE)
 I (../Core/Inc/fmc_ad7606.h)(0x62CEF608)
-I (..\W6100\w6100_init.h)(0x62D2DE58)
+I (..\W6100\w6100_init.h)(0x62D36D8B)
 I (..\W6100\types.h)(0x62C4241E)
 F (..\W6100\wizchip_conf.c)(0x62C4241F)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\wizchip_conf.o --depend hdas16_v1.0_embedded\wizchip_conf.d)
 I (C:\Keil_v5\ARM\ARMCC\include\stddef.h)(0x6025237E)
@@ -1066,7 +1066,7 @@ I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi.h)(0x62B5C143)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_spi_ex.h)(0x62B5C143)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart.h)(0x62B5C143)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_uart_ex.h)(0x62B5C143)
-F (../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c)(0x62B5C143)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\stm32h7xx_hal_gpio.o --depend hdas16_v1.0_embedded\stm32h7xx_hal_gpio.d)
+F (../Drivers/STM32H7xx_HAL_Driver/Src/stm32h7xx_hal_gpio.c)(0x62D3D468)(--c99 --gnu -c --cpu Cortex-M7.fp.dp -D__MICROLIB -g -O3 --apcs=interwork --split_sections -I ../Core/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc -I ../Drivers/STM32H7xx_HAL_Driver/Inc/Legacy -I ../Drivers/CMSIS/Device/ST/STM32H7xx/Include -I ../Drivers/CMSIS/Include -I ..\RTT-nano -I ..\RTT-nano\include\libc -I ..\RTT-nano\include -I ..\RTT-nano\kernal -I ..\RTT-nano\shell -I ..\W6100-I.\RTE\_HDAS16_V1.0_Embedded-IC:\Users\haiqing\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include-IC:\Users\haiqing\AppData\Local\Arm\Packs\Keil\STM32H7xx_DFP\3.0.0\Drivers\CMSIS\Device\ST\STM32H7xx\Include-D__UVISION_VERSION="536" -D_RTE_ -DSTM32H743xx -D_RTE_ -DUSE_HAL_DRIVER -DSTM32H743xx-o hdas16_v1.0_embedded\stm32h7xx_hal_gpio.o --depend hdas16_v1.0_embedded\stm32h7xx_hal_gpio.d)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal.h)(0x62B5C143)
 I (../Core/Inc/stm32h7xx_hal_conf.h)(0x62B5C141)
 I (../Drivers/STM32H7xx_HAL_Driver/Inc/stm32h7xx_hal_rcc.h)(0x62B5C143)

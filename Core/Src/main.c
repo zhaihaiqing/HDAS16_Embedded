@@ -94,6 +94,78 @@ void HAL_Get_CPU_RCC_Clock(void);
   * @retval int
   */
 
+void Uart_commend_process(void)
+{
+	//串口指令
+		if(Uart_Rx_flag==1)
+		{
+			
+			//进入命令处理函数,首先判断收到的数据是否正确，如果正确，则将数据存入EEPROM，然后继续运行，新参数将在重启后生效。
+			// 7E 45 7E 45 01 xx xx xx xx SUM     设置IPV4地址
+			// 7E 45 7E 45 02 xx xx xx xx SUM			设置子网掩码
+			// 7E 45 7E 45 03 xx xx xx xx SUM			设置网关
+			
+			//检查帧头、数据长度、检验和正确性
+			
+			
+			if((Uart_Rxbuff[0]==0x7e) && (Uart_Rxbuff[1]==0x45) && (Uart_Rxbuff[2]==0x7e) && (Uart_Rxbuff[3]==0x45) )
+			{
+				if(Uart_Rxbuff[4] == 0x01)
+				{
+					NetworkPar.lip[0]=Uart_Rxbuff[5];
+					NetworkPar.lip[1]=Uart_Rxbuff[6];
+					NetworkPar.lip[2]=Uart_Rxbuff[7];
+					NetworkPar.lip[3]=Uart_Rxbuff[8];
+					
+					log_info("RX NetworkPar.lip dat,Uart_Rxcount:%d\r\n",Uart_Rxcount);
+					
+				}
+				else if(Uart_Rxbuff[4] == 0x02)
+				{
+					NetworkPar.sub[0]=Uart_Rxbuff[5];
+					NetworkPar.sub[1]=Uart_Rxbuff[6];
+					NetworkPar.sub[2]=Uart_Rxbuff[7];
+					NetworkPar.sub[3]=Uart_Rxbuff[8];
+					
+					log_info("RX NetworkPar.sub dat,Uart_Rxcount:%d\r\n",Uart_Rxcount);
+				}
+				else if(Uart_Rxbuff[4] == 0x03)
+				{
+					NetworkPar.gw[0]=Uart_Rxbuff[5];
+					NetworkPar.gw[1]=Uart_Rxbuff[6];
+					NetworkPar.gw[2]=Uart_Rxbuff[7];
+					NetworkPar.gw[3]=Uart_Rxbuff[8];
+					
+					log_info("RX NetworkPar.gw dat,Uart_Rxcount:%d\r\n",Uart_Rxcount);
+				}
+				else if(Uart_Rxbuff[4] == 0x04)
+				{
+					NetworkPar.port=((uint16_t)Uart_Rxbuff[5]<<8)|Uart_Rxbuff[6];
+					
+					log_info("RX NetworkPar.port dat,Uart_Rxcount:%d\r\n",Uart_Rxcount);
+				}
+				else
+				{
+					log_info("Uart dat error,Uart_Rxcount:%d\r\n",Uart_Rxcount);
+				}
+				
+				
+				I2C_EE_BufferWrite(0xa0,0x0,(uint8_t *)&NetworkPar,sizeof(NetworkPar));
+				
+				//log_info("Uart_Rx:0x%x,Uart_Rxcount:%d\r\n",Uart_Rxbuff[0],Uart_Rxcount);
+			}
+			else
+			{
+				log_info("Uart_Rx Error\r\n");
+			}
+			
+			Uart_Rx_flag=0;
+			Uart_Rxcount=0;			
+		}
+}
+
+
+
 
 int fputc(int ch,FILE *f)
 {
@@ -101,7 +173,7 @@ int fputc(int ch,FILE *f)
 	return ch;
 }
 
-NetworkPar_type NetworkPar_def={0};
+NetworkPar_type NetworkPar_def={0};	//定义默认网络参数
 
 
 uint32_t AD_count=0;
@@ -110,6 +182,7 @@ uint8_t LAN_Link_Flag=0;
 uint8_t test_dat=0;
 uint8_t test_buff[128]={0};
 uint8_t test_buff2[128]={0};
+uint32_t tick_count=0;
 int main(void)
 {
   /* USER CODE BEGIN 1 */
@@ -121,6 +194,8 @@ int main(void)
 	uint32_t count=0;
 	
 	uint8 sn;
+	
+	
 
   /* USER CODE END 1 */
 
@@ -169,6 +244,8 @@ int main(void)
 	
 	log_info("Hardware Init OK!!!\r\n");
 	
+	WDI_TOGGLE();
+	
 	HAL_Delay(100);
 	
 	
@@ -189,15 +266,28 @@ int main(void)
 	NetworkPar_def.gw[2]=1;
 	NetworkPar_def.gw[3]=1;
 	
+	NetworkPar_def.port=5000;
+	
+	WDI_TOGGLE();
 	
 	if(I2C_EE_BufferRead(0xa0,0x0,(void *)&NetworkPar,sizeof(NetworkPar)) != HAL_OK)
 	{
 		memcpy((uint8_t *)&NetworkPar,(uint8_t *)&NetworkPar_def,sizeof(NetworkPar_def));	//给网络复制默认参数
+		local_port=NetworkPar_def.port;
+	}
+	else
+	{
+		local_port=NetworkPar.port;
 	}
 	
 	if(NetworkPar_def.lip[0]<127)
 	{
 		memcpy((uint8_t *)&NetworkPar,(uint8_t *)&NetworkPar_def,sizeof(NetworkPar_def));	//给网络复制默认参数
+		local_port=NetworkPar_def.port;
+	}
+	else
+	{
+		local_port=NetworkPar.port;
 	}
 	
 	//检查网络参数正确性。否则将复制默认参数
@@ -255,8 +345,18 @@ int main(void)
 	
 	while(wizphy_getphylink()==PHY_LINK_OFF) // 等待物理连接成功后，再进入到socket操作，2020-03-13
 	{
-		HAL_Delay(1000);
-		count++;
+			WDI_TOGGLE();
+			HAL_Delay(250);
+			WDI_TOGGLE();
+			HAL_Delay(250);
+			WDI_TOGGLE();
+			HAL_Delay(250);
+			WDI_TOGGLE();
+			HAL_Delay(250);
+			count++;
+			
+			Uart_commend_process();	//串口指令解析
+		
 		log_info("[%d]wait PHY_LINK...\r\n",count);
 	}
 	
@@ -278,8 +378,12 @@ int main(void)
 	{
 		//网络发送
 		
-		WDI_L();
 		
+		//LED0_TOGGLE();
+		
+		WDI_TOGGLE();
+		
+		//tick_count=HAL_GetTick();
 		if(wizphy_getphylink()==PHY_LINK_OFF)
 		{
 			for(sn=0;sn<7;sn++)
@@ -287,18 +391,14 @@ int main(void)
 				close(sn);
 			}
 			
-			WDI_H();
+			WDI_TOGGLE();
 			HAL_Delay(250);
-			
-			WDI_L();
+			WDI_TOGGLE();
 			HAL_Delay(250);
-			
-			WDI_H();
+			WDI_TOGGLE();
 			HAL_Delay(250);
-			
-			WDI_L();
+			WDI_TOGGLE();
 			HAL_Delay(250);
-			
 			
 			log_info("PHY_LINK_OFF\r\n");
 		}
@@ -307,72 +407,33 @@ int main(void)
 			tcps_senddata_ipv4(0, local_port,buff);
 		}
 		
-		WDI_H();
+		//tick_count=HAL_GetTick()-tick_count;
 		
-		//串口指令
-		if(Uart_Rx_flag==1)
-		{
-			
-			//进入命令处理函数,首先判断收到的数据是否正确，如果正确，则将数据存入EEPROM，然后继续运行，新参数将在重启后生效。
-			// 7E 45 7E 45 01 xx xx xx xx SUM     设置IPV4地址
-			// 7E 45 7E 45 02 xx xx xx xx SUM			设置子网掩码
-			// 7E 45 7E 45 03 xx xx xx xx SUM			设置网关
-			
-			//检查帧头、数据长度、检验和正确性
-			
-			if(Uart_Rxbuff[4] == 0x01)
-			{
-				NetworkPar.lip[0]=Uart_Rxbuff[5];
-				NetworkPar.lip[1]=Uart_Rxbuff[6];
-				NetworkPar.lip[2]=Uart_Rxbuff[7];
-				NetworkPar.lip[3]=Uart_Rxbuff[8];
-				
-			}
-			else if(Uart_Rxbuff[4] == 0x02)
-			{
-				NetworkPar.sub[0]=Uart_Rxbuff[5];
-				NetworkPar.sub[1]=Uart_Rxbuff[6];
-				NetworkPar.sub[2]=Uart_Rxbuff[7];
-				NetworkPar.sub[3]=Uart_Rxbuff[8];
-			}
-			else if(Uart_Rxbuff[4] == 0x03)
-			{
-				NetworkPar.gw[0]=Uart_Rxbuff[5];
-				NetworkPar.gw[1]=Uart_Rxbuff[6];
-				NetworkPar.gw[2]=Uart_Rxbuff[7];
-				NetworkPar.gw[3]=Uart_Rxbuff[8];
-			}
-			else
-			{
-				log_info("Uart dat error\r\n");
-			}
-			
-			
-			I2C_EE_BufferWrite(0xa0,0x0,(uint8_t *)&NetworkPar,sizeof(NetworkPar));
-			
-			//log_info("Uart_Rx:0x%x,Uart_Rxcount:%d\r\n",Uart_Rxbuff[0],Uart_Rxcount);
-			
-			Uart_Rx_flag=0;
-			Uart_Rxcount=0;
-		}
+		//log_info("tick:%d\r\n",tick_count);
+		
+		WDI_TOGGLE();
+		
+		Uart_commend_process();	//串口指令解析
 		
 		
 		
 		//测试代码，输出脉冲信号
+#ifdef SELF_TRIGGER_TEST
 		HAL_Delay(100);
 		
 		{
 			uint16_t ix=60;
 			while(ix--)
 			{
-				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_RESET);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_RESET);
 				//HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_SET);
 				HAL_Delay(1);
-				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
+				HAL_GPIO_WritePin(GPIOA, GPIO_PIN_6, GPIO_PIN_SET);
 				//HAL_GPIO_WritePin(LED3_GPIO_Port, LED3_Pin, GPIO_PIN_RESET);
 				HAL_Delay(1);
 			}
 		}
+#endif
 		
 		
 		
@@ -381,7 +442,7 @@ int main(void)
 #endif
 	
 	
-	
+#if	0
   while (1)//AD7606操作测试
   {
 		HAL_Delay(10);
@@ -415,6 +476,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
   }
+#endif
   /* USER CODE END 3 */
 }
 

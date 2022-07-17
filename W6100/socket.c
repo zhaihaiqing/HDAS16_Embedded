@@ -721,7 +721,14 @@ int32_t tcps_senddata_ipv4(uint8_t sn, uint16_t port, uint8_t* buf)  //2020-03-1
 				if(AD_flag==0x01)//判断AD是否采集到数据
 				{
 					AD_flag=0;
+					
+					//tick_count=HAL_GetTick();
+					
 					ret = send(sn, (uint8_t *)AD_buff, ONE_PACKET_DAT_SIZE*ONE_FRAME_DP_NUM+8);
+					
+					//tick_count=HAL_GetTick()-tick_count;
+		
+					//log_info("tick:%d\r\n",tick_count);
 					
 				}
 				 

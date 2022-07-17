@@ -99,6 +99,8 @@ void SystemClock_Config(void);
 
 /* USER CODE END EFP */
 
+//#define SELF_TRIGGER_TEST
+
 /* Private defines -----------------------------------------------------------*/
 #define WDI_Pin GPIO_PIN_12
 #define WDI_GPIO_Port GPIOI
@@ -164,14 +166,24 @@ void SystemClock_Config(void);
 #define	READ_KEY3()			HAL_GPIO_ReadPin(KEY3_GPIO_Port,KEY3_Pin)
 
 
-#define W_RSTN_L()	HAL_GPIO_WritePin(W_RSTN_GPIO_Port,W_RSTN_Pin,GPIO_PIN_RESET);
-#define W_RSTN_H()	HAL_GPIO_WritePin(W_RSTN_GPIO_Port,W_RSTN_Pin,GPIO_PIN_SET);
-#define W_CSN_L()		HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_RESET);
-#define W_CSN_H()		HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_SET);
+#define W_RSTN_L()	HAL_GPIO_WritePin(W_RSTN_GPIO_Port,W_RSTN_Pin,GPIO_PIN_RESET)
+#define W_RSTN_H()	HAL_GPIO_WritePin(W_RSTN_GPIO_Port,W_RSTN_Pin,GPIO_PIN_SET)
+#define W_CSN_L()		HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_RESET)
+#define W_CSN_H()		HAL_GPIO_WritePin(W_CSN_GPIO_Port,W_CSN_Pin,GPIO_PIN_SET)
 
 
-#define WDI_L() HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_RESET);
-#define WDI_H() HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_SET);
+#define WDI_L() 	GPIOI->BSRR = (uint32_t)GPIO_PIN_12 << 16  //HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_RESET);//GPIOx->BSRR = (uint32_t)GPIO_Pin << GPIO_NUMBER;
+#define WDI_H() 	GPIOI->BSRR = GPIO_PIN_12  // HAL_GPIO_WritePin(WDI_GPIO_Port, WDI_Pin, GPIO_PIN_SET);//GPIOI->BSRR = GPIO_PIN_12;
+#define WDI_TOGGLE()		GPIOI->BSRR = ((GPIOI->ODR & GPIO_PIN_12) << 16) | (~GPIOI->ODR & GPIO_PIN_12)
+
+
+#define LED0_ON() 	GPIOD->BSRR = (uint32_t)GPIO_PIN_11 << 16
+#define LED0_OFF() 	GPIOD->BSRR = GPIO_PIN_11
+#define LED0_TOGGLE()		GPIOD->BSRR = ((GPIOD->ODR & GPIO_PIN_11) << 16) | (~GPIOD->ODR & GPIO_PIN_11)
+
+
+
+extern uint32_t tick_count;
 
 /* USER CODE BEGIN Private defines */
 

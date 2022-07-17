@@ -372,7 +372,14 @@ void Reset_W6100(void) // 2018-07-17
 		HAL_GPIO_WritePin(W_RSTN_GPIO_Port,W_RSTN_Pin,GPIO_PIN_RESET);
 		HAL_Delay(50);
 		HAL_GPIO_WritePin(W_RSTN_GPIO_Port,W_RSTN_Pin,GPIO_PIN_SET);
-		HAL_Delay(1000);	
+		WDI_TOGGLE();
+		HAL_Delay(250);
+		WDI_TOGGLE();
+		HAL_Delay(250);
+		WDI_TOGGLE();
+		HAL_Delay(250);
+		WDI_TOGGLE();
+		HAL_Delay(250);
 }
 
 
@@ -415,9 +422,10 @@ void Set_Network(void)  // 2020-03-11
 	
 	/*set ip mac sub gateway */
 	setSHAR(mac);       // MAC地址
-  setSUBR(sub);       // 子网掩码
-  setGAR(gw);         // 网关   
-  setSIPR(lip);       // 本机IPV4地址 
+									
+  setSUBR(NetworkPar.sub);       // 子网掩码
+  setGAR(NetworkPar.gw);         // 网关   
+  setSIPR(NetworkPar.lip);       // 本机IPV4地址 
 									
   setGA6R(gw6);       //< 网关IPV6 地址设置 
   setSUB6R(sn6);     // IPv6子网前缀设置
@@ -437,7 +445,7 @@ void LOG_Net_info(void)
 	uint8_t tmp_array[16];
 	uint8_t ip[6]={0,0,0,0};
 	
-	log_info("W6100 VERSION() = %.2x \r\n",getVER());
+	log_info("PHY VERSION() = %.2x \r\n",getVER());
 	
 	//以下将以上设置的参数读出来验证是否正确?
   getSHAR(ip);
